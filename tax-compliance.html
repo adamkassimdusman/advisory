@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <!-- Global Theme FOUC Prevention -->
+    <script>
+      (function() {
+        try {
+          var s = localStorage.getItem('kivanta_theme') || 'system';
+          var r = s;
+          if (s === 'system') {
+            r = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', r);
+          document.documentElement.setAttribute('data-theme-preference', s);
+          document.documentElement.classList.add('no-transitions');
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="utf-8">
+    <title>Corporate Tax Compliance & Monthly iTax Filings — Kivanta Advisory</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Tax compliance Kenya, monthly VAT return iTax, PAYE filing Nairobi, Tax Compliance Certificate" name="keywords">
+    <meta content="Full corporate tax compliance retainer in Kenya. Monthly VAT, PAYE, WHT, annual tax returns, and KRA Tax Compliance Certificates." name="description">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"><div class="spinner-border text-warning" style="width: 3rem; height: 3rem;" role="status"></div></div>
+    <div class="container-fluid nav-bar p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3">
+            <a href="../index.html" class="navbar-brand p-0"><h2 class="brand-name m-0"><i class="fas fa-shield-alt text-warning me-2"></i>Kivanta Advisory</h2></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"><span class="fa fa-bars"></span></button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="../index.html" class="nav-item nav-link">Home</a>
+                    <a href="../service.html" class="nav-item nav-link active">Services</a>
+                    <a href="../solutions.html" class="nav-item nav-link">Solutions</a>
+                    <a href="../about.html" class="nav-item nav-link">About Us</a>
+                    <a href="../contact.html" class="nav-item nav-link">Contact</a>
+                </div>
+                <div class="d-flex align-items-center gap-2 ms-lg-3">
+                    <a href="../proposal.html" class="btn btn-outline-gold me-1">Request a Proposal</a>
+                    <button onclick="openConsultationModal('Tax & Compliance')" class="btn btn-primary">Book Consultation</button>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div id="serviceDetailContainer"></div>
+    <footer class="footer"><div class="container text-center text-white-50 small"><p>© 2026 Kivanta Advisory. All Rights Reserved.</p></div></footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/data.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        const SERVICE_SLUG = 'tax-compliance';
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (window.KivantaDB) {
+                await window.KivantaDB.init();
+                const service = window.KivantaDB.getServiceBySlug(SERVICE_SLUG);
+                if (service) renderServicePage(service);
+            }
+        });
+        function renderServicePage(service) {
+            const categories = window.KivantaDB.getCategories();
+            const cat = categories.find(c => c.id === service.categoryId) || { name: 'Tax & Compliance' };
+            let html = `
+                <div class="container-fluid bg-breadcrumb text-center">
+                    <div class="container py-4" style="max-width: 900px;">
+                        <span class="badge-category mb-3">${cat.name}</span>
+                        <h1 class="display-4 text-white mb-3">${service.heroTitle || service.name}</h1>
+                        <p class="text-white-50 lead mb-4">${service.heroSubtitle || service.shortDesc}</p>
+                        <button onclick="openConsultationModal('${service.name}')" class="btn btn-secondary btn-lg me-2"><i class="fas fa-calendar-check me-2"></i>Book Consultation</button>
+                        <a href="../proposal.html" class="btn btn-outline-light btn-lg"><i class="fas fa-paper-plane me-2"></i>Request Proposal</a>
+                    </div>
+                </div>
+                <div class="py-5" style="background-color: var(--bg-primary);">
+                    <div class="container py-4">
+                        <div class="row g-5">
+                            <div class="col-lg-8">
+                                <div class="card-custom mb-4" style="background-color: var(--bg-surface);">
+                                    <h3 class="mb-3"><i class="fas fa-info-circle text-warning me-2"></i>Overview</h3>
+                                    <p class="text-muted leading-relaxed">${service.overview || service.fullDesc}</p>
+                                </div>
+                                <div class="card-custom mb-4" style="background-color: var(--bg-surface);">
+                                    <h3 class="mb-4"><i class="fas fa-tasks text-warning me-2"></i>What We Handle</h3>
+                                    <div class="checklist-grid">
+                                        ${(service.checklists || []).map(item => `<div class="checklist-card-item"><i class="fas fa-check-circle"></i><span class="font-heading text-main small">${item}</span></div>`).join('')}
+                                    </div>
+                                </div>
+                                <div class="card-custom mb-4" style="background-color: var(--bg-surface);">
+                                    <h3 class="mb-4"><i class="fas fa-stream text-warning me-2"></i>Monthly Execution Cycle</h3>
+                                    <div class="process-timeline">
+                                        ${(service.processSteps || []).map(step => `
+                                            <div class="process-step-item">
+                                                <div class="step-number">${step.number}</div>
+                                                <div>
+                                                    <h5 class="font-heading mb-1">${step.title}</h5>
+                                                    <p class="text-muted small mb-0">${step.description}</p>
+                                                </div>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="fee-table-box p-4 mb-4">
+                                    <h4 class="font-heading mb-3"><i class="fas fa-calculator text-warning me-2"></i>Retainer & Pricing</h4>
+                                    <div class="mb-3"><small class="text-muted d-block">Monthly Retainer</small><strong class="text-warning font-heading">${service.timelines?.professionalFee || 'Monthly Retainer Quote'}</strong></div>
+                                    <button onclick="openConsultationModal('${service.name}')" class="btn btn-primary w-100 mb-2">Book Consultation</button>
+                                    <a href="../proposal.html" class="btn btn-outline-gold w-100">Request Quote</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            $('#serviceDetailContainer').html(html);
+        }
+    </script>
+</body>
+</html>
