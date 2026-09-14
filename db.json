@@ -1,0 +1,1853 @@
+{
+  "settings": {
+    "companyName": "Kivanta Advisory",
+    "tagline": "Kenya Business Advisory, Market Entry & Corporate Support Platform",
+    "description": "One trusted partner for entering, establishing, operating, and growing your business in Kenya.",
+    "email": "info@kivantaadvisory.com",
+    "phone": "+254 700 000 000",
+    "whatsapp": "+254 700 000 000",
+    "address": "Westlands Commercial Center, Waiyaki Way, Nairobi, Kenya",
+    "officeHours": "Monday - Friday: 8:00 AM - 5:00 PM EAT",
+    "social": {
+      "linkedin": "https://linkedin.com/company/kivanta-advisory",
+      "twitter": "https://twitter.com/kivantaadvisory",
+      "facebook": "https://facebook.com/kivantaadvisory"
+    },
+    "colors": {
+      "primary": "#0F2537",
+      "secondary": "#D49A36",
+      "darkBg": "#0A1724",
+      "lightBg": "#F8FAFC"
+    }
+  },
+  "categories": [
+    {
+      "id": "setup",
+      "slug": "business-setup-registration",
+      "name": "Business Setup & Registration",
+      "description": "Formalize your entity in Kenya with private limited company incorporation, business names, foreign branch registration, and corporate updates.",
+      "icon": "fa-building",
+      "order": 1,
+      "status": "published"
+    },
+    {
+      "id": "immigration",
+      "slug": "immigration-relocation",
+      "name": "Immigration & Relocation",
+      "description": "End-to-end immigration support including work permits, special passes, dependant permits, eTA guidance, and expatriate setup.",
+      "icon": "fa-passport",
+      "order": 2,
+      "status": "published"
+    },
+    {
+      "id": "tax",
+      "slug": "tax-compliance",
+      "name": "Tax & Statutory Compliance",
+      "description": "KRA PIN registrations, VAT & PAYE setups, monthly tax returns, corporate income tax compliance, and municipal business permits.",
+      "icon": "fa-calculator",
+      "order": 3,
+      "status": "published"
+    },
+    {
+      "id": "accounting",
+      "slug": "accounting-payroll",
+      "name": "Accounting & Financial Administration",
+      "description": "Reliable bookkeeping, management reporting, payroll processing, statutory deductions (PAYE, NSSF, SHIF, Housing Levy), and financial oversight.",
+      "icon": "fa-chart-line",
+      "order": 4,
+      "status": "published"
+    },
+    {
+      "id": "secretarial",
+      "slug": "corporate-secretarial",
+      "name": "Corporate Secretarial Services",
+      "description": "Maintain company statutory compliance, annual return filings, board minutes, share transfers, director changes, and governance registers.",
+      "icon": "fa-file-signature",
+      "order": 5,
+      "status": "published"
+    },
+    {
+      "id": "advisory",
+      "slug": "market-entry-advisory",
+      "name": "Market Entry & Business Advisory",
+      "description": "Strategic guidance for international firms and investors entering Kenya: market intelligence, regulatory roadmaps, and location analysis.",
+      "icon": "fa-compass",
+      "order": 6,
+      "status": "published"
+    },
+    {
+      "id": "regulatory",
+      "slug": "government-regulatory-support",
+      "name": "Government & Regulatory Support",
+      "description": "Navigating specialized agency permits (EPZ, SEZ, Tourism, Energy, Health) and local government compliance.",
+      "icon": "fa-landmark",
+      "order": 7,
+      "status": "published"
+    }
+  ],
+  "services": [
+    {
+      "id": "company-registration",
+      "slug": "company-registration",
+      "name": "Company Registration (Private Limited)",
+      "categoryId": "setup",
+      "shortDesc": "Incorporate a Private Limited Company in Kenya with name search, director/shareholder documentation, KRA PIN, and beneficial ownership compliance.",
+      "fullDesc": "Comprehensive incorporation service for Kenyan entrepreneurs and international investors. We handle name reservation, eCitizen filings, Memorandum & Articles of Association, CR12 certificate retrieval, beneficial ownership register setup, and post-incorporation KRA PIN activation.",
+      "status": "published",
+      "featured": true,
+      "heroTitle": "Private Limited Company Incorporation in Kenya",
+      "heroSubtitle": "Establish your legal corporate entity in Kenya with expert guidance, guaranteed compliance, and seamless digital filing.",
+      "overview": "Incorporate a Private Limited Company (Ltd) in Kenya cleanly and efficiently. Whether you are a local entrepreneur, a team of co-founders, or an international investor expanding into East Africa, Kivanta Advisory manages the complete registration lifecycle on BRS (Business Registration Service) and KRA iTax.",
+      "audiences": [
+        "Kenyan Entrepreneurs",
+        "Foreign Investors",
+        "SMEs & Startups",
+        "Multinationals",
+        "NGOs"
+      ],
+      "checklists": [
+        "Name Search & Reservation on BRS eCitizen",
+        "Drafting Memorandum & Articles of Association",
+        "Form CR1, CR2, CR8 & Statement of Nominal Capital",
+        "Beneficial Ownership (BO) Declaration Filing",
+        "Certificate of Incorporation & Official CR12 Issuance",
+        "Company KRA PIN & Tax Obligation Activation",
+        "Post-Registration Compliance Calendar & Handbook"
+      ],
+      "processSteps": [
+        {
+          "number": "01",
+          "title": "Initial Advisory & Name Reservation",
+          "description": "We consult on proposed corporate structures, shareholder ratios, and reserve 3 name choices on the Business Registration Service."
+        },
+        {
+          "number": "02",
+          "title": "KYC & Document Verification",
+          "description": "Collection of IDs/passports, KRA PINs, passport photos, and address details for all proposed directors and shareholders."
+        },
+        {
+          "number": "03",
+          "title": "Statutory Incorporation Preparation",
+          "description": "Formulating statutory articles, nominal capital declarations, and beneficial ownership filings compliant with the Companies Act 2015."
+        },
+        {
+          "number": "04",
+          "title": "eCitizen Portal Submission",
+          "description": "Submitting digital applications to the Registrar of Companies and tracking processing status with government officers."
+        },
+        {
+          "number": "05",
+          "title": "Certificate & CR12 Handover",
+          "description": "Retrieval of official Certificate of Incorporation and CR12 document detailing official company structure."
+        },
+        {
+          "number": "06",
+          "title": "KRA PIN & Bank Account Readiness",
+          "description": "Registering company KRA PIN, activating income tax obligation, and preparing bank opening resolutions."
+        },
+        {
+          "number": "07",
+          "title": "Ongoing Retainer & Compliance Onboarding",
+          "description": "Transitioning your new company into routine annual returns, bookkeeping, tax, and licensing compliance."
+        }
+      ],
+      "requirements": [
+        "Proposed Company Names (Minimum 3 choices in order of preference)",
+        "Copies of National IDs or Valid Passports for all Directors and Shareholders",
+        "KRA PIN Certificates for all Kenyan Directors/Shareholders (Foreign nationals without PIN can be processed)",
+        "Recent Passport-size Photographs of each Director/Shareholder",
+        "Physical Business Address & Postal Address details in Kenya",
+        "Share Distribution Breakdown (Percentage ownership per shareholder)",
+        "Primary Object of Business / Main Commercial Activities"
+      ],
+      "timelines": {
+        "governmentFee": "KES 10,650 (Official BRS statutory fee subject to eCitizen updates)",
+        "professionalFee": "Contact us for custom retainer or package quote",
+        "estimatedTimeline": "3 to 7 Working Days (Subject to government portal turnaround)",
+        "pricingType": "Starting From",
+        "disclaimer": "Government fees and processing timelines are indicative and subject to official eCitizen policy updates."
+      },
+      "faqs": [
+        {
+          "question": "Can a foreign national own 100% of a company in Kenya?",
+          "answer": "Yes. Foreign nationals can hold 100% shareholding in a Private Limited Company in Kenya, unless operating in specific regulated sectors such as telecommunications, aviation, or mining where local equity rules apply."
+        },
+        {
+          "question": "Do foreign directors need a KRA PIN before incorporation?",
+          "answer": "Foreign directors who are non-residents can now be incorporated, but obtaining a foreign national KRA PIN is recommended for corporate bank account opening and tax compliance."
+        },
+        {
+          "question": "What is a CR12 document?",
+          "answer": "A CR12 is an official certificate issued by the Registrar of Companies in Kenya listing the current directors, shareholders, registered address, and encumbrances of a company."
+        },
+        {
+          "question": "Do I need a physical office address in Kenya to register?",
+          "answer": "Yes, every registered company must have a registered office address in Kenya. Kivanta Advisory can assist with initial registered address options if required."
+        }
+      ],
+      "relatedServices": [
+        "business-name-registration",
+        "foreign-company-registration",
+        "kra-tax-registration",
+        "county-permits",
+        "corporate-secretarial"
+      ],
+      "seoTitle": "Company Registration in Kenya | Private Limited Incorporation | Kivanta Advisory",
+      "seoDesc": "Incorporate a Private Limited Company in Kenya cleanly and efficiently. Complete BRS eCitizen registration, CR12 certificate, KRA PIN, and beneficial ownership compliance."
+    },
+    {
+      "id": "business-name-registration",
+      "slug": "business-name-registration",
+      "name": "Business Name & Partnership Registration",
+      "categoryId": "setup",
+      "shortDesc": "Register a Sole Proprietorship or Partnership business name in Kenya for local traders, freelancers, and small businesses.",
+      "fullDesc": "Register a sole proprietorship or general partnership business name under the Registration of Business Names Act. Includes name reservation, BN2 certificate issuance, and KRA PIN registration.",
+      "status": "published",
+      "featured": false,
+      "heroTitle": "Business Name & Partnership Registration in Kenya",
+      "heroSubtitle": "Fast, affordable registration for sole proprietors, freelancers, partnerships, and local business operators.",
+      "overview": "A Business Name (Sole Proprietorship or Partnership) is the simplest legal structure in Kenya. It allows individuals or partners to trade under a registered business identity while maintaining flexible administration.",
+      "audiences": [
+        "Kenyan Entrepreneurs",
+        "Freelancers",
+        "Partnerships",
+        "Local Merchants"
+      ],
+      "checklists": [
+        "Business Name Availability Search",
+        "Form BN1 Application Drafting",
+        "BN2 Certificate of Registration Processing",
+        "Business KRA PIN Association"
+      ],
+      "processSteps": [
+        {
+          "number": "01",
+          "title": "Name Selection",
+          "description": "Submitting preferred business name choices for official search."
+        },
+        {
+          "number": "02",
+          "title": "Proprietor Documentation",
+          "description": "Collecting ID, KRA PIN, and passport photo of the owner(s)."
+        },
+        {
+          "number": "03",
+          "title": "eCitizen Filing",
+          "description": "Filing Form BN1 electronically on the BRS portal."
+        },
+        {
+          "number": "04",
+          "title": "BN2 Certificate Delivery",
+          "description": "Handing over official Certificate of Business Name Registration."
+        }
+      ],
+      "requirements": [
+        "Proposed Business Names",
+        "Copy of National ID / Passport of Proprietor(s)",
+        "KRA PIN Certificate of Proprietor(s)",
+        "Passport Photo",
+        "Physical Location of Business"
+      ],
+      "timelines": {
+        "governmentFee": "KES 950 (Official eCitizen fee)",
+        "professionalFee": "Competitive flat fee",
+        "estimatedTimeline": "2 to 4 Working Days",
+        "pricingType": "Fixed",
+        "disclaimer": "Timelines depend on BRS eCitizen portal turnaround."
+      },
+      "faqs": [
+        {
+          "question": "What is the difference between a Business Name and a Company?",
+          "answer": "A Business Name is a sole proprietorship or partnership without separate legal personality. A Private Limited Company is a legal entity distinct from its owners, providing limited liability protection."
+        }
+      ],
+      "relatedServices": [
+        "company-registration",
+        "kra-tax-registration",
+        "county-permits"
+      ],
+      "seoTitle": "Business Name Registration Kenya | Sole Proprietorship BN2 | Kivanta Advisory",
+      "seoDesc": "Register a business name or partnership in Kenya quickly. Complete eCitizen name search, BN2 certificate, and KRA PIN setup."
+    },
+    {
+      "id": "foreign-company-registration",
+      "slug": "foreign-company-registration",
+      "name": "Foreign Company & Branch Office Registration",
+      "categoryId": "setup",
+      "shortDesc": "Establish a foreign company branch or subsidiary in Kenya for multinational corporations entering the East African market.",
+      "fullDesc": "End-to-end market entry structuring for foreign corporations. We assist with Branch Office registration under Section 974 of the Companies Act 2015, local representative designation, compliance documentation, tax registrations, and expatriate work permit coordination.",
+      "status": "published",
+      "featured": true,
+      "heroTitle": "Foreign Company Branch & Subsidiary Setup in Kenya",
+      "heroSubtitle": "Seamless corporate market entry into Kenya for foreign enterprises, multinationals, and regional investors.",
+      "overview": "Foreign entities seeking a commercial presence in Kenya can establish either a Branch Office of the parent company or incorporate a local Kenyan Subsidiary. Kivanta Advisory provides executive legal and administrative guidance on choosing the optimal structure, fulfilling statutory compliance, and securing local tax and work permit clearances.",
+      "audiences": [
+        "Foreign Investors",
+        "Multinationals",
+        "International Corporations",
+        "Regional Enterprises"
+      ],
+      "checklists": [
+        "Certificate of Incorporation of Parent Company (Notarized/Apostilled)",
+        "Charter, Statutes, or Articles of Parent Entity",
+        "List of Directors & Power of Attorney for Local Representative",
+        "Form Form FC1 statutory declaration on eCitizen BRS",
+        "Certificate of Compliance (Form FC2) processing",
+        "Foreign Branch KRA PIN & International Tax Setup",
+        "Local Office & Resident Representative Coordination"
+      ],
+      "processSteps": [
+        {
+          "number": "01",
+          "title": "Entry Strategy Consultation",
+          "description": "Evaluating Branch Office vs Local Subsidiary taxation, liability, and operational trade-offs."
+        },
+        {
+          "number": "02",
+          "title": "Parent Entity Document Verification",
+          "description": "Reviewing notarized/authenticated corporate charters, certificates, and board resolutions."
+        },
+        {
+          "number": "03",
+          "title": "Local Representative Appointment",
+          "description": "Designating a resident agent in Kenya authorized to accept service of process."
+        },
+        {
+          "number": "04",
+          "title": "Registrar Filing & Compliance Certificate",
+          "description": "Filing foreign company documents to receive the official Form FC2 Certificate of Compliance."
+        },
+        {
+          "number": "05",
+          "title": "Tax & Immigration Alignment",
+          "description": "Setting up branch KRA PIN, VAT, PAYE, and processing Class G / Class D work permits for foreign executives."
+        }
+      ],
+      "requirements": [
+        "Certified Copy of Certificate of Incorporation of Foreign Parent Company",
+        "Certified Copy of Constitution / Articles of Association of Parent Company",
+        "List of Current Directors of Parent Company with Passports & Addresses",
+        "Board Resolution authorizing establishment of Branch in Kenya and appointing Local Representative",
+        "Power of Attorney for Local Resident Representative",
+        "Proposed Registered Office Address in Kenya"
+      ],
+      "timelines": {
+        "governmentFee": "Official BRS statutory fee schedule apply",
+        "professionalFee": "Tailored proposal based on corporate complexity",
+        "estimatedTimeline": "7 to 14 Working Days upon receipt of notarized documents",
+        "pricingType": "Request Quote",
+        "disclaimer": "Notarization and embassy legalisation timelines vary by jurisdiction."
+      },
+      "faqs": [
+        {
+          "question": "Should a foreign company open a Branch or a local Subsidiary?",
+          "answer": "A Branch is an extension of the foreign parent company (subject to branch tax rates), while a Subsidiary is an independent Kenyan corporate entity. Kivanta Advisory helps analyze tax and liability implications to choose the ideal model."
+        }
+      ],
+      "relatedServices": [
+        "company-registration",
+        "work-permits",
+        "market-entry",
+        "tax-compliance",
+        "corporate-secretarial"
+      ],
+      "seoTitle": "Foreign Company Branch Registration Kenya | Market Entry Advisory | Kivanta Advisory",
+      "seoDesc": "Register a foreign branch office or subsidiary in Kenya. Complete eCitizen compliance filing, local representative setup, KRA PIN, and work permit support."
+    },
+    {
+      "id": "company-filings",
+      "slug": "company-filings",
+      "name": "Company Changes & Corporate Filings",
+      "categoryId": "setup",
+      "shortDesc": "File statutory changes for director appointments, resignations, share transfers, name amendments, and annual returns on BRS.",
+      "fullDesc": "Keep your company records legally accurate on the Business Registration Service. We manage Form CR19 resolutions, CR6 director updates, CR9 office changes, share transfers (Form TM1), capital increases, and annual return filings.",
+      "status": "published",
+      "featured": false,
+      "heroTitle": "Company Changes & Statutory Filings in Kenya",
+      "heroSubtitle": "Professional corporate secretarial amendments, director changes, share transfers, and annual return compliance.",
+      "overview": "Changes in directorship, share ownership, registered office address, or company objects must be legally registered on the eCitizen BRS portal to maintain a valid CR12. Kivanta Advisory manages all corporate restructuring filings accurately.",
+      "audiences": [
+        "SMEs & Startups",
+        "Kenyan Corporations",
+        "Foreign Subsidiaries"
+      ],
+      "checklists": [
+        "Director Appointment / Resignation (Form CR6)",
+        "Change of Registered Physical Address (Form CR9)",
+        "Share Transfer Filing & Stamp Duty Payment",
+        "Beneficial Ownership Register Amendments",
+        "Annual Returns Filing on BRS"
+      ],
+      "processSteps": [
+        {
+          "number": "01",
+          "title": "Board & Shareholder Resolution Review",
+          "description": "Drafting necessary resolutions (Form CR19) for the proposed corporate changes."
+        },
+        {
+          "number": "02",
+          "title": "Document Execution & Consent",
+          "description": "Obtaining signatures, written consents, ID/passport copies, and KRA PINs."
+        },
+        {
+          "number": "03",
+          "title": "BRS eCitizen Portal Submission",
+          "description": "Filing change notices electronically with the Registrar of Companies."
+        },
+        {
+          "number": "04",
+          "title": "Updated CR12 Retrieval",
+          "description": "Downloading updated CR12 confirming approved statutory changes."
+        }
+      ],
+      "requirements": [
+        "Company Registration Number & Current CR12",
+        "Minutes or Signed Resolutions approving changes",
+        "IDs, KRA PINs & Passport Photos of new directors/shareholders",
+        "Executed Transfer Deeds for share transfers"
+      ],
+      "timelines": {
+        "governmentFee": "Statutory BRS fees apply",
+        "professionalFee": "Flat fee per filing",
+        "estimatedTimeline": "3 to 5 Working Days",
+        "pricingType": "Starting From",
+        "disclaimer": "Stamp duty on share transfers is calculated at 1% of transfer value."
+      },
+      "faqs": [
+        {
+          "question": "How often must a company file Annual Returns in Kenya?",
+          "answer": "Annual Returns must be filed once every year within 42 days after the annual general meeting."
+        }
+      ],
+      "relatedServices": [
+        "company-registration",
+        "corporate-secretarial",
+        "tax-compliance"
+      ],
+      "seoTitle": "Company Director Changes & Share Transfers Kenya | CR12 Updates | Kivanta Advisory",
+      "seoDesc": "File director changes, share transfers, address updates, and annual returns in Kenya. Retrieve updated CR12 certificates quickly."
+    },
+    {
+      "id": "work-permits",
+      "slug": "work-permits",
+      "name": "Work Permit Applications (Class G, Class D)",
+      "categoryId": "immigration",
+      "shortDesc": "Secure Kenya Work Permits for foreign investors (Class G) and expatriate employees (Class D) with full immigration compliance support.",
+      "fullDesc": "End-to-end immigration advisory and processing for non-Kenyan citizens seeking to invest or work in Kenya. We prepare, submit, and follow up Class G (Investors/Consultants) and Class D (Employment) work permit applications with the Directorate of Immigration Services.",
+      "status": "published",
+      "featured": true,
+      "heroTitle": "Kenya Work Permits (Class G Investor & Class D Employee)",
+      "heroSubtitle": "Professional immigration advisory to secure work authorization for business owners, executives, and foreign professionals in Kenya.",
+      "overview": "Navigating Kenyan immigration laws requires precise documentation and adherence to government guidelines. Kivanta Advisory provides strategic guidance to ensure your work permit application meets all statutory thresholds, local understudy requirements, and investment criteria.",
+      "audiences": [
+        "Foreign Investors",
+        "Expatriates",
+        "Multinationals",
+        "NGO Executives",
+        "International Businesses"
+      ],
+      "checklists": [
+        "Class G Work Permit (Investors / Shareholders in Kenyan Business)",
+        "Class D Work Permit (Specific Employment by Kenyan Company)",
+        "Immigration Cover Letter & Executive Memorandum",
+        "Audit of Capital Investment ($100,000 proof for Class G)",
+        "Local Kenyan Understudy Training Plan (for Class D)",
+        "FNS (Foreign Nationals Portal) Digital Submission & Verification",
+        "Permit Approval Notification & Security Bond Setup",
+        "Alien Card (Foreign National Registration) Processing"
+      ],
+      "processSteps": [
+        {
+          "number": "01",
+          "title": "Immigration Assessment",
+          "description": "Evaluating applicant qualification, company standing, and optimal permit class (Class G vs Class D)."
+        },
+        {
+          "number": "02",
+          "title": "Dossier Preparation & Audit",
+          "description": "Compiling corporate documents, proof of capital/remittance, academic CVs, tax compliance, and police clearance."
+        },
+        {
+          "number": "03",
+          "title": "EFNS Portal Submission",
+          "description": "Submitting digital dossier to the Directorate of Immigration Services and tracking committee review."
+        },
+        {
+          "number": "04",
+          "title": "Immigration Committee Review",
+          "description": "Monitoring application progress through national vetting committees and addressing officer requisitions."
+        },
+        {
+          "number": "05",
+          "title": "Approval Notification (Form 22)",
+          "description": "Retrieving official Approval Notification specifying government permit fees and security bond."
+        },
+        {
+          "number": "06",
+          "title": "Fee Payment & Pass Issuance",
+          "description": "Coordinating government fee payments and securing work permit endorsement."
+        },
+        {
+          "number": "07",
+          "title": "Alien Card & KRA PIN Registration",
+          "description": "Enrolling foreign national for official e-Passport endorsement, Alien Card ID, and personal tax PIN."
+        }
+      ],
+      "requirements": [
+        "Duly filled immigration application form on eFNS portal",
+        "Detailed Cover Letter from Company / Investor outlining commercial activities and value creation",
+        "Copy of Valid Passport (Minimum 6 months validity)",
+        "Recent Passport-size Photographs (White background)",
+        "Company Registration Certificates (Certificate of Incorporation, CR12, KRA PIN, Tax Compliance Certificate)",
+        "Class G Specific: Bank Statements proving foreign capital investment in business ($100,000 threshold requirement)",
+        "Class D Specific: Academic certificates, CV, employment contract, job description, and local Kenyan understudy details",
+        "Valid Police Clearance Certificate from country of origin / residence"
+      ],
+      "timelines": {
+        "governmentFee": "Class G: KES 250,000/yr | Class D: KES 500,000/yr + KES 10,000 processing fee (Subject to official Directorate fees)",
+        "professionalFee": "Request a quote for full management retainer",
+        "estimatedTimeline": "4 to 8 Weeks (Subject to Directorate of Immigration committee meetings)",
+        "pricingType": "Request Quote",
+        "disclaimer": "Immigration approvals are subject to final government vetting and discretionary approval by the Ministry of Interior."
+      },
+      "faqs": [
+        {
+          "question": "What is the capital requirement for a Class G Investor Work Permit?",
+          "answer": "The statutory guideline recommends proof of investment capital of at least USD 100,000 (or equivalent in assets/capital) committed to the Kenyan enterprise."
+        },
+        {
+          "question": "Can I work in Kenya while my work permit is being processed?",
+          "answer": "No. Working without valid work authorization is prohibited. You may apply for a Special Pass to cover short-term duties while the long-term work permit is pending committee review."
+        },
+        {
+          "question": "What is a Kenyan understudy for Class D permits?",
+          "answer": "For Class D employment permits, companies must attach a qualified Kenyan citizen understudy who will be trained to eventually assume the role."
+        },
+        {
+          "question": "How long is a Kenya Work Permit valid?",
+          "answer": "Work permits are typically issued for 2 years and are renewable upon submitting progress reports and tax compliance evidence."
+        }
+      ],
+      "relatedServices": [
+        "passes-permits",
+        "business-entry",
+        "relocation",
+        "foreign-company-registration",
+        "company-registration"
+      ],
+      "seoTitle": "Kenya Work Permit Applications | Class G & Class D Permits | Kivanta Advisory",
+      "seoDesc": "Expert work permit processing in Kenya. Apply for Class G Investor Permits and Class D Employee Permits with complete immigration compliance."
+    },
+    {
+      "id": "passes-permits",
+      "slug": "passes-permits",
+      "name": "Special Pass & Dependant Pass Applications",
+      "categoryId": "immigration",
+      "shortDesc": "Obtain short-term Special Passes (up to 3 months) and Dependant Passes for spouses and children of permit holders.",
+      "fullDesc": "Interim and family immigration solutions in Kenya. We process Special Passes for urgent short-term assignments or pending work permit reviews, as well as Dependant Passes for family members relocating to Kenya.",
+      "status": "published",
+      "featured": false,
+      "heroTitle": "Special Pass & Dependant Pass Services in Kenya",
+      "heroSubtitle": "Fast-track short-term work passes and family dependant immigration approvals.",
+      "overview": "A Special Pass allows foreign nationals to conduct temporary assignments or work in Kenya for up to 90 days (extendable once). A Dependant Pass allows spouses, children, and eligible family members to reside legally alongside a work permit holder.",
+      "audiences": [
+        "Expatriates",
+        "Consultants",
+        "Corporate Executives",
+        "Relocating Families"
+      ],
+      "checklists": [
+        "Special Pass Application (3-Month Short-Term Work Permit)",
+        "Dependant Pass Application (Spouse & Children)",
+        "Student / Intern Pass Processing",
+        "Pass Extensions & Renewal Compliance"
+      ],
+      "processSteps": [
+        {
+          "number": "01",
+          "title": "Eligibility Review",
+          "description": "Determining eligibility and required supporting documentation."
+        },
+        {
+          "number": "02",
+          "title": "eFNS Portal Filing",
+          "description": "Submitting digital application to Immigration Headquarters."
+        },
+        {
+          "number": "03",
+          "title": "Fee Payment & Approval",
+          "description": "Facilitating official fee payment and retrieving issued electronic pass."
+        }
+      ],
+      "requirements": [
+        "Copy of Valid Passport",
+        "Passport Photo",
+        "Cover Letter from Requesting Company / Primary Permit Holder",
+        "Dependant Pass: Marriage Certificate / Birth Certificate (Notarized)",
+        "Copy of Primary Work Permit"
+      ],
+      "timelines": {
+        "governmentFee": "Special Pass: KES 50,000 per 3 months | Dependant Pass: KES 10,000 + processing fee",
+        "professionalFee": "Transparent fixed fee",
+        "estimatedTimeline": "5 to 10 Working Days",
+        "pricingType": "Starting From",
+        "disclaimer": "Special passes are valid for maximum 3 months, extendable once for an additional 3 months."
+      },
+      "faqs": [
+        {
+          "question": "Can a dependant work in Kenya on a Dependant Pass?",
+          "answer": "No. A Dependant Pass allows residence only. If a dependant wishes to work, they must apply for their own separate Class D work permit."
+        }
+      ],
+      "relatedServices": [
+        "work-permits",
+        "relocation",
+        "business-entry"
+      ],
+      "seoTitle": "Kenya Special Pass & Dependant Pass Applications | Kivanta Advisory",
+      "seoDesc": "Apply for Kenya Special Passes (short-term work authorization) and Dependant Passes for family members with complete immigration support."
+    },
+    {
+      "id": "business-entry",
+      "slug": "business-entry",
+      "name": "Business Entry & eTA Assistance",
+      "categoryId": "immigration",
+      "shortDesc": "Guidance on electronic Travel Authorization (eTA), business visas, and entry protocols for visiting investors and executives.",
+      "fullDesc": "Ensure smooth travel logistics for international executives, investors, and technical experts visiting Kenya for business meetings, conferences, due diligence, or feasibility studies.",
+      "status": "published",
+      "featured": false,
+      "heroTitle": "Kenya Business Entry & Electronic Travel Authorization (eTA)",
+      "heroSubtitle": "Hassle-free entry support for international business visitors, investors, and corporate delegations.",
+      "overview": "Kenya operates an Electronic Travel Authorization (eTA) system replacing traditional visas for all foreign visitors. Kivanta Advisory provides streamlined eTA assistance and business invitation documentation to ensure seamless arrival.",
+      "audiences": [
+        "Visiting Investors",
+        "Corporate Delegations",
+        "Consultants",
+        "Trade Missions"
+      ],
+      "checklists": [
+        "Business eTA Application Support",
+        "Corporate Invitation Letter Drafting",
+        "Airport Fast-track Advisory",
+        "Multi-entry Business Protocol Consultation"
+      ],
+      "processSteps": [
+        {
+          "number": "01",
+          "title": "Travel Review",
+          "description": "Verifying itinerary, host details, and passport validity."
+        },
+        {
+          "number": "02",
+          "title": "eTA Digital Submission",
+          "description": "Filing travel details on official Kenyan eTA portal."
+        },
+        {
+          "number": "03",
+          "title": "eTA Approval Delivery",
+          "description": "Handing over official eTA travel clearance document."
+        }
+      ],
+      "requirements": [
+        "Passport valid for at least 6 months",
+        "Flight Itinerary & Hotel Reservation / Host Address",
+        "Corporate Invitation Letter / Mission Details",
+        "Passport-style Digital Photograph"
+      ],
+      "timelines": {
+        "governmentFee": "USD 32 (Official eTA fee)",
+        "professionalFee": "Flat processing fee",
+        "estimatedTimeline": "24 to 72 Hours",
+        "pricingType": "Fixed",
+        "disclaimer": "eTA applications should be submitted at least 3 days prior to travel."
+      },
+      "faqs": [
+        {
+          "question": "Can I conduct commercial work on a Business eTA?",
+          "answer": "No. An eTA permits business meetings, site visits, and negotiations. Actual employment or service delivery requires a Special Pass or Work Permit."
+        }
+      ],
+      "relatedServices": [
+        "work-permits",
+        "relocation",
+        "market-entry"
+      ],
+      "seoTitle": "Kenya Business eTA & Entry Assistance | Investor Travel | Kivanta Advisory",
+      "seoDesc": "Fast electronic Travel Authorization (eTA) and business entry support for investors and executives traveling to Kenya."
+    },
+    {
+      "id": "relocation",
+      "slug": "relocation",
+      "name": "Expatriate Setup & Relocation Advisory",
+      "categoryId": "immigration",
+      "shortDesc": "Complete onboarding for relocating expatriates: foreign national KRA PIN, bank setup, residential permits, and personal tax advisory.",
+      "fullDesc": "A holistic relocation support service designed to make expatriate transitions to Kenya effortless. We assist with foreign national KRA PIN issuance, Alien Card enrolment, personal bank account opening, residential lease agreements, and expatriate tax planning.",
+      "status": "published",
+      "featured": false,
+      "heroTitle": "Expatriate Relocation & Executive Onboarding in Kenya",
+      "heroSubtitle": "Dedicated administrative, financial, and regulatory setup for professionals and families moving to Kenya.",
+      "overview": "Moving to a new country involves multiple administrative hurdles. Kivanta Advisory serves as a personal local concierge, navigating statutory registrations so executives can focus on leadership.",
+      "audiences": [
+        "Relocating Executives",
+        "Expatriates",
+        "Multinational Staff",
+        "Diplomatic Personnel"
+      ],
+      "checklists": [
+        "Foreign National KRA PIN Registration",
+        "Alien Card (FNS Registration) Coordination",
+        "Personal Bank Account Opening Assistance",
+        "Driver's License Endorsement Advisory",
+        "Personal Tax Residency Guidance"
+      ],
+      "processSteps": [
+        {
+          "number": "01",
+          "title": "Pre-Arrival Briefing",
+          "description": "Consultation on tax residency, banking requirements, and local registration timelines."
+        },
+        {
+          "number": "02",
+          "title": "Identity Registrations",
+          "description": "Filing for foreign national KRA PIN and scheduling Alien Card biometric capture."
+        },
+        {
+          "number": "03",
+          "title": "Financial & Local Setup",
+          "description": "Issuing bank introduction letters and completing local tax profiles."
+        }
+      ],
+      "requirements": [
+        "Valid Work Permit / Endorsed Passport",
+        "Alien Card Application Form & Photos",
+        "Kenyan Physical Address Proof / Lease Agreement",
+        "Proof of Income / Employment Contract"
+      ],
+      "timelines": {
+        "governmentFee": "Alien Card: KES 10,000 | KRA PIN: Free",
+        "professionalFee": "Tailored relocation package quote",
+        "estimatedTimeline": "5 to 10 Days post work permit issuance",
+        "pricingType": "Request Quote",
+        "disclaimer": "Alien Card biometric capture requires physical attendance at Immigration Headquarters."
+      },
+      "faqs": [
+        {
+          "question": "Do expatriates need a KRA PIN?",
+          "answer": "Yes. Foreign nationals residing or earning income in Kenya require a KRA PIN for bank accounts, utility contracts, and tax compliance."
+        }
+      ],
+      "relatedServices": [
+        "work-permits",
+        "kra-tax-registration",
+        "payroll-services"
+      ],
+      "seoTitle": "Expatriate Relocation Services Kenya | Foreign PIN & Onboarding | Kivanta Advisory",
+      "seoDesc": "Comprehensive relocation support in Kenya. Foreign national KRA PIN, Alien Card, banking setup, and personal tax advisory for expatriates."
+    },
+    {
+      "id": "kra-tax-registration",
+      "slug": "kra-tax-registration",
+      "name": "KRA PIN, VAT & Statutory Tax Registration",
+      "categoryId": "tax",
+      "shortDesc": "Register company and individual KRA PINs, activate VAT, PAYE, and Income Tax obligations on KRA iTax.",
+      "fullDesc": "Ensure complete tax identity setup with Kenya Revenue Authority (KRA). We process corporate KRA PINs, individual PINs, Value Added Tax (VAT) obligation activation, Pay As You Earn (PAYE) registration, and Electronic Tax Invoice Management System (eTIMS) onboarding.",
+      "status": "published",
+      "featured": true,
+      "heroTitle": "KRA PIN, VAT & PAYE Registration Services in Kenya",
+      "heroSubtitle": "Activate corporate and individual tax identities with Kenya Revenue Authority accurately and compliant with tax laws.",
+      "overview": "Operating commercially in Kenya requires active tax obligations on KRA iTax. Kivanta Advisory manages PIN registrations, tax obligation additions, eTIMS compliance, and ensures your entity avoids default penalties from day one.",
+      "audiences": [
+        "New Companies",
+        "Foreign Entities",
+        "Sole Proprietors",
+        "Expatriates",
+        "Local Businesses"
+      ],
+      "checklists": [
+        "Corporate Company KRA PIN Registration",
+        "Individual KRA PIN (Residents & Foreign Nationals)",
+        "VAT Obligation Registration (Annual taxable turnover > KES 5M threshold)",
+        "PAYE Employer Tax Registration",
+        "KRA eTIMS (Electronic Tax Invoice) Setup & Training",
+        "Tax Compliance Certificate (TCC) Application"
+      ],
+      "processSteps": [
+        {
+          "number": "01",
+          "title": "Tax Obligations Audit",
+          "description": "Determining applicable tax obligations based on business revenue model and headcount."
+        },
+        {
+          "number": "02",
+          "title": "KRA iTax Portal Filing",
+          "description": "Filing registration application on iTax with corporate documentation."
+        },
+        {
+          "number": "03",
+          "title": "PIN Certificate Issuance",
+          "description": "Retrieving official KRA PIN Certificate with active obligations."
+        },
+        {
+          "number": "04",
+          "title": "eTIMS Integration Support",
+          "description": "Guiding the business on compliant electronic invoicing per KRA regulations."
+        }
+      ],
+      "requirements": [
+        "Certificate of Incorporation / Business Name Certificate",
+        "Company CR12 Certificate",
+        "Director KRA PINs & National IDs / Passports",
+        "Physical Business Location & Email Address"
+      ],
+      "timelines": {
+        "governmentFee": "Free (No government fee for KRA PIN registration)",
+        "professionalFee": "Affordable flat service fee",
+        "estimatedTimeline": "1 to 3 Working Days",
+        "pricingType": "Fixed",
+        "disclaimer": "VAT registration requires meeting KRA threshold criteria or voluntary application justification."
+      },
+      "faqs": [
+        {
+          "question": "When is VAT registration mandatory in Kenya?",
+          "answer": "VAT registration is mandatory when a business achieves or expects an annual taxable turnover of KES 5,000,000 or more."
+        }
+      ],
+      "relatedServices": [
+        "tax-compliance",
+        "company-registration",
+        "payroll-services",
+        "bookkeeping-accounting"
+      ],
+      "seoTitle": "KRA PIN Registration & VAT Setup Kenya | iTax Compliance | Kivanta Advisory",
+      "seoDesc": "Register company KRA PIN, VAT, PAYE, and eTIMS on KRA iTax. Get your official Tax Compliance Certificate cleanly."
+    },
+    {
+      "id": "tax-compliance",
+      "slug": "tax-compliance",
+      "name": "Corporate Tax Compliance & Filing Retainer",
+      "categoryId": "tax",
+      "shortDesc": "Monthly VAT, PAYE, withholding tax, turnover tax, and annual corporate income tax return filings to keep your company fully compliant.",
+      "fullDesc": "Ongoing tax management for registered businesses in Kenya. Our tax compliance retainers cover monthly statutory returns, provisional tax estimations, annual corporate tax returns, KRA tax audit defense, and Tax Compliance Certificate (TCC) renewals.",
+      "status": "published",
+      "featured": true,
+      "heroTitle": "Corporate Tax Compliance & Monthly Filing Services in Kenya",
+      "heroSubtitle": "Proactive tax compliance management to protect your business from KRA penalties, interest, and audit liabilities.",
+      "overview": "Kenyan tax legislation enforces strict monthly and annual filing deadlines. Kivanta Advisory provides reliable recurring compliance services, preparing accurate tax computations and ensuring timely iTax filings.",
+      "audiences": [
+        "SMEs",
+        "Corporations",
+        "Foreign Subsidiaries",
+        "NGOs",
+        "Branch Offices"
+      ],
+      "checklists": [
+        "Monthly VAT Return Computation & Filing (Due 20th of each month)",
+        "Monthly PAYE Statutory Deduction Filing (Due 9th of each month)",
+        "Withholding Tax (WHT) Filing & Payment Management",
+        "Turnover Tax (TOT) / Residential Rental Income Tax Filings",
+        "Provisional Corporate Income Tax Calculations",
+        "Annual Income Tax Return Filing (Form IT2C)",
+        "Tax Health Check & KRA Audit Support",
+        "Tax Compliance Certificate (TCC) Annual Renewal"
+      ],
+      "processSteps": [
+        {
+          "number": "01",
+          "title": "Monthly Data Collection",
+          "description": "Gathering sales registers, purchase invoices, eTIMS summaries, and payroll records by 5th of each month."
+        },
+        {
+          "number": "02",
+          "title": "Tax Computation & Reconciliation",
+          "description": "Calculating net VAT payable, PAYE deductions, and WHT credits."
+        },
+        {
+          "number": "03",
+          "title": "iTax Return Submission",
+          "description": "Filing electronic returns on KRA iTax portal and generating payment slips."
+        },
+        {
+          "number": "04",
+          "title": "Payment Slip Delivery & Advice",
+          "description": "Providing client with payment instructions prior to official deadlines."
+        },
+        {
+          "number": "05",
+          "title": "Annual Tax Reconciliation & TCC Renewal",
+          "description": "Filing final year-end corporate return and securing updated Tax Compliance Certificate."
+        }
+      ],
+      "requirements": [
+        "KRA iTax Password & Credentials",
+        "Monthly eTIMS Sales & Purchase Registers",
+        "Monthly Payroll Summary",
+        "Audited Financial Statements (for Annual Corporate Income Tax Filing)"
+      ],
+      "timelines": {
+        "governmentFee": "Tax due per calculations (Paid directly to KRA)",
+        "professionalFee": "Monthly retainer options starting from affordable tiers",
+        "estimatedTimeline": "Monthly ongoing execution",
+        "pricingType": "Starting From",
+        "disclaimer": "Late filing attracts statutory KRA fines (VAT: KES 10,000/mo, PAYE: KES 10,000/mo, Corporate Tax: KES 20,000/yr)."
+      },
+      "faqs": [
+        {
+          "question": "What happens if a company files zero returns late?",
+          "answer": "Even nil returns filed after statutory deadlines attract non-filing penalties from KRA. Our retainers ensure nil or active returns are filed on time every month."
+        }
+      ],
+      "relatedServices": [
+        "kra-tax-registration",
+        "bookkeeping-accounting",
+        "payroll-services",
+        "corporate-secretarial"
+      ],
+      "seoTitle": "Corporate Tax Compliance Kenya | Monthly iTax Filings & TCC | Kivanta Advisory",
+      "seoDesc": "Full corporate tax compliance retainer in Kenya. Monthly VAT, PAYE, WHT, annual tax returns, and KRA Tax Compliance Certificates."
+    },
+    {
+      "id": "county-permits",
+      "slug": "county-permits",
+      "name": "County Business Permits & Licensing",
+      "categoryId": "tax",
+      "shortDesc": "Acquire Unified Single Business Permits (SBP), Fire Certificates, and Health Permits across Nairobi City County and regional municipalities.",
+      "fullDesc": "Physical business premises licensing across Kenya's 47 counties. We manage applications for Nairobi Unified Business Permits, Joint Building Inspections, Fire Safety Inspection Certificates, Food Handlers/Health Permits, and Outdoor Signage approvals.",
+      "status": "published",
+      "featured": false,
+      "heroTitle": "Unified Single Business Permits & County Licensing in Kenya",
+      "heroSubtitle": "Obtain official Municipal Permits, Fire Safety, and Public Health licenses for your business premises.",
+      "overview": "Operating physical offices, retail outlets, industrial facilities, or warehouses in Kenya requires valid county municipal licensing. Kivanta Advisory coordinates local county council inspections and permit renewals.",
+      "audiences": [
+        "Retailers",
+        "Offices",
+        "Manufacturing Facilities",
+        "Hotels & Restaurants",
+        "Warehouses"
+      ],
+      "checklists": [
+        "Unified Single Business Permit (SBP) Application",
+        "County Fire Safety Certificate Inspection",
+        "Public Health Inspection & Food Handler Licenses",
+        "Signage & Billboard Advertising Approval",
+        "Annual County License Renewals"
+      ],
+      "processSteps": [
+        {
+          "number": "01",
+          "title": "Location & Sector Zoning Check",
+          "description": "Verifying property zoning and applicable municipal fee schedules."
+        },
+        {
+          "number": "02",
+          "title": "Application Filing",
+          "description": "Filing permit application on County Revenue Portals (e.g. Nairobi eServices)."
+        },
+        {
+          "number": "03",
+          "title": "Inspection Coordination",
+          "description": "Facilitating visits by county fire and health officers."
+        },
+        {
+          "number": "04",
+          "title": "Permit Issuance",
+          "description": "Securing official stamped Single Business Permit sticker."
+        }
+      ],
+      "requirements": [
+        "Company Registration Certificate & KRA PIN",
+        "Physical Address Details & Lease Agreement / Rent Receipt",
+        "Floor Plan / Business Size in Square Meters",
+        "Number of Employees"
+      ],
+      "timelines": {
+        "governmentFee": "Varies by county, sector, and floor area (e.g. Nairobi SBP starts approx. KES 15,000–50,000+)",
+        "professionalFee": "Transparent fixed administrative fee",
+        "estimatedTimeline": "5 to 10 Working Days",
+        "pricingType": "Starting From",
+        "disclaimer": "County permits expire on December 31st of each calendar year regardless of issuance date."
+      },
+      "faqs": [
+        {
+          "question": "When must Single Business Permits be renewed?",
+          "answer": "Single Business Permits are valid for one calendar year and must be renewed by January 31st each year to avoid municipal enforcement fines."
+        }
+      ],
+      "relatedServices": [
+        "company-registration",
+        "tax-compliance",
+        "regulatory-support"
+      ],
+      "seoTitle": "Single Business Permit Nairobi & County Licenses Kenya | Kivanta Advisory",
+      "seoDesc": "Apply for Single Business Permits (SBP), Fire Certificates, and Health Permits in Nairobi and across Kenyan counties."
+    },
+    {
+      "id": "bookkeeping-accounting",
+      "slug": "bookkeeping-accounting",
+      "name": "Bookkeeping & Financial Reporting",
+      "categoryId": "accounting",
+      "shortDesc": "Outsourced monthly bookkeeping, management accounts, bank reconciliations, and audit preparation using cloud accounting systems.",
+      "fullDesc": "Maintain accurate, transparent financial records without the overhead of an in-house accounting department. We provide ledger entry, cloud accounting setup (QuickBooks, Xero, Zoho), monthly P&L/Balance Sheet reporting, and year-end audit readiness.",
+      "status": "published",
+      "featured": false,
+      "heroTitle": "Outsourced Bookkeeping & Accounting Services in Kenya",
+      "heroSubtitle": "Structured financial record-keeping, real-time reporting, and management accounting for growing businesses.",
+      "overview": "Sound financial oversight is essential for growth, investor reporting, and tax compliance. Kivanta Advisory delivers clean, structured bookkeeping aligned with International Financial Reporting Standards (IFRS).",
+      "audiences": [
+        "SMEs & Startups",
+        "Foreign Subsidiaries",
+        "NGOs",
+        "Growing Enterprises"
+      ],
+      "checklists": [
+        "Cloud Accounting Software Setup (QuickBooks / Xero / Zoho)",
+        "Daily/Weekly General Ledger Entry & Invoicing",
+        "Monthly Bank & Mobile Money (M-Pesa) Reconciliations",
+        "Monthly Management Accounts (P&L, Balance Sheet, Cash Flow)",
+        "Accounts Receivable & Payable Aging Reports",
+        "Year-End Audit File Preparation"
+      ],
+      "processSteps": [
+        {
+          "number": "01",
+          "title": "Chart of Accounts Design",
+          "description": "Customizing general ledger accounts to reflect your revenue and expense streams."
+        },
+        {
+          "number": "02",
+          "title": "Routine Data Entry & Capture",
+          "description": "Posting customer invoices, vendor bills, receipts, and bank statements."
+        },
+        {
+          "number": "03",
+          "title": "Monthly Reconciliation",
+          "description": "Matching bank feeds and M-Pesa statements with ledger entries."
+        },
+        {
+          "number": "04",
+          "title": "Management Reporting",
+          "description": "Delivering financial statements and executive insight meetings by 10th of every month."
+        }
+      ],
+      "requirements": [
+        "Bank Statements & M-Pesa Statements",
+        "Sales Invoices & eTIMS Receipts",
+        "Vendor Bills & Payment Receipts",
+        "Prior Year Trial Balance (for existing businesses)"
+      ],
+      "timelines": {
+        "governmentFee": "N/A",
+        "professionalFee": "Monthly retainer based on transaction volume",
+        "estimatedTimeline": "Monthly recurring service",
+        "pricingType": "Starting From",
+        "disclaimer": "Retainer rates are scaled according to monthly transaction counts."
+      },
+      "faqs": [
+        {
+          "question": "Can Kivanta Advisory handle eTIMS integration with accounting software?",
+          "answer": "Yes. We guide businesses on connecting eTIMS electronic invoicing solutions directly to their cloud accounting workflows."
+        }
+      ],
+      "relatedServices": [
+        "payroll-services",
+        "tax-compliance",
+        "corporate-secretarial"
+      ],
+      "seoTitle": "Bookkeeping & Accounting Services Kenya | QuickBooks & Xero | Kivanta Advisory",
+      "seoDesc": "Professional outsourced bookkeeping and accounting services in Kenya. Monthly management accounts, financial reporting, and audit prep."
+    },
+    {
+      "id": "payroll-services",
+      "slug": "payroll-services",
+      "name": "Payroll Processing & Statutory Deductions",
+      "categoryId": "accounting",
+      "shortDesc": "End-to-end payroll administration including PAYE, NSSF, SHIF/NHIF, Affordable Housing Levy calculations, and payslip distribution.",
+      "fullDesc": "Compliant, confidential payroll management for local and expatriate staff in Kenya. We calculate gross-to-net salary figures, process mandatory statutory deductions (PAYE, NSSF Act 2023, SHIF/NHIF, Housing Levy 1.5%), generate digital payslips, and file statutory returns.",
+      "status": "published",
+      "featured": false,
+      "heroTitle": "Payroll Processing & Statutory Compliance Services in Kenya",
+      "heroSubtitle": "Accurate, confidential payroll management ensuring 100% compliance with Kenyan labor and statutory deduction laws.",
+      "overview": "Kenyan payroll legislation requires complex statutory calculations for PAYE, NSSF, SHIF, and Housing Levy. Kivanta Advisory handles monthly payroll efficiently, eliminating calculation errors and statutory submission delays.",
+      "audiences": [
+        "Employers",
+        "SMEs",
+        "Multinationals",
+        "NGOs",
+        "Tech Startups"
+      ],
+      "checklists": [
+        "Monthly Gross-to-Net Payroll Computation",
+        "PAYE (Pay As You Earn) Calculation & iTax Filing",
+        "NSSF (National Social Security Fund) Tier I & II Calculation",
+        "SHIF (Social Health Insurance Fund) / NHIF Compliance",
+        "Affordable Housing Levy (1.5% Employer & Employee) Filing",
+        "Confidential PDF Payslip Generation & Employee Distribution",
+        "P9 Annual Tax Certificates for Employees"
+      ],
+      "processSteps": [
+        {
+          "number": "01",
+          "title": "Payroll Input Gathering",
+          "description": "Receiving monthly attendance, overtime, bonuses, or deductions by 25th of the month."
+        },
+        {
+          "number": "02",
+          "title": "Statutory Deduction Calculation",
+          "description": "Computing PAYE, NSSF, SHIF, and Housing Levy under current tax tables."
+        },
+        {
+          "number": "03",
+          "title": "Payroll Summary Approval",
+          "description": "Submitting detailed master payroll sheet for executive management sign-off."
+        },
+        {
+          "number": "04",
+          "title": "Filing & Disbursement Guidance",
+          "description": "Generating statutory payment slips and bank transfer files for salary disbursement."
+        },
+        {
+          "number": "05",
+          "title": "Payslip Delivery",
+          "description": "Emailing password-protected individual payslips to staff."
+        }
+      ],
+      "requirements": [
+        "Employee List with Full Names, National IDs, KRA PINs, NSSF & SHIF Numbers",
+        "Basic Salary Breakdown & Allowances",
+        "Bank Details for Direct Deposit Setup"
+      ],
+      "timelines": {
+        "governmentFee": "Statutory deductions remitted on behalf of employees",
+        "professionalFee": "Per-employee monthly fee tier",
+        "estimatedTimeline": "Monthly execution completed by 28th",
+        "pricingType": "Starting From",
+        "disclaimer": "Statutory remittances (PAYE, NSSF, SHIF, Housing Levy) must be paid by 9th of following month."
+      },
+      "faqs": [
+        {
+          "question": "What are the key statutory payroll deductions in Kenya?",
+          "answer": "Primary statutory payroll deductions include PAYE income tax, NSSF pension contributions, SHIF health insurance, and the Affordable Housing Levy (1.5%)."
+        }
+      ],
+      "relatedServices": [
+        "bookkeeping-accounting",
+        "tax-compliance",
+        "work-permits"
+      ],
+      "seoTitle": "Payroll Outsourcing Kenya | PAYE, NSSF, SHIF & Housing Levy | Kivanta Advisory",
+      "seoDesc": "Complete payroll processing services in Kenya. Monthly payslips, PAYE, NSSF, SHIF, and Housing Levy compliance."
+    },
+    {
+      "id": "corporate-secretarial",
+      "slug": "corporate-secretarial",
+      "name": "Corporate Secretarial Services & Governance Retainer",
+      "categoryId": "secretarial",
+      "shortDesc": "Certified CPS secretarial retainer, statutory books maintenance, board minute recording, annual returns, and governance compliance.",
+      "fullDesc": "Ensure your company maintains exemplary corporate governance under the Companies Act 2015. Our CPS-certified secretarial retainers cover statutory register maintenance, annual return filings, board resolution drafting, AGM coordination, and regulatory filings.",
+      "status": "published",
+      "featured": false,
+      "heroTitle": "Corporate Secretarial & Company Governance Services in Kenya",
+      "heroSubtitle": "Professional Certified Secretaries (CPS) safeguarding statutory compliance, registers, and corporate records.",
+      "overview": "Private limited companies and public entities in Kenya require ongoing secretarial oversight to stay in good standing. Kivanta Advisory provides dedicated corporate secretarial services, managing statutory duties seamlessly.",
+      "audiences": [
+        "Corporations",
+        "SMEs",
+        "Foreign Subsidiaries",
+        "Board of Directors"
+      ],
+      "checklists": [
+        "Maintenance of Statutory Registers (Directors, Shareholders, Charges)",
+        "Annual Return Preparation & Filing on BRS eCitizen",
+        "Drafting Board Minutes, Circular Resolutions & AGM Notices",
+        "Custodian of Company Seal & Statutory Records",
+        "Beneficial Ownership Register Maintenance",
+        "Good Standing Certificate Processing"
+      ],
+      "processSteps": [
+        {
+          "number": "01",
+          "title": "Secretarial Health Audit",
+          "description": "Reviewing existing corporate files, CR12s, minute books, and return history."
+        },
+        {
+          "number": "02",
+          "title": "Statutory Register Setup",
+          "description": "Digitizing statutory books and beneficial ownership records."
+        },
+        {
+          "number": "03",
+          "title": "Routine Governance Execution",
+          "description": "Attending or drafting resolutions for board meetings and filing statutory changes."
+        }
+      ],
+      "requirements": [
+        "Company Certificate of Incorporation & Memorandum & Articles",
+        "Current CR12 & Director IDs/PINs",
+        "Prior Minute Books & Annual Return Receipts"
+      ],
+      "timelines": {
+        "governmentFee": "Official BRS filing fees apply per resolution/return",
+        "professionalFee": "Annual secretarial retainer fee",
+        "estimatedTimeline": "Ongoing annual retainer",
+        "pricingType": "Starting From",
+        "disclaimer": "Secretarial retainers ensure company remains in good legal standing."
+      },
+      "faqs": [
+        {
+          "question": "Is a company secretary mandatory for all companies in Kenya?",
+          "answer": "Private companies with a paid-up capital of KES 5,000,000 or more must appoint a Certified Public Secretary (CPS). For smaller companies, secretarial compliance remains essential for statutory filings."
+        }
+      ],
+      "relatedServices": [
+        "company-registration",
+        "company-filings",
+        "tax-compliance"
+      ],
+      "seoTitle": "Corporate Secretarial Services Kenya | CPS Governance Retainer | Kivanta Advisory",
+      "seoDesc": "Certified Corporate Secretarial (CPS) services in Kenya. Annual returns, statutory registers, board resolutions, and governance compliance."
+    },
+    {
+      "id": "market-entry",
+      "slug": "market-entry",
+      "name": "Kenya Market Entry Strategy & Expansion Advisory",
+      "categoryId": "advisory",
+      "shortDesc": "Strategic entry advisory for foreign investors: entity structuring, legal framework analysis, partner research, and operational roadmap.",
+      "fullDesc": "High-level strategic consulting for international companies, foreign investors, and regional businesses expanding into Kenya and the broader East African Community (EAC). We deliver tailored entry roadmaps, regulatory risk matrixes, corporate structuring options, and local ecosystem connections.",
+      "status": "published",
+      "featured": true,
+      "heroTitle": "Kenya Market Entry Strategy & Business Expansion Advisory",
+      "heroSubtitle": "Strategic advisory for foreign corporations, investors, and multinationals entering the Kenyan commercial landscape.",
+      "overview": "Kenya is the economic powerhouse of East Africa, serving as a hub for financial services, technology, agriculture, renewable energy, and logistics. Kivanta Advisory provides bespoke market entry advisory, transforming strategic vision into compliant, operational execution.",
+      "audiences": [
+        "Foreign Corporations",
+        "International Investors",
+        "Multinationals",
+        "Regional Groups",
+        "DFIs"
+      ],
+      "checklists": [
+        "Corporate Entity Structuring Matrix (Branch vs Subsidiary vs EPZ)",
+        "Regulatory & Legal Landscape Feasibility Mapping",
+        "Local Partner & Joint Venture Due Diligence",
+        "Tax Structuring & Double Taxation Agreement (DTA) Analysis",
+        "Site Location & Commercial Real Estate Advisory",
+        "Executive Market Entry Roadmap Presentation"
+      ],
+      "processSteps": [
+        {
+          "number": "01",
+          "title": "Discovery & Vision Alignment",
+          "description": "Understanding your commercial objectives, timeline, investment capital, and sector target."
+        },
+        {
+          "number": "02",
+          "title": "Regulatory & Tax Landscape Analysis",
+          "description": "Evaluating sector licenses, local ownership rules, tax incentives, and labor legislation."
+        },
+        {
+          "number": "03",
+          "title": "Entity & Operational Design",
+          "description": "Recommending optimal corporate structure, governance model, and immigration pathway."
+        },
+        {
+          "number": "04",
+          "title": "Local Ecosystem Integration",
+          "description": "Connecting your executive team with vetted banking, legal, real estate, and government liaisons."
+        },
+        {
+          "number": "05",
+          "title": "Execution Supervision",
+          "description": "Overseeing the practical implementation across registration, tax, licensing, and setup."
+        }
+      ],
+      "requirements": [
+        "Executive Summary / Business Plan of Parent Company",
+        "Target Sector & Proposed Investment Scope",
+        "Target Launch Timeline & Initial Key Personnel Details"
+      ],
+      "timelines": {
+        "governmentFee": "N/A",
+        "professionalFee": "Bespoke consultancy retainer based on scope",
+        "estimatedTimeline": "2 to 4 Weeks for comprehensive entry roadmap",
+        "pricingType": "Request Quote",
+        "disclaimer": "Market entry engagements are tailored to sector requirements and client scope."
+      },
+      "faqs": [
+        {
+          "question": "Why choose Kenya as a regional headquarters in Africa?",
+          "answer": "Kenya offers a sophisticated financial market, advanced digital infrastructure, strategic port access in Mombasa, a skilled workforce, and access to the 300M+ East African Community market."
+        }
+      ],
+      "relatedServices": [
+        "market-intelligence",
+        "foreign-company-registration",
+        "work-permits",
+        "regulatory-support"
+      ],
+      "seoTitle": "Kenya Market Entry Strategy | Foreign Investment Advisory | Kivanta Advisory",
+      "seoDesc": "Bespoke Kenya market entry strategy for foreign investors and multinationals. Corporate structuring, regulatory analysis, and expansion roadmaps."
+    },
+    {
+      "id": "market-intelligence",
+      "slug": "market-intelligence",
+      "name": "Market Intelligence & Competitor Research",
+      "categoryId": "advisory",
+      "shortDesc": "Data-driven sector intelligence, competitor benchmarking, consumer landscape analysis, and regulatory opportunity assessments.",
+      "fullDesc": "Empower your strategic decision-making with empirical market research in Kenya. We deliver sector reports, competitor landscape mapping, pricing benchmark studies, consumer demographic analysis, and regulatory feasibility assessments.",
+      "status": "published",
+      "featured": false,
+      "heroTitle": "Kenya Market Intelligence & Industry Research Services",
+      "heroSubtitle": "Actionable market insights, sector analysis, and competitor benchmarking for investors and commercial leaders.",
+      "overview": "Navigating dynamic African markets requires reliable, on-the-ground intelligence. Kivanta Advisory combines primary field research with regulatory data to deliver clear market insights.",
+      "audiences": [
+        "Investors",
+        "Strategy Teams",
+        "Multinationals",
+        "Private Equity",
+        "Startups"
+      ],
+      "checklists": [
+        "Sector Dynamics & Market Sizing Analysis",
+        "Competitor Profiling & Benchmarking",
+        "Regulatory Risk & Policy Trend Assessment",
+        "Supply Chain & Vendor Ecosystem Mapping",
+        "Pricing & Commercial Strategy Review"
+      ],
+      "processSteps": [
+        {
+          "number": "01",
+          "title": "Research Scope Formulation",
+          "description": "Defining core research questions, sector parameters, and key deliverables."
+        },
+        {
+          "number": "02",
+          "title": "Primary & Secondary Data Gathering",
+          "description": "Conducting stakeholder interviews, regulatory reviews, and field data collection."
+        },
+        {
+          "number": "03",
+          "title": "Analysis & Insight Synthesis",
+          "description": "Synthesizing market data into executive charts, risk matrices, and strategy briefs."
+        },
+        {
+          "number": "04",
+          "title": "Executive Debrief",
+          "description": "Presenting strategic findings to executive management or board committees."
+        }
+      ],
+      "requirements": [
+        "Project Scope & Target Industry Sector",
+        "Key Research Questions & Specific Benchmark Metrics"
+      ],
+      "timelines": {
+        "governmentFee": "N/A",
+        "professionalFee": "Custom research project quote",
+        "estimatedTimeline": "3 to 6 Weeks depending on depth",
+        "pricingType": "Request Quote",
+        "disclaimer": "All research methodology complies with ethical data standards."
+      },
+      "faqs": [
+        {
+          "question": "What sectors in Kenya does Kivanta Advisory cover?",
+          "answer": "We provide intelligence across Fintech, Agriculture, Renewable Energy, Health, Real Estate, Logistics, Retail, and Manufacturing."
+        }
+      ],
+      "relatedServices": [
+        "market-entry",
+        "regulatory-support",
+        "foreign-company-registration"
+      ],
+      "seoTitle": "Kenya Market Research & Sector Intelligence | Kivanta Advisory",
+      "seoDesc": "In-depth market research, sector sizing, and competitor intelligence in Kenya for foreign investors and enterprise strategy teams."
+    },
+    {
+      "id": "regulatory-support",
+      "slug": "regulatory-support",
+      "name": "Government & Regulatory Support",
+      "categoryId": "regulatory",
+      "shortDesc": "Navigate specialized licensing and agency approvals with EPZ, SEZ Authority, EPRA, Pharmacy & Poisons Board, and Communications Authority.",
+      "fullDesc": "Specialized regulatory compliance support for regulated industries in Kenya. We guide companies through licensing applications with Export Processing Zones (EPZ), Special Economic Zones (SEZ Authority), Energy and Petroleum Regulatory Authority (EPRA), Communications Authority (CA), and National Environment Management Authority (NEMA).",
+      "status": "published",
+      "featured": false,
+      "heroTitle": "Government Liaison & Specialized Regulatory Support in Kenya",
+      "heroSubtitle": "Navigating sector-specific regulatory approvals, environmental licenses, and statutory authorities.",
+      "overview": "Operating in regulated Kenyan sectors demands rigorous adherence to statutory agency requirements. Kivanta Advisory provides professional liaison support, ensuring your applications are fully compliant, properly documented, and monitored through official channels.",
+      "audiences": [
+        "Energy Companies",
+        "Manufacturers",
+        "Fintechs",
+        "Pharmaceuticals",
+        "SEZ/EPZ Enterprises"
+      ],
+      "checklists": [
+        "Special Economic Zone (SEZ) / EPZ Enterprise Licensing",
+        "NEMA Environmental Impact Assessment (EIA) Support",
+        "EPRA Energy & Petroleum Retail / Storage Licenses",
+        "Communications Authority (CA) Telecommunication Licenses",
+        "Regulatory Compliance Monitoring & Inspections"
+      ],
+      "processSteps": [
+        {
+          "number": "01",
+          "title": "Regulatory Framework Mapping",
+          "description": "Identifying all mandatory sector approvals, agency fees, and compliance prerequisites."
+        },
+        {
+          "number": "02",
+          "title": "Dossier Preparation & Technical Review",
+          "description": "Assembling required engineering, environmental, or financial documentation."
+        },
+        {
+          "number": "03",
+          "title": "Agency Submission & Tracking",
+          "description": "Filing applications on official regulator portals and monitoring review progress."
+        },
+        {
+          "number": "04",
+          "title": "License Delivery & Ongoing Compliance",
+          "description": "Handing over official sector licenses and establishing a compliance monitoring calendar."
+        }
+      ],
+      "requirements": [
+        "Company Registration Certificates & CR12",
+        "Project Technical Specifications / Environmental Assessment Reports",
+        "Director Identity Documents & KRA PINs"
+      ],
+      "timelines": {
+        "governmentFee": "Determined by statutory agency fee schedule",
+        "professionalFee": "Retainer or fixed fee based on agency scope",
+        "estimatedTimeline": "Subject to agency statutory timelines",
+        "pricingType": "Request Quote",
+        "disclaimer": "Kivanta Advisory provides administrative and legal advisory support; final approvals are subject to official government regulatory review."
+      },
+      "faqs": [
+        {
+          "question": "What benefits do Special Economic Zones (SEZ) offer in Kenya?",
+          "answer": "SEZs offer significant tax incentives, including a reduced corporate tax rate of 10% for the first 10 years, VAT exemptions, and duty-free import of plant machinery."
+        }
+      ],
+      "relatedServices": [
+        "market-entry",
+        "company-registration",
+        "tax-compliance"
+      ],
+      "seoTitle": "Kenya Regulatory Licensing & Government Support | SEZ EPZ NEMA | Kivanta Advisory",
+      "seoDesc": "Specialized regulatory licensing support in Kenya. EPZ, SEZ Authority, NEMA, EPRA, and sector agency compliance."
+    }
+  ],
+  "pricingFees": [
+    {
+      "id": "fee-company-reg",
+      "serviceId": "company-registration",
+      "serviceName": "Company Registration (Private Limited)",
+      "governmentFee": "KES 10,650",
+      "professionalFee": "Contact for Package Quote",
+      "currency": "KES",
+      "estimatedTimeline": "3 - 7 Working Days",
+      "status": "Current",
+      "source": "eCitizen BRS Statutory Schedule 2026",
+      "disclaimer": "Government fees and processing timelines are indicative and subject to official eCitizen policy updates.",
+      "lastUpdated": "2026-09-14"
+    },
+    {
+      "id": "fee-bn-reg",
+      "serviceId": "business-name-registration",
+      "serviceName": "Business Name Registration",
+      "governmentFee": "KES 950",
+      "professionalFee": "Flat Fee Package",
+      "currency": "KES",
+      "estimatedTimeline": "2 - 4 Working Days",
+      "status": "Current",
+      "source": "eCitizen BRS Statutory Schedule",
+      "disclaimer": "Includes official BN2 certificate and eCitizen search.",
+      "lastUpdated": "2026-09-14"
+    },
+    {
+      "id": "fee-work-permit-g",
+      "serviceId": "work-permits",
+      "serviceName": "Class G Investor Work Permit",
+      "governmentFee": "KES 250,000 / year",
+      "professionalFee": "Full Management Retainer",
+      "currency": "KES",
+      "estimatedTimeline": "4 - 8 Weeks",
+      "status": "Current",
+      "source": "Directorate of Immigration Services Fee Schedule",
+      "disclaimer": "Plus KES 10,000 non-refundable processing fee. Subject to immigration committee approval.",
+      "lastUpdated": "2026-09-14"
+    },
+    {
+      "id": "fee-work-permit-d",
+      "serviceId": "work-permits",
+      "serviceName": "Class D Employee Work Permit",
+      "governmentFee": "KES 500,000 / year",
+      "professionalFee": "Full Management Retainer",
+      "currency": "KES",
+      "estimatedTimeline": "4 - 8 Weeks",
+      "status": "Current",
+      "source": "Directorate of Immigration Services Fee Schedule",
+      "disclaimer": "Plus KES 10,000 non-refundable processing fee. Requires local understudy documentation.",
+      "lastUpdated": "2026-09-14"
+    },
+    {
+      "id": "fee-special-pass",
+      "serviceId": "passes-permits",
+      "serviceName": "Special Pass (Short-Term Work Authorization)",
+      "governmentFee": "KES 50,000 / 3 months",
+      "professionalFee": "Flat Fee Package",
+      "currency": "KES",
+      "estimatedTimeline": "5 - 10 Working Days",
+      "status": "Current",
+      "source": "Directorate of Immigration Services",
+      "disclaimer": "Valid for up to 3 months, extendable once.",
+      "lastUpdated": "2026-09-14"
+    },
+    {
+      "id": "fee-kra-pin",
+      "serviceId": "kra-tax-registration",
+      "serviceName": "KRA PIN Registration",
+      "governmentFee": "KES 0 (Free)",
+      "professionalFee": "Nominal Administrative Fee",
+      "currency": "KES",
+      "estimatedTimeline": "1 - 3 Working Days",
+      "status": "Current",
+      "source": "KRA iTax Portal",
+      "disclaimer": "Government registration is free; fee covers professional handling.",
+      "lastUpdated": "2026-09-14"
+    }
+  ],
+  "solutions": [
+    {
+      "id": "foreign-investors",
+      "title": "For Foreign Investors & Multinationals",
+      "subtitle": "Seamless Market Entry & Corporate Structuring into Kenya and East Africa",
+      "description": "Establish a bulletproof operational base in Kenya. From branch registration and Class G/D work permits to regulatory licensing, tax compliance, and local partner advisory.",
+      "icon": "fa-globe-africa",
+      "target": "Foreign Enterprises",
+      "services": [
+        "foreign-company-registration",
+        "company-registration",
+        "work-permits",
+        "market-entry",
+        "tax-compliance"
+      ],
+      "cta": "Plan Your Entry Into Kenya"
+    },
+    {
+      "id": "smes-startups",
+      "title": "For Local SMEs & High-Growth Startups",
+      "subtitle": "Formalize, Comply, and Scale Your Enterprise in Kenya",
+      "description": "Transition from incorporation to scalable growth with structured bookkeeping, PAYE/NSSF/SHIF payroll management, annual CR12 returns, and Single Business Permits.",
+      "icon": "fa-rocket",
+      "target": "Kenyan Entrepreneurs",
+      "services": [
+        "company-registration",
+        "kra-tax-registration",
+        "bookkeeping-accounting",
+        "payroll-services",
+        "county-permits"
+      ],
+      "cta": "Scale Your SME Cleanly"
+    },
+    {
+      "id": "expatriates-executives",
+      "title": "For Expatriates & Relocating Executives",
+      "subtitle": "Complete Personal & Professional Onboarding in Nairobi",
+      "description": "Hassle-free immigration passes, foreign national KRA PINs, Alien Card enrolment, dependant permits, and personal tax planning.",
+      "icon": "fa-user-shield",
+      "target": "Relocating Professionals",
+      "services": [
+        "work-permits",
+        "passes-permits",
+        "relocation",
+        "business-entry"
+      ],
+      "cta": "Book Relocation Advisory"
+    },
+    {
+      "id": "ngos-organizations",
+      "title": "For NGOs & International Organizations",
+      "subtitle": "Institutional Setup, Regulatory Alignment & Expatriate Support",
+      "description": "Regulatory registration support, diplomatic liaisons, expatriate work permits, tax exemption filings, and statutory annual reporting.",
+      "icon": "fa-hands-helping",
+      "target": "NGOs & Non-Profits",
+      "services": [
+        "company-registration",
+        "work-permits",
+        "tax-compliance",
+        "regulatory-support"
+      ],
+      "cta": "Request NGO Advisory"
+    }
+  ],
+  "insights": [
+    {
+      "id": "doing-business-kenya-2026",
+      "slug": "doing-business-in-kenya-guide",
+      "title": "Doing Business in Kenya: Complete Corporate & Legal Entry Framework",
+      "excerpt": "A comprehensive strategic overview of company incorporation models, tax obligations, foreign equity rules, and work permit guidelines in Kenya.",
+      "category": "Market Entry",
+      "author": "Kivanta Advisory Research",
+      "date": "2026-09-10",
+      "status": "published",
+      "content": "Kenya stands as the commercial capital of East Africa, offering access to the 300-million-strong East African Community (EAC) market. For foreign corporations and local entrepreneurs, understanding the legal framework under the Companies Act 2015 and tax legislation is crucial for success...",
+      "readTime": "6 min read",
+      "seoTitle": "Doing Business in Kenya 2026 Guide | Market Entry | Kivanta Advisory",
+      "seoDesc": "Comprehensive guide on doing business in Kenya. Company registration, tax rules, work permits, and market entry strategies."
+    },
+    {
+      "id": "kra-etims-payroll-changes",
+      "slug": "kra-etims-payroll-tax-compliance-updates",
+      "title": "Navigating KRA eTIMS, SHIF & Payroll Deductions in Kenya",
+      "excerpt": "Key tax compliance updates every Kenyan employer must know regarding electronic invoicing, NSSF Tier calculations, SHIF health deductions, and Housing Levy.",
+      "category": "Tax & Compliance",
+      "author": "Kivanta Tax Team",
+      "date": "2026-09-05",
+      "status": "published",
+      "content": "Compliance with the Kenya Revenue Authority (KRA) has evolved rapidly with digital invoice enforcement through eTIMS and statutory payroll updates. Employers must align payroll calculations with SHIF and Housing Levy to prevent penalties...",
+      "readTime": "5 min read",
+      "seoTitle": "KRA eTIMS & SHIF Payroll Tax Updates Kenya | Kivanta Advisory",
+      "seoDesc": "Understanding KRA eTIMS invoicing, statutory payroll deductions, SHIF, NSSF, and corporate tax compliance in Kenya."
+    },
+    {
+      "id": "kenya-work-permit-guidelines",
+      "slug": "kenya-work-permit-class-g-d-guide",
+      "title": "Kenya Work Permits Demystified: Class G Investor vs Class D Employee",
+      "excerpt": "An executive briefing on foreign work authorization in Kenya, capital thresholds, understudy requirements, and eFNS application timelines.",
+      "category": "Immigration",
+      "author": "Kivanta Immigration Advisory",
+      "date": "2026-08-28",
+      "status": "published",
+      "content": "Foreign nationals planning to invest or take up employment in Kenya must secure valid work permits from the Directorate of Immigration Services before commencing duties. This article compares Class G Investor Permits and Class D Employment Permits...",
+      "readTime": "7 min read",
+      "seoTitle": "Kenya Work Permit Guidelines | Class G vs Class D | Kivanta Advisory",
+      "seoDesc": "Demystifying Kenya work permits. Detailed analysis of Class G Investor Permits, Class D Employment Permits, fees, and requirements."
+    }
+  ],
+  "faqs": [
+    {
+      "id": "faq-1",
+      "question": "What is the fastest way to start a business in Kenya?",
+      "answer": "The fastest path is incorporating a Private Limited Company via BRS eCitizen. Processing typically takes 3 to 7 working days, followed by KRA PIN activation and opening a commercial bank account.",
+      "category": "Setup",
+      "serviceId": "company-registration",
+      "status": "published"
+    },
+    {
+      "id": "faq-2",
+      "question": "Can foreigners register a company in Kenya remotely?",
+      "answer": "Yes. Foreign directors and shareholders can complete incorporation remotely by providing notarized passport copies and authorization. Physical presence is only required if biometric capture for Alien Cards or work permits is initiated later.",
+      "category": "Setup",
+      "serviceId": "company-registration",
+      "status": "published"
+    },
+    {
+      "id": "faq-3",
+      "question": "What statutory tax filings are required every month in Kenya?",
+      "answer": "Companies must file Value Added Tax (VAT by 20th), Pay As You Earn (PAYE by 9th), NSSF pension (by 9th), SHIF health insurance (by 9th), and Housing Levy (by 9th) every month.",
+      "category": "Tax",
+      "serviceId": "tax-compliance",
+      "status": "published"
+    },
+    {
+      "id": "faq-4",
+      "question": "How long does a Class G Investor Work Permit take to be approved?",
+      "answer": "Class G work permits are reviewed by the National Immigration Committee and typically take 4 to 8 weeks to process from the date of submission on the eFNS portal.",
+      "category": "Immigration",
+      "serviceId": "work-permits",
+      "status": "published"
+    },
+    {
+      "id": "faq-5",
+      "question": "Does Kivanta Advisory provide ongoing retainer support after company setup?",
+      "answer": "Yes. We offer continuous business support across monthly bookkeeping, payroll, tax filing retainers, corporate secretarial compliance, and county business permit renewals.",
+      "category": "General",
+      "serviceId": "",
+      "status": "published"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "t-placeholder",
+      "note": "Genuine client testimonials will be populated here as approved by clients."
+    }
+  ],
+  "team": [
+    {
+      "id": "team-placeholder",
+      "note": "Genuine leadership profiles will be added by site administrator."
+    }
+  ],
+  "consultationRequests": [],
+  "proposalRequests": [],
+  "media": [
+    {
+      "id": "m1",
+      "filename": "nairobi-skyline.jpg",
+      "url": "img/carousel-1.jpg",
+      "alt": "Nairobi Kenya Commercial Financial District",
+      "uploadDate": "2026-09-14"
+    },
+    {
+      "id": "m2",
+      "filename": "corporate-advisory.jpg",
+      "url": "img/carousel-2.jpg",
+      "alt": "Kivanta Advisory Executive Board Consultation",
+      "uploadDate": "2026-09-14"
+    }
+  ],
+  "contactMessages": [
+    {
+      "id": "msg_1789001",
+      "name": "David Ochieng",
+      "email": "d.ochieng@africainvest.co.ke",
+      "phone": "+254 712 345 678",
+      "company": "Africa Invest Group",
+      "subject": "Inquiry on Branch Registration & Class G Permits",
+      "message": "We are expanding our East African operations into Nairobi and require legal advisory on incorporating a regional branch office, registration with KRA, and Class G work permits for two directors.",
+      "date": "2026-09-14T09:30:00Z",
+      "status": "Unread",
+      "category": "Market Entry"
+    },
+    {
+      "id": "msg_1789002",
+      "name": "Sarah Jenkins",
+      "email": "sjenkins@globaltech.com",
+      "phone": "+44 20 7946 0912",
+      "company": "GlobalTech UK",
+      "subject": "Corporate Secretarial & Tax Compliance Retainer",
+      "message": "Looking for a reliable Kenyan corporate secretarial firm to handle annual returns, beneficial ownership filings, and quarterly VAT compliance for our Nairobi subsidiary.",
+      "date": "2026-09-13T14:15:00Z",
+      "status": "Read",
+      "category": "Corporate Secretarial"
+    }
+  ],
+  "adminUsers": [
+    {
+      "id": "usr_101",
+      "name": "Kivanta Administrator",
+      "email": "admin@kivanta.com",
+      "username": "admin",
+      "role": "Super Admin",
+      "status": "Active",
+      "lastLogin": "2026-09-14T16:30:00Z",
+      "avatar": "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/icons/person-badge-fill.svg"
+    },
+    {
+      "id": "usr_102",
+      "name": "Grace Mutua",
+      "email": "g.mutua@kivantaadvisory.com",
+      "username": "gmutua",
+      "role": "Admin",
+      "status": "Active",
+      "lastLogin": "2026-09-14T11:20:00Z",
+      "avatar": "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/icons/person-fill.svg"
+    },
+    {
+      "id": "usr_103",
+      "name": "Bernard Kimani",
+      "email": "b.kimani@kivantaadvisory.com",
+      "username": "bkimani",
+      "role": "Editor",
+      "status": "Active",
+      "lastLogin": "2026-09-12T15:45:00Z",
+      "avatar": "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/icons/person-fill.svg"
+    },
+    {
+      "id": "usr_104",
+      "name": "Amina Hassan",
+      "email": "a.hassan@kivantaadvisory.com",
+      "username": "ahassan",
+      "role": "Staff",
+      "status": "Active",
+      "lastLogin": "2026-09-11T09:10:00Z",
+      "avatar": "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/icons/person-fill.svg"
+    }
+  ],
+  "activityLogs": [
+    {
+      "id": "act_201",
+      "user": "Kivanta Administrator",
+      "action": "Service Updated",
+      "description": "Updated fee disclaimers and process steps for Company Registration (Private Limited).",
+      "timestamp": "2026-09-14T15:10:00Z",
+      "type": "content"
+    },
+    {
+      "id": "act_202",
+      "user": "Grace Mutua",
+      "action": "Inquiry Status Changed",
+      "description": "Marked consultation request from Africa Invest Group as In Progress.",
+      "timestamp": "2026-09-14T12:05:00Z",
+      "type": "lead"
+    },
+    {
+      "id": "act_203",
+      "user": "Bernard Kimani",
+      "action": "Insight Published",
+      "description": "Published article \"Navigating Kenya Work Permits in 2026\".",
+      "timestamp": "2026-09-13T16:30:00Z",
+      "type": "content"
+    },
+    {
+      "id": "act_204",
+      "user": "Kivanta Administrator",
+      "action": "Admin Login",
+      "description": "Successful authentication from IP 197.232.xxx.xxx (Nairobi, Kenya).",
+      "timestamp": "2026-09-14T08:00:00Z",
+      "type": "system"
+    }
+  ],
+  "analytics": {
+    "overview": {
+      "totalVisitors": 1420,
+      "uniqueVisitors": 980,
+      "pageViews": 4850,
+      "avgSessionDuration": "3m 42s",
+      "bounceRate": "34.2%"
+    },
+    "topServices": [
+      {
+        "name": "Company Registration (Ltd)",
+        "visits": 1240,
+        "percentage": 38
+      },
+      {
+        "name": "Work Permits (Class G & D)",
+        "visits": 890,
+        "percentage": 27
+      },
+      {
+        "name": "Foreign Company Branch Setup",
+        "visits": 540,
+        "percentage": 16
+      },
+      {
+        "name": "KRA Tax & PIN Compliance",
+        "visits": 380,
+        "percentage": 11
+      },
+      {
+        "name": "Market Entry Advisory",
+        "visits": 270,
+        "percentage": 8
+      }
+    ],
+    "trafficSources": [
+      {
+        "source": "Direct Search / Organic (Google)",
+        "percentage": 54
+      },
+      {
+        "source": "LinkedIn & Business Networks",
+        "percentage": 24
+      },
+      {
+        "source": "Direct URL Entry",
+        "percentage": 14
+      },
+      {
+        "source": "Referral Partners",
+        "percentage": 8
+      }
+    ]
+  }
+}
