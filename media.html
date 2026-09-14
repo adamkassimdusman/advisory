@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global Theme FOUC Prevention -->
+    <script>
+      (function() {
+        try {
+          var s = localStorage.getItem('kivanta_theme') || 'system';
+          var r = s;
+          if (s === 'system') {
+            r = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', r);
+          document.documentElement.setAttribute('data-theme-preference', s);
+          document.documentElement.classList.add('no-transitions');
+        } catch (e) {}
+      })();
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media Library & Digital Assets | Kivanta Advisory Admin</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <div class="admin-content-wrapper">
+    <header class="admin-header" id="adminHeader"></header>
+
+    <main class="admin-main">
+      <div class="admin-page-header">
+        <div>
+          <h1 class="admin-page-title"><i class="fa-solid fa-photo-film"></i> Media Library & Asset Manager</h1>
+          <p class="admin-page-subtitle">Central repository for photography, corporate logos, downloadable PDF guides, and website brand assets.</p>
+        </div>
+        <div class="admin-page-actions">
+          <button class="btn btn-primary" onclick="KivantaAdmin.openAddMediaModal()"><i class="fa-solid fa-cloud-arrow-up"></i> Upload / Add Asset</button>
+        </div>
+      </div>
+
+      <!-- Toolbar: View Modes & Search -->
+      <div class="admin-card" style="margin-bottom: 24px;">
+        <div class="admin-card-body" style="padding: 16px 20px;">
+          <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between;">
+            
+            <!-- Type Filters -->
+            <div style="display: flex; gap: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 4px;">
+              <button class="analytics-time-btn active" data-type="all" onclick="KivantaAdmin.filterMediaType('all', this)">All Assets</button>
+              <button class="analytics-time-btn" data-type="image" onclick="KivantaAdmin.filterMediaType('image', this)">Images</button>
+              <button class="analytics-time-btn" data-type="logo" onclick="KivantaAdmin.filterMediaType('logo', this)">Logos & Icons</button>
+              <button class="analytics-time-btn" data-type="document" onclick="KivantaAdmin.filterMediaType('document', this)">Documents</button>
+            </div>
+
+            <!-- Search & View Mode Switcher -->
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <div style="position: relative; width: 260px;">
+                <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--color-text-muted);"></i>
+                <input type="text" id="mediaSearchInput" placeholder="Search files..." style="width: 100%; padding: 10px 14px 10px 40px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 0.88rem;" oninput="KivantaAdmin.renderMediaLibrary()">
+              </div>
+
+              <div style="display: flex; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 4px; gap: 4px;">
+                <button id="viewGridBtn" class="analytics-time-btn active" onclick="KivantaAdmin.switchMediaView('grid')" title="Grid View"><i class="fa-solid fa-grip"></i></button>
+                <button id="viewListBtn" class="analytics-time-btn" onclick="KivantaAdmin.switchMediaView('list')" title="List View"><i class="fa-solid fa-list-check"></i></button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Media Container (Grid or Table) -->
+      <div id="mediaContainer">
+        <!-- Rendered dynamically -->
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Add Media Modal -->
+  <div class="admin-modal-overlay" id="addMediaModal">
+    <div class="admin-modal-dialog">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title"><i class="fa-solid fa-cloud-arrow-up"></i> Add Media Asset</h3>
+        <button class="admin-modal-close" onclick="KivantaAdmin.closeModal('addMediaModal')">&times;</button>
+      </div>
+      <form id="addMediaForm" onsubmit="KivantaAdmin.saveMediaAsset(event)">
+        <div class="admin-modal-body">
+          <div style="margin-bottom: 16px;">
+            <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Asset Relative Path or Image URL *</label>
+            <input type="text" id="mediaUrlInput" placeholder="images/hero-1.jpg or https://..." style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Filename Display Title *</label>
+            <input type="text" id="mediaFilenameInput" placeholder="hero-banner-nairobi.jpg" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Asset Type</label>
+              <select id="mediaTypeInput" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                <option value="image">Image (JPG/PNG/WebP)</option>
+                <option value="logo">Logo / Brand Icon</option>
+                <option value="document">PDF Document</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Alt Description</label>
+              <input type="text" id="mediaAltInput" placeholder="Nairobi skyline executive advisory" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+            </div>
+          </div>
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="KivantaAdmin.closeModal('addMediaModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Asset</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Media Preview Modal -->
+  <div class="admin-modal-overlay" id="mediaPreviewModal">
+    <div class="admin-modal-dialog" style="max-width: 600px;">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="previewTitle">Asset Preview</h3>
+        <button class="admin-modal-close" onclick="KivantaAdmin.closeModal('mediaPreviewModal')">&times;</button>
+      </div>
+      <div class="admin-modal-body" style="text-align: center;">
+        <div id="previewImageWrapper" style="background: #090d16; padding: 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 16px;">
+          <!-- Loaded dynamically -->
+        </div>
+        <div style="text-align: left; background: rgba(255,255,255,0.03); padding: 16px; border-radius: 8px;">
+          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 8px;">
+            <span style="color: var(--color-text-muted);">Relative Path:</span>
+            <code id="previewPath" style="color: var(--color-gold);">images/hero-1.jpg</code>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 8px;">
+            <span style="color: var(--color-text-muted);">Alt Text:</span>
+            <span id="previewAltText" style="color: #fff;">Executive advisory team in Nairobi</span>
+          </div>
+        </div>
+      </div>
+      <div class="admin-modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="KivantaAdmin.closeModal('mediaPreviewModal')">Close</button>
+        <button type="button" class="btn btn-primary" id="copyUrlBtn"><i class="fa-regular fa-copy"></i> Copy Path</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/theme.js"></script>
+    <script src="js/admin.js"></script>
+  <script>
+    let currentView = 'grid';
+    let currentTypeFilter = 'all';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      KivantaAdmin.safeExecute(() => {
+        KivantaAdmin.initPage('media');
+        KivantaAdmin.renderMediaLibrary();
+      }, 'Media Page Init');
+    });
+
+    if (typeof KivantaAdmin !== 'undefined') {
+      KivantaAdmin.switchMediaView = function(mode) {
+        currentView = mode;
+        document.getElementById('viewGridBtn')?.classList.toggle('active', mode === 'grid');
+        document.getElementById('viewListBtn')?.classList.toggle('active', mode === 'list');
+        KivantaAdmin.renderMediaLibrary();
+      };
+
+      KivantaAdmin.filterMediaType = function(type, btn) {
+        currentTypeFilter = type;
+        document.querySelectorAll('.analytics-time-btn').forEach(b => {
+          if (b.dataset.type) b.classList.remove('active');
+        });
+        if (btn) btn.classList.add('active');
+        KivantaAdmin.renderMediaLibrary();
+      };
+
+      KivantaAdmin.renderMediaLibrary = function() {
+        const container = document.getElementById('mediaContainer');
+        if (!container) return;
+
+        let items = KivantaDB.getMedia ? KivantaDB.getMedia() : [];
+        if (!items || items.length === 0) {
+          items = [
+            { id: "m1", filename: "hero-nairobi-skyline.jpg", url: "images/hero-1.jpg", alt: "Nairobi financial district skyline", type: "image" },
+            { id: "m2", filename: "advisory-consultation-team.jpg", url: "images/about-1.jpg", alt: "Kivanta consultants discussing client strategy", type: "image" },
+            { id: "m3", filename: "kivanta-logo-gold.svg", url: "images/logo.png", alt: "Kivanta Advisory Official Gold Logo", type: "logo" },
+            { id: "m4", filename: "kenya-business-setup-guide-2026.pdf", url: "documents/guide-2026.pdf", alt: "2026 Kenya Investment & Regulatory Guide", type: "document" }
+          ];
+        }
+
+        const query = (document.getElementById('mediaSearchInput')?.value || '').toLowerCase();
+        const filtered = items.filter(m => {
+          const matchQuery = !query || 
+            (m.filename || '').toLowerCase().includes(query) ||
+            (m.alt || '').toLowerCase().includes(query);
+          const matchType = currentTypeFilter === 'all' || (m.type || 'image') === currentTypeFilter;
+          return matchQuery && matchType;
+        });
+
+        if (filtered.length === 0) {
+          container.innerHTML = `
+            <div class="admin-card" style="padding: 50px; text-align: center; color: var(--color-text-muted);">
+              <i class="fa-solid fa-folder-open" style="font-size: 2.5rem; opacity: 0.3; margin-bottom: 12px; display: block;"></i>
+              No media files found matching your search criteria.
+            </div>
+          `;
+          return;
+        }
+
+        if (currentView === 'grid') {
+          container.innerHTML = `
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px;">
+              ${filtered.map(m => `
+                <div class="admin-card" style="overflow: hidden; display: flex; flex-direction: column; height: 100%;">
+                  <div style="height: 140px; background: #090d16; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+                    ${m.type === 'document' ? 
+                      `<i class="fa-solid fa-file-pdf" style="font-size: 3.5rem; color: #ef4444;"></i>` :
+                      `<img src="../${m.url}" style="width: 100%; height: 100%; object-fit: cover;" alt="${KivantaAdmin.escapeHtml(m.alt || '')}" onerror="this.src='../images/logo.png'; this.style.objectFit='contain'; this.style.padding='20px';">`
+                    }
+                    <div style="position: absolute; top: 8px; right: 8px;">
+                      <span class="badge badge-info" style="font-size: 0.7rem; text-transform: uppercase;">${m.type || 'image'}</span>
+                    </div>
+                  </div>
+                  <div style="padding: 14px; display: flex; flex-direction: column; flex: 1; justify-content: space-between;">
+                    <div>
+                      <div style="font-weight: 600; font-size: 0.85rem; color: #fff; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" title="${KivantaAdmin.escapeHtml(m.filename)}">
+                        ${KivantaAdmin.escapeHtml(m.filename)}
+                      </div>
+                      <div style="font-size: 0.74rem; color: var(--color-text-muted); margin-top: 4px;">Alt: ${KivantaAdmin.escapeHtml(m.alt || 'No alt text')}</div>
+                    </div>
+                    <div style="display: flex; gap: 8px; margin-top: 12px;">
+                      <button class="btn btn-secondary" style="flex: 1; padding: 4px 8px; font-size: 0.78rem;" onclick="KivantaAdmin.previewAsset('${m.url}', '${KivantaAdmin.escapeHtml(m.filename)}', '${KivantaAdmin.escapeHtml(m.alt || '')}')">Preview</button>
+                      <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem;" onclick="KivantaAdmin.copyToClipboard('${m.url}')" title="Copy Path"><i class="fa-regular fa-copy"></i></button>
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        } else {
+          container.innerHTML = `
+            <div class="admin-card">
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 60px;">Asset</th>
+                      <th>Filename</th>
+                      <th>Type</th>
+                      <th>Relative Path</th>
+                      <th>Alt Description</th>
+                      <th style="text-align: right;">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${filtered.map(m => `
+                      <tr>
+                        <td>
+                          <div style="width: 40px; height: 40px; border-radius: 6px; background: #090d16; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                            ${m.type === 'document' ? 
+                              `<i class="fa-solid fa-file-pdf" style="color: #ef4444;"></i>` :
+                              `<img src="../${m.url}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='../images/logo.png';">`
+                            }
+                          </div>
+                        </td>
+                        <td><strong style="color: #fff; font-size: 0.88rem;">${KivantaAdmin.escapeHtml(m.filename)}</strong></td>
+                        <td><span class="badge badge-info">${m.type || 'image'}</span></td>
+                        <td><code style="color: var(--color-gold); font-size: 0.8rem;">${m.url}</code></td>
+                        <td style="font-size: 0.82rem; color: var(--color-text-muted);">${KivantaAdmin.escapeHtml(m.alt || '-')}</td>
+                        <td style="text-align: right;">
+                          <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.78rem; margin-right: 4px;" onclick="KivantaAdmin.copyToClipboard('${m.url}')"><i class="fa-regular fa-copy"></i> Copy Path</button>
+                        </td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          `;
+        }
+      };
+
+      KivantaAdmin.openAddMediaModal = function() {
+        document.getElementById('addMediaForm').reset();
+        KivantaAdmin.openModal('addMediaModal');
+      };
+
+      KivantaAdmin.saveMediaAsset = function(e) {
+        e.preventDefault();
+        const url = document.getElementById('mediaUrlInput').value.trim();
+        const filename = document.getElementById('mediaFilenameInput').value.trim();
+        const type = document.getElementById('mediaTypeInput').value;
+        const alt = document.getElementById('mediaAltInput').value.trim();
+
+        const asset = { id: "m-" + Date.now(), filename, url, type, alt };
+
+        let items = KivantaDB.getMedia ? KivantaDB.getMedia() : [];
+        items.push(asset);
+        if (KivantaDB.saveMedia) {
+          KivantaDB.saveMedia(items);
+        }
+
+        KivantaAdmin.closeModal('addMediaModal');
+        KivantaAdmin.showToast('Media asset registered successfully!', 'success');
+        KivantaAdmin.renderMediaLibrary();
+      };
+
+      KivantaAdmin.previewAsset = function(url, filename, alt) {
+        document.getElementById('previewTitle').textContent = filename;
+        document.getElementById('previewPath').textContent = url;
+        document.getElementById('previewAltText').textContent = alt || 'N/A';
+
+        const wrapper = document.getElementById('previewImageWrapper');
+        if (wrapper) {
+          if (url.endsWith('.pdf')) {
+            wrapper.innerHTML = `<i class="fa-solid fa-file-pdf" style="font-size: 5rem; color: #ef4444;"></i><div style="margin-top: 10px; color: #fff;">PDF Document</div>`;
+          } else {
+            wrapper.innerHTML = `<img src="../${url}" style="max-height: 260px; max-width: 100%; border-radius: 6px;" alt="${alt}" onerror="this.src='../images/logo.png';">`;
+          }
+        }
+
+        const copyBtn = document.getElementById('copyUrlBtn');
+        if (copyBtn) {
+          copyBtn.onclick = () => KivantaAdmin.copyToClipboard(url);
+        }
+
+        KivantaAdmin.openModal('mediaPreviewModal');
+      };
+
+      KivantaAdmin.copyToClipboard = function(text) {
+        navigator.clipboard?.writeText(text).then(() => {
+          KivantaAdmin.showToast('Copied asset path: ' + text, 'success');
+        }).catch(() => {
+          KivantaAdmin.showToast('Path: ' + text, 'info');
+        });
+      };
+    }
+  </script>
+</body>
+</html>

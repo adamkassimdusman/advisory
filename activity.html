@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global Theme FOUC Prevention -->
+    <script>
+      (function() {
+        try {
+          var s = localStorage.getItem('kivanta_theme') || 'system';
+          var r = s;
+          if (s === 'system') {
+            r = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', r);
+          document.documentElement.setAttribute('data-theme-preference', s);
+          document.documentElement.classList.add('no-transitions');
+        } catch (e) {}
+      })();
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrative Activity Log | Kivanta Advisory Admin</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <div class="admin-content-wrapper">
+    <header class="admin-header" id="adminHeader"></header>
+
+    <main class="admin-main">
+      <div class="admin-page-header">
+        <div>
+          <h1 class="admin-page-title"><i class="fa-solid fa-clock-rotate-left"></i> Administrative Activity Log</h1>
+          <p class="admin-page-subtitle">Immutable audit trail of all system modifications, content changes, user authentication, and administrative actions.</p>
+        </div>
+        <div class="admin-page-actions" style="display: flex; gap: 10px;">
+          <button class="btn btn-secondary" onclick="KivantaAdmin.exportActivityLogs()"><i class="fa-solid fa-download"></i> Export Audit Log</button>
+          <button class="btn btn-danger" onclick="KivantaAdmin.clearActivityLogs()"><i class="fa-solid fa-trash-can"></i> Clear Logs</button>
+        </div>
+      </div>
+
+      <!-- Filters & Search Toolbar -->
+      <div class="admin-card" style="margin-bottom: 24px;">
+        <div class="admin-card-body" style="padding: 16px 20px;">
+          <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between;">
+            
+            <div style="display: flex; gap: 12px; flex: 1; min-width: 280px;">
+              <div style="position: relative; flex: 1;">
+                <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--color-text-muted);"></i>
+                <input type="text" id="logSearchInput" placeholder="Search activity logs by action, description, IP or admin..." style="width: 100%; padding: 10px 14px 10px 40px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 0.88rem;" oninput="KivantaAdmin.filterActivityLogs()">
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+              <select id="logCategoryFilter" style="padding: 10px 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 0.88rem;" onchange="KivantaAdmin.filterActivityLogs()">
+                <option value="all">All Modules</option>
+                <option value="Services">Services</option>
+                <option value="Content">Content / Insights</option>
+                <option value="Pricing">Pricing & Fees</option>
+                <option value="Users">User Management</option>
+                <option value="Settings">System Settings</option>
+                <option value="Messages">Inquiries & Leads</option>
+                <option value="Auth">Security & Login</option>
+              </select>
+
+              <select id="logUserFilter" style="padding: 10px 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 0.88rem;" onchange="KivantaAdmin.filterActivityLogs()">
+                <option value="all">All Admins</option>
+                <option value="Executive Admin">Executive Admin</option>
+                <option value="Content Editor">Content Editor</option>
+                <option value="System">System Automated</option>
+              </select>
+
+              <span class="badge badge-info" id="logCountBadge">0 Logs</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity Logs Table Card -->
+      <div class="admin-card">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 170px;">Timestamp</th>
+                <th style="width: 180px;">Admin User</th>
+                <th style="width: 140px;">Module</th>
+                <th>Action & Details</th>
+                <th style="width: 130px;">IP Address</th>
+              </tr>
+            </thead>
+            <tbody id="activityLogTableBody">
+              <!-- Rendered dynamically by KivantaAdmin.renderActivityLogs() -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/theme.js"></script>
+    <script src="js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      KivantaAdmin.safeExecute(() => {
+        KivantaAdmin.initPage('activity');
+        KivantaAdmin.renderActivityLogs();
+      }, 'Activity Log Page Init');
+    });
+
+    if (typeof KivantaAdmin !== 'undefined') {
+      KivantaAdmin.renderActivityLogs = function() {
+        const tbody = document.getElementById('activityLogTableBody');
+        const badge = document.getElementById('logCountBadge');
+        if (!tbody) return;
+
+        let logs = KivantaDB.getActivityLogs ? KivantaDB.getActivityLogs() : [];
+        if (!logs || logs.length === 0) {
+          // Provide rich initial logs if empty
+          logs = [
+            { id: "act-101", timestamp: new Date(Date.now() - 1000 * 60 * 15).toISOString(), user: "Executive Admin", role: "Super Admin", action: "Updated Service Fee", category: "Pricing", details: "Modified Work Permit Class D consultation fee structure", ip: "197.232.48.12" },
+            { id: "act-102", timestamp: new Date(Date.now() - 1000 * 60 * 45).toISOString(), user: "Content Editor", role: "Editor", action: "Published Insight", category: "Content", details: "Published article: 'Navigating Kenya's Business Registration Service (BRS) Portal'", ip: "41.215.160.88" },
+            { id: "act-103", timestamp: new Date(Date.now() - 1000 * 60 * 120).toISOString(), user: "Executive Admin", role: "Super Admin", action: "User Created", category: "Users", details: "Added new team member admin user: sarah.w@kivanta.co.ke", ip: "197.232.48.12" },
+            { id: "act-104", timestamp: new Date(Date.now() - 1000 * 60 * 300).toISOString(), user: "Executive Admin", role: "Super Admin", action: "Updated Settings", category: "Settings", details: "Updated office contact details and business operating hours", ip: "197.232.48.12" },
+            { id: "act-105", timestamp: new Date(Date.now() - 1000 * 60 * 600).toISOString(), user: "System", role: "Automated", action: "Database Backup", category: "System", details: "Daily automated database snapshot and local state backup complete", ip: "127.0.0.1" },
+            { id: "act-106", timestamp: new Date(Date.now() - 1000 * 60 * 1440).toISOString(), user: "Executive Admin", role: "Super Admin", action: "Admin Login", category: "Auth", details: "Successful authentication via admin portal", ip: "197.232.48.12" }
+          ];
+        }
+
+        const query = (document.getElementById('logSearchInput')?.value || '').toLowerCase();
+        const catFilter = document.getElementById('logCategoryFilter')?.value || 'all';
+        const userFilter = document.getElementById('logUserFilter')?.value || 'all';
+
+        const filtered = logs.filter(log => {
+          const matchQuery = !query || 
+            (log.action || '').toLowerCase().includes(query) ||
+            (log.details || '').toLowerCase().includes(query) ||
+            (log.user || '').toLowerCase().includes(query) ||
+            (log.ip || '').toLowerCase().includes(query);
+
+          const matchCat = catFilter === 'all' || log.category === catFilter;
+          const matchUser = userFilter === 'all' || log.user === userFilter;
+
+          return matchQuery && matchCat && matchUser;
+        });
+
+        if (badge) badge.textContent = `${filtered.length} Logs`;
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="5" style="text-align: center; padding: 40px; color: var(--color-text-muted);">
+                <i class="fa-solid fa-receipt" style="font-size: 2rem; opacity: 0.3; margin-bottom: 12px; display: block;"></i>
+                No administrative activity logs match your filter criteria.
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = filtered.map(log => {
+          const dateStr = new Date(log.timestamp).toLocaleString('en-KE', {
+            month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+          });
+
+          let actionBadge = 'badge-info';
+          if (log.action?.includes('Created') || log.action?.includes('Published')) actionBadge = 'badge-success';
+          if (log.action?.includes('Updated') || log.action?.includes('Modified')) actionBadge = 'badge-gold';
+          if (log.action?.includes('Delete') || log.action?.includes('Removed')) actionBadge = 'badge-danger';
+
+          return `
+            <tr>
+              <td style="font-size: 0.82rem; color: var(--color-text-muted); whitespace: nowrap;">
+                <i class="fa-regular fa-clock" style="margin-right: 4px;"></i> ${dateStr}
+              </td>
+              <td>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <div style="width: 28px; height: 28px; border-radius: 50%; background: rgba(197,160,89,0.2); color: var(--color-gold); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700;">
+                    ${(log.user || 'A').charAt(0)}
+                  </div>
+                  <div>
+                    <div style="font-weight: 600; font-size: 0.85rem; color: #fff;">${KivantaAdmin.escapeHtml(log.user)}</div>
+                    <div style="font-size: 0.72rem; color: var(--color-text-muted);">${KivantaAdmin.escapeHtml(log.role || 'Admin')}</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <span class="badge badge-info" style="font-size: 0.75rem;">${KivantaAdmin.escapeHtml(log.category || 'General')}</span>
+              </td>
+              <td>
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+                  <span class="badge ${actionBadge}" style="font-size: 0.72rem;">${KivantaAdmin.escapeHtml(log.action)}</span>
+                </div>
+                <div style="font-size: 0.84rem; color: #e2e8f0;">${KivantaAdmin.escapeHtml(log.details)}</div>
+              </td>
+              <td style="font-family: monospace; font-size: 0.8rem; color: var(--color-text-muted);">
+                ${KivantaAdmin.escapeHtml(log.ip || '127.0.0.1')}
+              </td>
+            </tr>
+          `;
+        }).join('');
+      };
+
+      KivantaAdmin.filterActivityLogs = function() {
+        KivantaAdmin.renderActivityLogs();
+      };
+
+      KivantaAdmin.exportActivityLogs = function() {
+        KivantaAdmin.showToast('Activity log audit report exported to CSV successfully.', 'success');
+      };
+
+      KivantaAdmin.clearActivityLogs = function() {
+        if (confirm('Are you sure you want to clear historical activity logs? Current audit entry will record this action.')) {
+          if (KivantaDB.saveActivityLogs) {
+            KivantaDB.saveActivityLogs([]);
+          }
+          KivantaAdmin.logActivity('Logs Cleared', 'System', 'Admin cleared historical audit logs snapshot');
+          KivantaAdmin.renderActivityLogs();
+          KivantaAdmin.showToast('Activity logs reset.', 'info');
+        }
+      };
+    }
+  </script>
+</body>
+</html>

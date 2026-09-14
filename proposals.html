@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global Theme FOUC Prevention -->
+    <script>
+      (function() {
+        try {
+          var s = localStorage.getItem('kivanta_theme') || 'system';
+          var r = s;
+          if (s === 'system') {
+            r = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', r);
+          document.documentElement.setAttribute('data-theme-preference', s);
+          document.documentElement.classList.add('no-transitions');
+        } catch (e) {}
+      })();
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proposal Requests Inbox | Kivanta Advisory Admin</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <div class="admin-content-wrapper">
+    <header class="admin-header" id="adminHeader"></header>
+
+    <main class="admin-main">
+      <div class="admin-page-header">
+        <div>
+          <h1 class="admin-page-title"><i class="fa-solid fa-file-signature"></i> Proposal Requests Inbox & Pipeline</h1>
+          <p class="admin-page-subtitle">Track custom proposal specifications, entity setup scopes, project timelines, and deal pipeline status.</p>
+        </div>
+        <div class="admin-page-actions">
+          <span class="badge badge-info" id="propCountBadge">0 Proposals</span>
+        </div>
+      </div>
+
+      <!-- Proposals Table Card -->
+      <div class="admin-card">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Client & Company</th>
+                <th>Entity Type & Budget</th>
+                <th>Service Required</th>
+                <th>Date Submitted</th>
+                <th>Pipeline Status</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="proposalsTbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Proposal Detail Modal -->
+  <div class="admin-modal-overlay" id="proposalDetailModal">
+    <div class="admin-modal-dialog" style="max-width: 700px;">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title"><i class="fa-solid fa-file-contract"></i> Proposal Specification</h3>
+        <button class="admin-modal-close" onclick="KivantaAdmin.closeModal('proposalDetailModal')">&times;</button>
+      </div>
+      <div class="admin-modal-body">
+        <input type="hidden" id="propIdInput">
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+          <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px;">
+            <small style="color: var(--color-text-muted); display: block; font-size: 0.75rem;">Client Name</small>
+            <strong style="color: #fff; font-size: 0.95rem;" id="pClientName">-</strong>
+          </div>
+          <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px;">
+            <small style="color: var(--color-text-muted); display: block; font-size: 0.75rem;">Company / Organization</small>
+            <strong style="color: #fff; font-size: 0.95rem;" id="pCompany">-</strong>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+          <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px;">
+            <small style="color: var(--color-text-muted); display: block; font-size: 0.75rem;">Email Address</small>
+            <a id="pEmail" href="#" style="color: var(--color-gold); font-size: 0.9rem; font-weight: 500;">-</a>
+          </div>
+          <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px;">
+            <small style="color: var(--color-text-muted); display: block; font-size: 0.75rem;">Phone Number</small>
+            <strong style="color: #fff; font-size: 0.9rem;" id="pPhone">-</strong>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+          <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px;">
+            <small style="color: var(--color-text-muted); display: block; font-size: 0.75rem;">Entity Type Target</small>
+            <strong style="color: #fff; font-size: 0.9rem;" id="pEntity">-</strong>
+          </div>
+          <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px;">
+            <small style="color: var(--color-text-muted); display: block; font-size: 0.75rem;">Budget & Timeline</small>
+            <strong style="color: var(--color-gold); font-size: 0.9rem;" id="pBudgetTimeline">-</strong>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <small style="color: var(--color-text-muted); display: block; font-size: 0.75rem; margin-bottom: 4px;">Primary Service Scope</small>
+          <span class="badge badge-info" id="pServiceBadge">Proposal Request</span>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <small style="color: var(--color-text-muted); display: block; font-size: 0.75rem; margin-bottom: 6px;">Detailed Scope Specifications</small>
+          <div id="pDescription" style="background: rgba(0,0,0,0.3); padding: 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); color: #e2e8f0; font-size: 0.88rem; line-height: 1.5;"></div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+          <div>
+            <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Pipeline Deal Status</label>
+            <select id="pStatusSelect" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              <option value="New">New</option>
+              <option value="Reviewing">Reviewing Scope</option>
+              <option value="Proposal Sent">Proposal Sent</option>
+              <option value="Won">Deal Won / Contracted</option>
+              <option value="Lost">Lost / Declined</option>
+              <option value="Closed">Closed</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Internal Sales Notes</label>
+            <input type="text" id="pNotesText" placeholder="Internal fee quote and lead notes..." style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+          </div>
+        </div>
+      </div>
+      <div class="admin-modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="KivantaAdmin.closeModal('proposalDetailModal')">Close</button>
+        <button type="button" class="btn btn-primary" onclick="KivantaAdmin.saveProposalStatus()"><i class="fa-solid fa-floppy-disk"></i> Save Pipeline Status</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/theme.js"></script>
+    <script src="js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      KivantaAdmin.safeExecute(() => {
+        KivantaAdmin.initPage('proposals');
+        KivantaAdmin.renderProposalsTable();
+      }, 'Proposals Page Init');
+    });
+
+    if (typeof KivantaAdmin !== 'undefined') {
+      KivantaAdmin.renderProposalsTable = function() {
+        const tbody = document.getElementById('proposalsTbody');
+        const badge = document.getElementById('propCountBadge');
+        if (!tbody) return;
+
+        let list = KivantaDB.getProposalRequests ? KivantaDB.getProposalRequests() : [];
+        if (!list || list.length === 0) {
+          list = [{
+            id: "prop-101",
+            name: "Marcus Vance",
+            email: "m.vance@vancetech.com",
+            phone: "+1 415 555 0199",
+            company: "Vance FinTech Inc",
+            businessType: "Foreign Subsidiary (Private Limited)",
+            budgetRange: "$10,000 - $25,000",
+            timeline: "Immediate (Under 30 Days)",
+            service: "Turnkey Incorporation & Regulatory Approval",
+            date: "2026-09-10T14:15:00Z",
+            status: "Proposal Sent",
+            description: "Full turnkey market entry into Kenya for FinTech operations, including BRS registration, Central Bank regulatory clearance, and executive work permits."
+          }];
+        }
+
+        if (badge) badge.textContent = `${list.length} Proposals`;
+
+        if (list.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" style="text-align: center; padding: 50px; color: var(--color-text-muted);">
+                <i class="fa-solid fa-file-signature" style="font-size: 2.5rem; opacity: 0.3; margin-bottom: 12px; display: block;"></i>
+                <div style="font-weight: 600; font-size: 1rem; color: #fff; margin-bottom: 4px;">No Proposal Specifications Recorded</div>
+                <div style="font-size: 0.85rem; max-width: 440px; margin: 0 auto;">When clients submit formal proposal requests from the website, they will appear here.</div>
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = list.map(p => {
+          let statusBadge = '<span class="badge badge-warning">New</span>';
+          if (p.status === 'Proposal Sent' || p.status === 'Reviewing') statusBadge = '<span class="badge badge-info">' + p.status + '</span>';
+          if (p.status === 'Won') statusBadge = '<span class="badge badge-success">Deal Won</span>';
+          if (p.status === 'Lost') statusBadge = '<span class="badge badge-danger">Lost</span>';
+
+          const dateStr = p.date ? new Date(p.date).toLocaleDateString('en-KE', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent';
+
+          return `
+            <tr>
+              <td>
+                <strong style="color: #fff; font-size: 0.9rem;">${KivantaAdmin.escapeHtml(p.name || 'Client')}</strong>
+                <div style="font-size: 0.78rem; color: var(--color-gold);">${KivantaAdmin.escapeHtml(p.company || 'Private Entity')}</div>
+              </td>
+              <td style="font-size: 0.85rem; color: #e2e8f0;">${KivantaAdmin.escapeHtml(p.businessType || 'Standard Setup')} <br><strong style="color: var(--color-gold); font-size: 0.8rem;">${KivantaAdmin.escapeHtml(p.budgetRange || 'Custom')}</strong></td>
+              <td><span class="badge badge-info">${KivantaAdmin.escapeHtml(p.service || 'Proposal')}</span></td>
+              <td style="font-size: 0.82rem; color: var(--color-text-muted);">${dateStr}</td>
+              <td>${statusBadge}</td>
+              <td style="text-align: right;">
+                <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem;" onclick="KivantaAdmin.viewProposal('${p.id}')"><i class="fa-solid fa-eye"></i> View Proposal</button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      };
+
+      KivantaAdmin.viewProposal = function(id) {
+        let list = KivantaDB.getProposalRequests ? KivantaDB.getProposalRequests() : [];
+        if (!list || list.length === 0) {
+          list = [{
+            id: "prop-101",
+            name: "Marcus Vance",
+            email: "m.vance@vancetech.com",
+            phone: "+1 415 555 0199",
+            company: "Vance FinTech Inc",
+            businessType: "Foreign Subsidiary (Private Limited)",
+            budgetRange: "$10,000 - $25,000",
+            timeline: "Immediate (Under 30 Days)",
+            service: "Turnkey Incorporation & Regulatory Approval",
+            date: "2026-09-10T14:15:00Z",
+            status: "Proposal Sent",
+            description: "Full turnkey market entry into Kenya for FinTech operations, including BRS registration, Central Bank regulatory clearance, and executive work permits."
+          }];
+        }
+
+        const p = list.find(x => x.id === id);
+        if (p) {
+          document.getElementById('propIdInput').value = p.id;
+          document.getElementById('pClientName').textContent = p.name || 'Client';
+          document.getElementById('pCompany').textContent = p.company || 'N/A';
+
+          const emailLink = document.getElementById('pEmail');
+          if (emailLink) {
+            emailLink.href = 'mailto:' + (p.email || '');
+            emailLink.textContent = p.email || 'N/A';
+          }
+
+          document.getElementById('pPhone').textContent = p.phone || 'N/A';
+          document.getElementById('pEntity').textContent = p.businessType || 'Standard Entity';
+          document.getElementById('pBudgetTimeline').textContent = (p.budgetRange || 'N/A') + ' | Timeline: ' + (p.timeline || 'N/A');
+          document.getElementById('pServiceBadge').textContent = p.service || 'Proposal Request';
+          document.getElementById('pDescription').textContent = p.description || 'No detailed specifications provided.';
+          document.getElementById('pStatusSelect').value = p.status || 'New';
+          document.getElementById('pNotesText').value = p.notes || '';
+
+          KivantaAdmin.openModal('proposalDetailModal');
+        }
+      };
+
+      KivantaAdmin.saveProposalStatus = function() {
+        const id = document.getElementById('propIdInput').value;
+        const status = document.getElementById('pStatusSelect').value;
+        const notes = document.getElementById('pNotesText').value;
+
+        if (KivantaDB.updateProposalStatus) {
+          KivantaDB.updateProposalStatus(id, status, notes);
+        }
+
+        KivantaAdmin.closeModal('proposalDetailModal');
+        KivantaAdmin.showToast('Proposal status updated successfully!', 'success');
+        KivantaAdmin.renderProposalsTable();
+      };
+    }
+  </script>
+</body>
+</html>

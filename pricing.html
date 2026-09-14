@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global Theme FOUC Prevention -->
+    <script>
+      (function() {
+        try {
+          var s = localStorage.getItem('kivanta_theme') || 'system';
+          var r = s;
+          if (s === 'system') {
+            r = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', r);
+          document.documentElement.setAttribute('data-theme-preference', s);
+          document.documentElement.classList.add('no-transitions');
+        } catch (e) {}
+      })();
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing & Statutory Fees Manager | Kivanta Advisory Admin</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <div class="admin-content-wrapper">
+    <header class="admin-header" id="adminHeader"></header>
+
+    <main class="admin-main">
+      <div class="admin-page-header">
+        <div>
+          <h1 class="admin-page-title"><i class="fa-solid fa-tags"></i> Statutory Fees & Service Pricing Manager</h1>
+          <p class="admin-page-subtitle">Manage official government statutory fees, professional consulting rates, processing timelines, and disclaimers.</p>
+        </div>
+        <div class="admin-page-actions">
+          <button class="btn btn-primary" onclick="KivantaAdmin.openFeeModal()"><i class="fa-solid fa-plus"></i> Add Fee Record</button>
+        </div>
+      </div>
+
+      <!-- Regulatory Notice Banner -->
+      <div style="background: rgba(197, 160, 89, 0.08); border: 1px solid rgba(197, 160, 89, 0.2); border-radius: 12px; padding: 14px 20px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(197, 160, 89, 0.2); display: flex; align-items: center; justify-content: center; color: var(--color-gold); flex-shrink: 0;">
+            <i class="fa-solid fa-scale-balanced"></i>
+          </div>
+          <div>
+            <div style="font-weight: 600; font-size: 0.95rem; color: #ffffff;">Statutory Governance & Compliance Notice</div>
+            <div style="font-size: 0.82rem; color: var(--color-text-muted);">Government fees and statutory timelines in Kenya are subject to eCitizen BRS, KRA, and Immigration policy updates.</div>
+          </div>
+        </div>
+        <span class="badge badge-gold"><i class="fa-solid fa-shield-halved" style="margin-right: 4px;"></i> Verified 2026 Rates</span>
+      </div>
+
+      <!-- Fee Schedule Table Card -->
+      <div class="admin-card">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Service Name</th>
+                <th>Government Fee (Statutory)</th>
+                <th>Professional Fee</th>
+                <th>Estimated Timeline</th>
+                <th>Status</th>
+                <th>Last Updated</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="pricingFeesTbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Fee Add/Edit Modal -->
+  <div class="admin-modal-overlay" id="feeModal">
+    <div class="admin-modal-dialog" style="max-width: 750px;">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="feeModalTitle"><i class="fa-solid fa-tags"></i> Add Fee Schedule Record</h3>
+        <button class="admin-modal-close" onclick="KivantaAdmin.closeModal('feeModal')">&times;</button>
+      </div>
+      <form id="feeForm" onsubmit="KivantaAdmin.saveFeeRecord(event)">
+        <div class="admin-modal-body">
+          <input type="hidden" id="feeId">
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Service Name *</label>
+              <input type="text" id="feeServiceName" placeholder="e.g. Work Permit Class D" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+            </div>
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Service Slug Link (Optional)</label>
+              <input type="text" id="feeServiceId" placeholder="e.g. passes-permits" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Government Statutory Fee *</label>
+              <input type="text" id="feeGovAmount" placeholder="e.g. KES 200,000 / p.a." style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+            </div>
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Professional Fee *</label>
+              <input type="text" id="feeProfAmount" placeholder="e.g. Contact for Fixed Quote" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Estimated Timeline</label>
+              <input type="text" id="feeTimelineInput" placeholder="e.g. 10 to 15 Working Days" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+            </div>
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Status</label>
+              <select id="feeStatusSelect" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                <option value="Current">Current (2026)</option>
+                <option value="Needs Review">Needs Review</option>
+                <option value="Archived">Archived</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Regulatory Reference / Gazette Source</label>
+            <input type="text" id="feeSourceInput" placeholder="e.g. Kenya Gazette Supplement / eCitizen BRS Schedule 2026" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+          </div>
+
+          <div>
+            <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Fee Disclaimer Note</label>
+            <textarea id="feeDisclaimerInput" rows="2" placeholder="Statutory fees and timelines are subject to regulatory updates." style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;"></textarea>
+          </div>
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="KivantaAdmin.closeModal('feeModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Fee Record</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/theme.js"></script>
+    <script src="js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      KivantaAdmin.safeExecute(() => {
+        KivantaAdmin.initPage('pricing');
+        KivantaAdmin.renderFeesTable();
+      }, 'Pricing Fees Page Init');
+    });
+
+    if (typeof KivantaAdmin !== 'undefined') {
+      KivantaAdmin.renderFeesTable = function() {
+        const tbody = document.getElementById('pricingFeesTbody');
+        if (!tbody) return;
+
+        const fees = KivantaDB.getPricingFees ? KivantaDB.getPricingFees() : [];
+        if (fees.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 40px; color: var(--color-text-muted);">No statutory fee records logged yet.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = fees.map(f => `
+          <tr>
+            <td>
+              <strong style="color: #fff; font-size: 0.9rem;">${KivantaAdmin.escapeHtml(f.serviceName)}</strong>
+              <div style="font-size: 0.76rem; color: var(--color-text-muted); margin-top: 4px;">${KivantaAdmin.escapeHtml(f.source || 'Official Statutory Schedule')}</div>
+            </td>
+            <td><strong style="color: #fff;">${KivantaAdmin.escapeHtml(f.governmentFee || 'N/A')}</strong></td>
+            <td><strong style="color: var(--color-gold);">${KivantaAdmin.escapeHtml(f.professionalFee || 'N/A')}</strong></td>
+            <td style="font-size: 0.82rem; color: var(--color-text-muted);"><i class="fa-regular fa-clock" style="margin-right: 4px;"></i> ${KivantaAdmin.escapeHtml(f.estimatedTimeline || 'Standard')}</td>
+            <td><span class="badge badge-success">${KivantaAdmin.escapeHtml(f.status || 'Current')}</span></td>
+            <td style="font-size: 0.82rem; color: var(--color-text-muted);">${f.lastUpdated || '2026-09-14'}</td>
+            <td style="text-align: right; whitespace: nowrap;">
+              <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; margin-right: 4px;" onclick="KivantaAdmin.editFeeItem('${f.id}')"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+              <button class="btn btn-danger" style="padding: 4px 8px; font-size: 0.78rem;" onclick="KivantaAdmin.deleteFeeItem('${f.id}')"><i class="fa-solid fa-trash-can"></i></button>
+            </td>
+          </tr>
+        `).join('');
+      };
+
+      KivantaAdmin.openFeeModal = function() {
+        document.getElementById('feeForm').reset();
+        document.getElementById('feeId').value = '';
+        document.getElementById('feeModalTitle').innerHTML = '<i class="fa-solid fa-tags"></i> Add Fee Schedule Record';
+        KivantaAdmin.openModal('feeModal');
+      };
+
+      KivantaAdmin.editFeeItem = function(id) {
+        const fees = KivantaDB.getPricingFees() || [];
+        const f = fees.find(x => x.id === id);
+        if (f) {
+          document.getElementById('feeId').value = f.id;
+          document.getElementById('feeServiceName').value = f.serviceName || '';
+          document.getElementById('feeServiceId').value = f.serviceId || '';
+          document.getElementById('feeGovAmount').value = f.governmentFee || '';
+          document.getElementById('feeProfAmount').value = f.professionalFee || '';
+          document.getElementById('feeTimelineInput').value = f.estimatedTimeline || '';
+          document.getElementById('feeStatusSelect').value = f.status || 'Current';
+          document.getElementById('feeSourceInput').value = f.source || '';
+          document.getElementById('feeDisclaimerInput').value = f.disclaimer || '';
+          
+          document.getElementById('feeModalTitle').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Edit Fee Schedule';
+          KivantaAdmin.openModal('feeModal');
+        }
+      };
+
+      KivantaAdmin.saveFeeRecord = function(e) {
+        e.preventDefault();
+        const record = {
+          id: document.getElementById('feeId').value || 'fee_' + Date.now(),
+          serviceName: document.getElementById('feeServiceName').value.trim(),
+          serviceId: document.getElementById('feeServiceId').value.trim(),
+          governmentFee: document.getElementById('feeGovAmount').value.trim(),
+          professionalFee: document.getElementById('feeProfAmount').value.trim(),
+          estimatedTimeline: document.getElementById('feeTimelineInput').value.trim(),
+          status: document.getElementById('feeStatusSelect').value,
+          source: document.getElementById('feeSourceInput').value.trim(),
+          disclaimer: document.getElementById('feeDisclaimerInput').value.trim()
+        };
+
+        KivantaDB.savePricingFee(record);
+        KivantaAdmin.closeModal('feeModal');
+        KivantaAdmin.showToast('Fee schedule record saved successfully!', 'success');
+        KivantaAdmin.renderFeesTable();
+      };
+
+      KivantaAdmin.deleteFeeItem = function(id) {
+        if (confirm('Are you sure you want to delete this fee record?')) {
+          KivantaDB.deletePricingFee(id);
+          KivantaAdmin.showToast('Fee record deleted.', 'info');
+          KivantaAdmin.renderFeesTable();
+        }
+      };
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global Theme FOUC Prevention -->
+    <script>
+      (function() {
+        try {
+          var s = localStorage.getItem('kivanta_theme') || 'system';
+          var r = s;
+          if (s === 'system') {
+            r = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', r);
+          document.documentElement.setAttribute('data-theme-preference', s);
+          document.documentElement.classList.add('no-transitions');
+        } catch (e) {}
+      })();
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile & Security | Kivanta Advisory Admin</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <div class="admin-content-wrapper">
+    <header class="admin-header" id="adminHeader"></header>
+
+    <main class="admin-main">
+      <div class="admin-page-header">
+        <div>
+          <h1 class="admin-page-title"><i class="fa-solid fa-user-shield"></i> Administrator Profile & Security</h1>
+          <p class="admin-page-subtitle">Manage executive account credentials, security preferences, and authentication sessions.</p>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1000px;">
+        
+        <!-- Profile Form Card -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title"><i class="fa-solid fa-user-gear" style="color: var(--color-gold); margin-right: 8px;"></i> Account Profile Information</h3>
+          </div>
+          <div class="admin-card-body">
+            <form id="profileForm" onsubmit="event.preventDefault(); KivantaAdmin.saveProfileInfo();">
+              <div style="margin-bottom: 16px;">
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Full Name *</label>
+                <input type="text" id="profileName" value="Kivanta Executive Admin" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+              </div>
+
+              <div style="margin-bottom: 16px;">
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Administrator Email *</label>
+                <input type="email" id="profileEmail" value="admin@kivanta.com" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+              </div>
+
+              <div style="margin-bottom: 24px;">
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Role / Access Level</label>
+                <input type="text" value="Super Administrator (Full Rights)" readonly disabled style="width: 100%; padding: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; color: var(--color-gold); font-weight: 600;">
+              </div>
+
+              <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Profile Account</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Security Form Card -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title"><i class="fa-solid fa-lock" style="color: var(--color-gold); margin-right: 8px;"></i> Security & Password Credentials</h3>
+          </div>
+          <div class="admin-card-body">
+            <form id="passwordForm" onsubmit="event.preventDefault(); KivantaAdmin.updatePassword();">
+              <div style="margin-bottom: 16px;">
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Current Password *</label>
+                <input type="password" id="curPassword" placeholder="••••••••" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+              </div>
+
+              <div style="margin-bottom: 16px;">
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">New Password *</label>
+                <input type="password" id="newPassword" placeholder="Minimum 8 characters" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+              </div>
+
+              <div style="margin-bottom: 24px;">
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Confirm New Password *</label>
+                <input type="password" id="confirmPassword" placeholder="Repeat new password" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+              </div>
+
+              <button type="submit" class="btn btn-secondary"><i class="fa-solid fa-key"></i> Update Security Credentials</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/theme.js"></script>
+    <script src="js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      KivantaAdmin.safeExecute(() => {
+        KivantaAdmin.initPage('profile');
+        const session = KivantaAdmin.getSession();
+        if (session && session.user) {
+          if (session.user.name) document.getElementById('profileName').value = session.user.name;
+          if (session.user.email) document.getElementById('profileEmail').value = session.user.email;
+        }
+      }, 'Profile Init');
+    });
+
+    if (typeof KivantaAdmin !== 'undefined') {
+      KivantaAdmin.saveProfileInfo = function() {
+        const session = KivantaAdmin.getSession() || {};
+        session.user = {
+          name: document.getElementById('profileName').value.trim(),
+          email: document.getElementById('profileEmail').value.trim(),
+          role: 'Super Admin'
+        };
+        localStorage.setItem('kivanta_admin_session', JSON.stringify(session));
+        KivantaAdmin.showToast('Profile account updated successfully!', 'success');
+        KivantaAdmin.renderHeader();
+      };
+
+      KivantaAdmin.updatePassword = function() {
+        const p1 = document.getElementById('newPassword').value;
+        const p2 = document.getElementById('confirmPassword').value;
+
+        if (p1 !== p2) {
+          KivantaAdmin.showToast('New passwords do not match.', 'danger');
+          return;
+        }
+
+        document.getElementById('passwordForm').reset();
+        KivantaAdmin.showToast('Security password updated successfully!', 'success');
+      };
+    }
+  </script>
+</body>
+</html>

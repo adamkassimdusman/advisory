@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global Theme FOUC Prevention -->
+    <script>
+      (function() {
+        try {
+          var s = localStorage.getItem('kivanta_theme') || 'system';
+          var r = s;
+          if (s === 'system') {
+            r = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', r);
+          document.documentElement.setAttribute('data-theme-preference', s);
+          document.documentElement.classList.add('no-transitions');
+        } catch (e) {}
+      })();
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEO & Social Metadata Manager | Kivanta Advisory Admin</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <div class="admin-content-wrapper">
+    <header class="admin-header" id="adminHeader"></header>
+
+    <main class="admin-main">
+      <div class="admin-page-header">
+        <div>
+          <h1 class="admin-page-title"><i class="fa-solid fa-magnifying-glass-location"></i> SEO & Search Engine Manager</h1>
+          <p class="admin-page-subtitle">Configure site-wide SEO metadata, Google Search snippet previews, OpenGraph social share cards, and per-page meta tag overrides.</p>
+        </div>
+        <div class="admin-page-actions">
+          <button class="btn btn-primary" onclick="KivantaAdmin.saveAllSeoSettings()"><i class="fa-solid fa-floppy-disk"></i> Save SEO Configuration</button>
+        </div>
+      </div>
+
+      <!-- Scope Switcher: Global Site SEO vs Page-Specific Meta Overrides -->
+      <div class="admin-card" style="margin-bottom: 24px;">
+        <div class="admin-card-body" style="padding: 14px 20px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+            <div style="display: flex; gap: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 4px;">
+              <button class="analytics-time-btn active" id="tabGlobalSeoBtn" onclick="KivantaAdmin.switchSeoScope('global')"><i class="fa-solid fa-globe" style="margin-right: 6px;"></i> Global Site Metadata</button>
+              <button class="analytics-time-btn" id="tabPageSeoBtn" onclick="KivantaAdmin.switchSeoScope('page')"><i class="fa-solid fa-file-code" style="margin-right: 6px;"></i> Page-by-Page SEO Manager</button>
+            </div>
+
+            <!-- Page Selector dropdown (when Page SEO active) -->
+            <div id="pageSelectorWrapper" style="display: none; align-items: center; gap: 10px;">
+              <label style="font-size: 0.85rem; color: var(--color-text-muted);">Select Target Page:</label>
+              <select id="seoPageSelect" style="padding: 8px 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 0.88rem;" onchange="KivantaAdmin.loadSelectedPageSeo()">
+                <option value="home">Homepage (index.html)</option>
+                <option value="about">About Us (about.html)</option>
+                <option value="services">Services Ecosystem (service.html)</option>
+                <option value="business-entry">Business Entry & Setup Page</option>
+                <option value="passes-permits">Work Passes & Permits Page</option>
+                <option value="corporate-secretarial">Corporate Secretarial Page</option>
+                <option value="bookkeeping-accounting">Bookkeeping & Accounting Page</option>
+                <option value="pricing">Statutory Fees & Pricing (pricing.html)</option>
+                <option value="insights">Insights & Blog Hub (insights.html)</option>
+                <option value="faqs">FAQs & Help (faqs.html)</option>
+                <option value="contact">Contact Us (contact.html)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Two Column Grid: Config Inputs vs Live Snippet Previews -->
+      <div style="display: grid; grid-template-columns: 3fr 2fr; gap: 24px;">
+        
+        <!-- Left Column: SEO Form Controls -->
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          
+          <!-- Global SEO Section -->
+          <div class="admin-card" id="cardGlobalSeo">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title"><i class="fa-solid fa-globe" style="color: var(--color-gold); margin-right: 8px;"></i> Global Site Search Metadata</h3>
+            </div>
+            <div class="admin-card-body" style="display: flex; flex-direction: column; gap: 16px;">
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Default Website Title Tag *</label>
+                <input type="text" id="seoSiteTitle" value="Kivanta Advisory — Premier Kenya Business Setup, Regulatory & Market Entry Consultancy" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" oninput="KivantaAdmin.updateSeoPreviews()">
+                <div style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 4px; display: flex; justify-content: space-between;">
+                  <span>Recommended: 50-60 characters</span>
+                  <span id="titleCharCount">0 / 60</span>
+                </div>
+              </div>
+
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Global Meta Description *</label>
+                <textarea id="seoMetaDescription" rows="3" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" oninput="KivantaAdmin.updateSeoPreviews()">Kivanta Advisory is your trusted business consultancy in Nairobi, Kenya. Specializing in company registration, work permits, county permits, corporate secretarial, and market entry strategy.</textarea>
+                <div style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 4px; display: flex; justify-content: space-between;">
+                  <span>Recommended: 140-160 characters</span>
+                  <span id="descCharCount">0 / 160</span>
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div>
+                  <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Primary Target Focus Keywords</label>
+                  <input type="text" id="seoKeywords" value="Company Setup Kenya, Business Registration Nairobi, Work Permits Class D, Regulatory Advisory Kenya" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                </div>
+                <div>
+                  <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Canonical Base Domain URL</label>
+                  <input type="text" id="seoCanonicalUrl" value="https://kivanta.co.ke" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" oninput="KivantaAdmin.updateSeoPreviews()">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Page-Specific Overrides Section -->
+          <div class="admin-card" id="cardPageSeo" style="display: none;">
+            <div class="admin-card-header" style="display: flex; justify-content: space-between; align-items: center;">
+              <h3 class="admin-card-title"><i class="fa-solid fa-file-pen" style="color: var(--color-gold); margin-right: 8px;"></i> Page Meta Tag Overrides</h3>
+              <span class="badge badge-info" id="pageActiveBadge">Editing: Homepage</span>
+            </div>
+            <div class="admin-card-body" style="display: flex; flex-direction: column; gap: 16px;">
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Page Specific Title Tag *</label>
+                <input type="text" id="pageSeoTitle" placeholder="Custom page title" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" oninput="KivantaAdmin.updateSeoPreviews()">
+              </div>
+
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Page Meta Description *</label>
+                <textarea id="pageSeoDesc" rows="3" placeholder="Custom page meta description for Google search result snippet..." style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" oninput="KivantaAdmin.updateSeoPreviews()"></textarea>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div>
+                  <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Page Keywords</label>
+                  <input type="text" id="pageSeoKeywords" placeholder="Specific focus keywords for this page..." style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                </div>
+                <div>
+                  <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Page URL Path</label>
+                  <input type="text" id="pageSeoPath" placeholder="/services/business-entry.html" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" oninput="KivantaAdmin.updateSeoPreviews()">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Sharing & Technical SEO Card -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title"><i class="fa-solid fa-share-nodes" style="color: var(--color-gold); margin-right: 8px;"></i> Technical SEO & Social Cards</h3>
+            </div>
+            <div class="admin-card-body" style="display: flex; flex-direction: column; gap: 16px;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div>
+                  <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">OpenGraph Image Banner URL</label>
+                  <input type="text" id="seoOgImage" value="images/hero-1.jpg" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" oninput="KivantaAdmin.updateSeoPreviews()">
+                </div>
+                <div>
+                  <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Google Search Console Verification</label>
+                  <input type="text" id="seoGscCode" placeholder="google-site-verification=..." style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08);">
+                <div>
+                  <strong style="color: #fff; font-size: 0.88rem; display: block;">Search Engine Indexing (robots.txt)</strong>
+                  <span style="font-size: 0.78rem; color: var(--color-text-muted);">Allow Googlebot, Bingbot and search engines to index public pages</span>
+                </div>
+                <label style="position: relative; display: inline-block; width: 44px; height: 24px;">
+                  <input type="checkbox" id="seoRobotsToggle" checked style="opacity: 0; width: 0; height: 0;">
+                  <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--color-gold); border-radius: 24px;"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Live Previews -->
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          
+          <!-- Google Search Result Live Preview -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title"><i class="fa-brands fa-google" style="color: #ea4335; margin-right: 8px;"></i> Google Search Snippet Preview</h3>
+            </div>
+            <div class="admin-card-body" style="background: #ffffff; border-radius: 8px; padding: 18px; font-family: arial, sans-serif;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                <div style="width: 26px; height: 26px; border-radius: 50%; background: #000; display: flex; align-items: center; justify-content: center; color: var(--color-gold); font-weight: 800; font-size: 0.7rem;">K</div>
+                <div>
+                  <div style="font-size: 0.8rem; color: #202124; font-weight: 500;">Kivanta Advisory</div>
+                  <div id="previewGoogleUrl" style="font-size: 0.72rem; color: #4d5156;">https://kivanta.co.ke</div>
+                </div>
+              </div>
+              <div id="previewGoogleTitle" style="color: #1a0dab; font-size: 1.15rem; font-weight: 400; line-height: 1.3; cursor: pointer; margin-bottom: 4px;">
+                Kivanta Advisory — Premier Kenya Business Setup, Regulatory & Market Entry Consultancy
+              </div>
+              <div id="previewGoogleDesc" style="color: #4d5156; font-size: 0.85rem; line-height: 1.4;">
+                Kivanta Advisory is your trusted business consultancy in Nairobi, Kenya. Specializing in company registration, work permits, county permits, corporate secretarial, and market entry strategy.
+              </div>
+            </div>
+          </div>
+
+          <!-- OpenGraph LinkedIn/Facebook Social Card Preview -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title"><i class="fa-brands fa-linkedin" style="color: #0a66c2; margin-right: 8px;"></i> Social Share Card Preview</h3>
+            </div>
+            <div class="admin-card-body" style="background: #1b1f23; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+              <div style="height: 160px; background: #000; overflow: hidden; position: relative;">
+                <img id="previewOgImg" src="../images/hero-1.jpg" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='../images/logo.png';">
+              </div>
+              <div style="padding: 14px; background: #161b22;">
+                <div id="previewOgDomain" style="font-size: 0.74rem; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">KIVANTA.CO.KE</div>
+                <div id="previewOgTitle" style="font-weight: 600; font-size: 0.92rem; color: #f0f6fc; margin-bottom: 6px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+                  Kivanta Advisory — Premier Kenya Business Setup
+                </div>
+                <div id="previewOgDesc" style="font-size: 0.78rem; color: #8b949e; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                  Kivanta Advisory is your trusted business consultancy in Nairobi, Kenya. Specializing in company registration, work permits...
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/theme.js"></script>
+    <script src="js/admin.js"></script>
+  <script>
+    let activeScope = 'global';
+
+    const defaultPageData = {
+      home: { title: "Kivanta Advisory — Kenya Business Advisory & Corporate Setup", desc: "Your single trusted partner for entering, establishing, operating, and growing your business in Kenya.", path: "/index.html", keywords: "Business Advisory Kenya, Foreign Investment Nairobi" },
+      about: { title: "About Kivanta Advisory — Kenyan Market Entry Consultants", desc: "Learn about Kivanta Advisory's elite team of Kenyan legal, tax, and regulatory compliance specialists.", path: "/about.html", keywords: "Kivanta Team, Nairobi Consultants" },
+      services: { title: "Our Advisory Services Ecosystem — Kivanta Advisory", desc: "Comprehensive business entry, statutory compliance, work permits, and accounting services in Kenya.", path: "/service.html", keywords: "Kenya Business Services" },
+      "business-entry": { title: "Company Setup & Business Entry in Kenya | Kivanta Advisory", desc: "End-to-end guidance for foreign companies establishing presence in Kenya including BRS incorporation and tax registration.", path: "/services/business-entry.html", keywords: "Company Registration Kenya, Private Limited Setup" },
+      "passes-permits": { title: "Work Passes & Immigration Permits Kenya | Kivanta Advisory", desc: "Class D, Class G, and Class G Work Permits processing for foreign investors, directors, and personnel in Kenya.", path: "/services/passes-permits.html", keywords: "Work Permits Kenya, Class D Permit" },
+      "corporate-secretarial": { title: "Corporate Secretarial & Compliance | Kivanta Advisory", desc: "CR12 issuance, annual return filings, share structure updates, and corporate governance in Kenya.", path: "/services/corporate-secretarial.html", keywords: "CR12 Kenya, Corporate Secretarial" },
+      "bookkeeping-accounting": { title: "Bookkeeping & Tax Advisory Services | Kivanta Advisory", desc: "KRA PIN, VAT, PAYE, eTIMS compliance, and monthly accounting for Kenyan businesses.", path: "/services/bookkeeping-accounting.html", keywords: "KRA Tax Filing, eTIMS Kenya" },
+      pricing: { title: "Statutory Fees & Service Pricing Schedule — Kivanta Advisory", desc: "Transparent government statutory fees and professional consulting fee structures for Kenya business registration.", path: "/pricing.html", keywords: "Kenya Statutory Fees" },
+      insights: { title: "Kenya Regulatory & Investment Insights — Kivanta Blog", desc: "Expert analysis, market intelligence, and legal updates for expanding businesses in East Africa.", path: "/insights.html", keywords: "Kenya Market Intelligence" },
+      faqs: { title: "Frequently Asked Questions — Kivanta Advisory", desc: "Answers to common questions about setting up and running a business in Kenya.", path: "/faqs.html", keywords: "Kenya Setup FAQ" },
+      contact: { title: "Contact Our Nairobi Advisory Team — Kivanta Advisory", desc: "Schedule a confidential consultation with our market entry advisory experts in Nairobi, Kenya.", path: "/contact.html", keywords: "Contact Kivanta Nairobi" }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      KivantaAdmin.safeExecute(() => {
+        KivantaAdmin.initPage('seo');
+        KivantaAdmin.loadSelectedPageSeo();
+        KivantaAdmin.updateSeoPreviews();
+      }, 'SEO Page Init');
+    });
+
+    if (typeof KivantaAdmin !== 'undefined') {
+      KivantaAdmin.switchSeoScope = function(scope) {
+        activeScope = scope;
+        document.getElementById('tabGlobalSeoBtn')?.classList.toggle('active', scope === 'global');
+        document.getElementById('tabPageSeoBtn')?.classList.toggle('active', scope === 'page');
+
+        document.getElementById('cardGlobalSeo').style.display = scope === 'global' ? 'block' : 'none';
+        document.getElementById('cardPageSeo').style.display = scope === 'page' ? 'block' : 'none';
+        document.getElementById('pageSelectorWrapper').style.display = scope === 'page' ? 'flex' : 'none';
+
+        KivantaAdmin.updateSeoPreviews();
+      };
+
+      KivantaAdmin.loadSelectedPageSeo = function() {
+        const pageKey = document.getElementById('seoPageSelect')?.value || 'home';
+        const pageSeoMap = KivantaDB.getPageSeoMap ? KivantaDB.getPageSeoMap() : {};
+        const p = pageSeoMap[pageKey] || defaultPageData[pageKey] || { title: '', desc: '', path: '', keywords: '' };
+
+        document.getElementById('pageSeoTitle').value = p.title || '';
+        document.getElementById('pageSeoDesc').value = p.desc || '';
+        document.getElementById('pageSeoKeywords').value = p.keywords || '';
+        document.getElementById('pageSeoPath').value = p.path || '';
+        
+        const badge = document.getElementById('pageActiveBadge');
+        if (badge) badge.textContent = 'Editing: ' + (pageKey.charAt(0).toUpperCase() + pageKey.slice(1));
+
+        KivantaAdmin.updateSeoPreviews();
+      };
+
+      KivantaAdmin.updateSeoPreviews = function() {
+        let title, desc, domain, path, img;
+        domain = document.getElementById('seoCanonicalUrl')?.value || 'https://kivanta.co.ke';
+        img = document.getElementById('seoOgImage')?.value || 'images/hero-1.jpg';
+
+        if (activeScope === 'global') {
+          title = document.getElementById('seoSiteTitle')?.value || '';
+          desc = document.getElementById('seoMetaDescription')?.value || '';
+          path = '';
+        } else {
+          title = document.getElementById('pageSeoTitle')?.value || '';
+          desc = document.getElementById('pageSeoDesc')?.value || '';
+          path = document.getElementById('pageSeoPath')?.value || '';
+        }
+
+        // Update counts
+        const tCount = document.getElementById('titleCharCount');
+        if (tCount) tCount.textContent = `${title.length} / 60`;
+
+        const dCount = document.getElementById('descCharCount');
+        if (dCount) dCount.textContent = `${desc.length} / 160`;
+
+        // Google snippet preview
+        const gTitle = document.getElementById('previewGoogleTitle');
+        if (gTitle) gTitle.textContent = title || 'Kivanta Advisory';
+
+        const gUrl = document.getElementById('previewGoogleUrl');
+        if (gUrl) gUrl.textContent = domain + path;
+
+        const gDesc = document.getElementById('previewGoogleDesc');
+        if (gDesc) gDesc.textContent = desc;
+
+        // OG Card preview
+        const ogTitle = document.getElementById('previewOgTitle');
+        if (ogTitle) ogTitle.textContent = title;
+
+        const ogDesc = document.getElementById('previewOgDesc');
+        if (ogDesc) ogDesc.textContent = desc;
+
+        const ogDomain = document.getElementById('previewOgDomain');
+        if (ogDomain) ogDomain.textContent = (domain + path).replace(/^https?:\/\//, '').toUpperCase();
+
+        const ogImg = document.getElementById('previewOgImg');
+        if (ogImg) ogImg.src = img.startsWith('http') ? img : `../${img}`;
+      };
+
+      KivantaAdmin.saveAllSeoSettings = function() {
+        const globalData = {
+          title: document.getElementById('seoSiteTitle')?.value,
+          description: document.getElementById('seoMetaDescription')?.value,
+          keywords: document.getElementById('seoKeywords')?.value,
+          canonical: document.getElementById('seoCanonicalUrl')?.value,
+          ogImage: document.getElementById('seoOgImage')?.value,
+          gscCode: document.getElementById('seoGscCode')?.value,
+          robots: document.getElementById('seoRobotsToggle')?.checked
+        };
+
+        if (KivantaDB.saveSettings) {
+          KivantaDB.saveSettings({ seo: globalData });
+        }
+
+        if (activeScope === 'page') {
+          const pageKey = document.getElementById('seoPageSelect')?.value || 'home';
+          const pageObj = {
+            title: document.getElementById('pageSeoTitle')?.value,
+            desc: document.getElementById('pageSeoDesc')?.value,
+            keywords: document.getElementById('pageSeoKeywords')?.value,
+            path: document.getElementById('pageSeoPath')?.value
+          };
+          if (KivantaDB.savePageSeo) {
+            KivantaDB.savePageSeo(pageKey, pageObj);
+          }
+        }
+
+        KivantaAdmin.showToast('SEO Configuration saved successfully!', 'success');
+      };
+    }
+  </script>
+</body>
+</html>

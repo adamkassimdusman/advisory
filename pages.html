@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global Theme FOUC Prevention -->
+    <script>
+      (function() {
+        try {
+          var s = localStorage.getItem('kivanta_theme') || 'system';
+          var r = s;
+          if (s === 'system') {
+            r = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', r);
+          document.documentElement.setAttribute('data-theme-preference', s);
+          document.documentElement.classList.add('no-transitions');
+        } catch (e) {}
+      })();
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Content & Hero Manager | Kivanta Advisory Admin</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <div class="admin-content-wrapper">
+    <header class="admin-header" id="adminHeader"></header>
+
+    <main class="admin-main">
+      <div class="admin-page-header">
+        <div>
+          <h1 class="admin-page-title"><i class="fa-solid fa-file-code"></i> Page Content & Hero Manager</h1>
+          <p class="admin-page-subtitle">Configure hero banner titles, subtitles, call-to-action headlines, and metadata across public pages.</p>
+        </div>
+      </div>
+
+      <!-- Pages Table Card -->
+      <div class="admin-card">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Page Display Title</th>
+                <th>Route / Filename</th>
+                <th>Hero Heading Tag</th>
+                <th>Status</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong style="color: #fff;">Homepage</strong></td>
+                <td><code style="color: var(--color-gold);">index.html</code></td>
+                <td style="font-size: 0.85rem; color: #e2e8f0;">Your Trusted Partner for Doing Business in Kenya</td>
+                <td><span class="badge badge-success">Published</span></td>
+                <td style="text-align: right;"><button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem;" onclick="KivantaAdmin.editPageHero('index.html', 'Homepage', 'Your Trusted Partner for Doing Business in Kenya')"><i class="fa-solid fa-pen-to-square"></i> Edit Hero</button></td>
+              </tr>
+              <tr>
+                <td><strong style="color: #fff;">Services Directory</strong></td>
+                <td><code style="color: var(--color-gold);">service.html</code></td>
+                <td style="font-size: 0.85rem; color: #e2e8f0;">Complete Kenya Business Advisory Ecosystem</td>
+                <td><span class="badge badge-success">Published</span></td>
+                <td style="text-align: right;"><button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem;" onclick="KivantaAdmin.editPageHero('service.html', 'Services Directory', 'Complete Kenya Business Advisory Ecosystem')"><i class="fa-solid fa-pen-to-square"></i> Edit Hero</button></td>
+              </tr>
+              <tr>
+                <td><strong style="color: #fff;">Client Solutions</strong></td>
+                <td><code style="color: var(--color-gold);">solutions.html</code></td>
+                <td style="font-size: 0.85rem; color: #e2e8f0;">Tailored Pathways for Foreign Investors & Enterprises</td>
+                <td><span class="badge badge-success">Published</span></td>
+                <td style="text-align: right;"><button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem;" onclick="KivantaAdmin.editPageHero('solutions.html', 'Client Solutions', 'Tailored Pathways for Foreign Investors & Enterprises')"><i class="fa-solid fa-pen-to-square"></i> Edit Hero</button></td>
+              </tr>
+              <tr>
+                <td><strong style="color: #fff;">About Kivanta</strong></td>
+                <td><code style="color: var(--color-gold);">about.html</code></td>
+                <td style="font-size: 0.85rem; color: #e2e8f0;">Premier Kenyan Market Entry & Legal Advisory Consultancy</td>
+                <td><span class="badge badge-success">Published</span></td>
+                <td style="text-align: right;"><button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem;" onclick="KivantaAdmin.editPageHero('about.html', 'About Kivanta', 'Premier Kenyan Market Entry & Legal Advisory Consultancy')"><i class="fa-solid fa-pen-to-square"></i> Edit Hero</button></td>
+              </tr>
+              <tr>
+                <td><strong style="color: #fff;">Insights & Blog Hub</strong></td>
+                <td><code style="color: var(--color-gold);">insights.html</code></td>
+                <td style="font-size: 0.85rem; color: #e2e8f0;">Kenya Regulatory & Market Intelligence Insights</td>
+                <td><span class="badge badge-success">Published</span></td>
+                <td style="text-align: right;"><button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem;" onclick="KivantaAdmin.editPageHero('insights.html', 'Insights Hub', 'Kenya Regulatory & Market Intelligence Insights')"><i class="fa-solid fa-pen-to-square"></i> Edit Hero</button></td>
+              </tr>
+              <tr>
+                <td><strong style="color: #fff;">Statutory Fees & Pricing</strong></td>
+                <td><code style="color: var(--color-gold);">pricing.html</code></td>
+                <td style="font-size: 0.85rem; color: #e2e8f0;">Statutory Fees & Professional Consulting Schedules</td>
+                <td><span class="badge badge-success">Published</span></td>
+                <td style="text-align: right;"><button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem;" onclick="KivantaAdmin.editPageHero('pricing.html', 'Statutory Pricing', 'Statutory Fees & Professional Consulting Schedules')"><i class="fa-solid fa-pen-to-square"></i> Edit Hero</button></td>
+              </tr>
+              <tr>
+                <td><strong style="color: #fff;">Contact & Consultation</strong></td>
+                <td><code style="color: var(--color-gold);">contact.html</code></td>
+                <td style="font-size: 0.85rem; color: #e2e8f0;">Schedule Your Executive Consultation in Nairobi</td>
+                <td><span class="badge badge-success">Published</span></td>
+                <td style="text-align: right;"><button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem;" onclick="KivantaAdmin.editPageHero('contact.html', 'Contact Page', 'Schedule Your Executive Consultation in Nairobi')"><i class="fa-solid fa-pen-to-square"></i> Edit Hero</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Page Edit Modal -->
+  <div class="admin-modal-overlay" id="pageEditModal">
+    <div class="admin-modal-dialog">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="pageModalTitle"><i class="fa-solid fa-pen-to-square"></i> Edit Page Hero Content</h3>
+        <button class="admin-modal-close" onclick="KivantaAdmin.closeModal('pageEditModal')">&times;</button>
+      </div>
+      <form id="pageEditForm" onsubmit="KivantaAdmin.savePageHeroContent(event)">
+        <div class="admin-modal-body">
+          <input type="hidden" id="pFileName">
+          
+          <div style="margin-bottom: 16px;">
+            <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Hero H1 Heading *</label>
+            <input type="text" id="pHeading" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+          </div>
+
+          <div>
+            <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Hero Subtitle Paragraph</label>
+            <textarea id="pSubheading" rows="3" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;"></textarea>
+          </div>
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="KivantaAdmin.closeModal('pageEditModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Hero Content</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/theme.js"></script>
+    <script src="js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      KivantaAdmin.safeExecute(() => {
+        KivantaAdmin.initPage('pages');
+      }, 'Pages CMS Init');
+    });
+
+    if (typeof KivantaAdmin !== 'undefined') {
+      KivantaAdmin.editPageHero = function(filename, title, heading) {
+        document.getElementById('pFileName').value = filename;
+        document.getElementById('pHeading').value = heading;
+        document.getElementById('pSubheading').value = `Official hero banner configuration for ${title}.`;
+        document.getElementById('pageModalTitle').innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Edit ${title} Hero`;
+        KivantaAdmin.openModal('pageEditModal');
+      };
+
+      KivantaAdmin.savePageHeroContent = function(e) {
+        e.preventDefault();
+        const fn = document.getElementById('pFileName').value;
+        const heading = document.getElementById('pHeading').value;
+        
+        KivantaAdmin.closeModal('pageEditModal');
+        KivantaAdmin.showToast(`Hero content for ${fn} updated successfully!`, 'success');
+      };
+    }
+  </script>
+</body>
+</html>

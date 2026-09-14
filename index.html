@@ -18,396 +18,285 @@
       })();
     </script>
     <meta charset="utf-8">
-    <title>Kivanta Advisory — Kenya Business Advisory & Market Entry Platform</title>
+    <title>Admin Dashboard — Kivanta Advisory Portal</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Kenya business registration, company incorporation, work permits, KRA tax compliance, market entry advisory Nairobi, corporate secretarial" name="keywords">
-    <meta content="Kivanta Advisory is your single trusted partner for entering, establishing, operating, and growing your business in Kenya." name="description">
-
-    <!-- Open Graph Metadata -->
-    <meta property="og:title" content="Kivanta Advisory — Kenya Business Advisory & Market Entry Platform">
-    <meta property="og:description" content="One trusted partner for entering, establishing, operating, and growing your business in Kenya.">
-    <meta property="og:type" content="website">
-
-    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Stylesheets -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
 </head>
 
 <body>
 
-    <!-- Spinner -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-warning" style="width: 2.5rem; height: 2.5rem;" role="status">
-            <span class="sr-only">Loading Kivanta Advisory...</span>
-        </div>
-    </div>
+    <div class="admin-layout">
+        <aside class="admin-sidebar"></aside>
 
-    <!-- Topbar -->
-    <div class="container-fluid topbar px-4 px-lg-5 d-none d-lg-block">
-        <div class="row gx-0 align-items-center" style="height: 40px;">
-            <div class="col-lg-7 text-start">
-                <div class="d-flex align-items-center gap-4">
-                    <span><i class="fas fa-map-marker-alt text-warning me-2"></i>Westlands Commercial Center, Nairobi, Kenya</span>
-                    <a href="mailto:info@kivantaadvisory.com"><i class="fas fa-envelope text-warning me-2"></i>info@kivantaadvisory.com</a>
-                    <a href="tel:+254700000000"><i class="fas fa-phone-alt text-warning me-2"></i>+254 700 000 000</a>
-                </div>
-            </div>
-            <div class="col-lg-5 text-end d-flex align-items-center justify-content-end gap-3">
-                <span class="badge bg-warning text-dark font-heading">Kenya Business Advisory</span>
-                <div class="d-inline-flex align-items-center gap-2">
-                    <select class="theme-selector-select" data-theme-select aria-label="Select Theme Preference">
-                        <option value="system">💻 System</option>
-                        <option value="light">☀️ Light</option>
-                        <option value="dark">🌙 Dark</option>
-                    </select>
-                    <button class="theme-toggle-btn" title="Toggle Theme" aria-label="Toggle Theme"><i class="fas fa-desktop"></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
+        <main class="admin-main">
+            <header class="admin-header"></header>
 
-    <!-- Header Navigation -->
-    <div class="container-fluid nav-bar p-0">
-        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-2">
-            <a href="index.html" class="navbar-brand p-0">
-                <h2 class="brand-name m-0"><i class="fas fa-shield-alt text-warning me-2"></i>Kivanta Advisory</h2>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="fa fa-bars"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav ms-auto py-0">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="service.html" class="nav-item nav-link">Services</a>
-                    <a href="solutions.html" class="nav-item nav-link">Solutions</a>
-                    <a href="about.html" class="nav-item nav-link">About Us</a>
-                    <a href="insights.html" class="nav-item nav-link">Insights</a>
-                    <a href="faqs.html" class="nav-item nav-link">FAQs</a>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
-                </div>
-                <div class="d-flex align-items-center gap-2 ms-lg-3">
-                    <a href="proposal.html" class="btn btn-outline-gold btn-sm">Request Proposal</a>
-                    <button onclick="openConsultationModal()" class="btn btn-primary btn-sm">Book Consultation</button>
-                </div>
-            </div>
-        </nav>
-    </div>
+            <div class="admin-content">
 
-    <!-- Hero Section -->
-    <div class="hero-wrapper text-center text-lg-start">
-        <div class="container">
-            <div class="row align-items-center g-4 g-lg-5">
-                <div class="col-lg-6">
-                    <div class="hero-text-container mx-auto mx-lg-0">
-                        <span class="badge-category mb-3">KENYA MARKET INTELLIGENCE & BUSINESS ADVISORY</span>
-                        <h1 class="mb-3">Your Trusted Partner for Doing Business in Kenya.</h1>
-                        <p class="lead mb-4">From market entry and business setup to regulatory, immigration and corporate support, Kivanta Advisory helps businesses navigate Kenya with clarity and confidence.</p>
-                        <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
-                            <a href="proposal.html" class="btn btn-gold btn-lg">Request a Proposal</a>
-                            <button onclick="openConsultationModal()" class="btn btn-outline-light btn-lg">Book a Consultation</button>
+                <!-- Welcome Header Banner -->
+                <div class="card-custom mb-4 p-4" style="background: linear-gradient(135deg, var(--brand-navy) 0%, #162E44 100%); color: #FFFFFF; border: none;">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                        <div>
+                            <span class="badge bg-warning text-dark font-heading mb-2">Kenya Business Advisory Portal</span>
+                            <h3 class="text-white font-heading m-0 mb-1">Welcome back, <span id="dashAdminName">Administrator</span></h3>
+                            <p class="text-white-50 small m-0"><i class="fas fa-calendar-alt text-warning me-1"></i>Today is <span id="dashCurrentDate">Monday, 14 September 2026</span></p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <a href="service-editor.html" class="btn btn-gold btn-sm"><i class="fas fa-plus me-1"></i>Create Service</a>
+                            <a href="requests.html" class="btn btn-outline-light btn-sm"><i class="fas fa-inbox me-1"></i>View Inquiries</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="hero-carousel-card" id="heroBigFiveCarousel">
-                        <div class="hero-carousel-counter" id="heroSlideCounter">01 / 05</div>
-                        <div class="hero-carousel-slides">
-                            <!-- Slide 1: Lion -->
-                            <div class="hero-carousel-slide active" data-index="0">
-                                <img src="img/hero-lion.jpg" alt="Maasai Mara Lion - Kivanta Advisory Kenya" loading="eager">
-                                <div class="hero-carousel-overlay"></div>
-                                <div class="hero-carousel-caption">
-                                    <div class="animal-name"><i class="fas fa-crown text-warning me-1"></i> 01 — LION</div>
-                                    <div class="location-tag">Maasai Mara, Kenya</div>
+
+                <!-- 8 Summary Metric Cards Row -->
+                <div class="row g-3 mb-4">
+                    <div class="col-xl-3 col-md-6">
+                        <a href="services.html" class="text-decoration-none">
+                            <div class="metric-card">
+                                <div>
+                                    <small class="text-muted font-heading">Total Services</small>
+                                    <div class="metric-val text-main" id="metricTotalServices">17</div>
+                                    <small class="text-muted" style="font-size: 0.725rem;"><i class="fas fa-layer-group text-warning me-1"></i>Full Service Catalog</small>
                                 </div>
+                                <div class="icon-box m-0"><i class="fas fa-briefcase"></i></div>
                             </div>
-                            <!-- Slide 2: Elephant -->
-                            <div class="hero-carousel-slide" data-index="1">
-                                <img src="img/hero-elephant.jpg" alt="Amboseli Elephant - Kivanta Advisory Kenya" loading="lazy">
-                                <div class="hero-carousel-overlay"></div>
-                                <div class="hero-carousel-caption">
-                                    <div class="animal-name"><i class="fas fa-shield-alt text-warning me-1"></i> 02 — AFRICAN ELEPHANT</div>
-                                    <div class="location-tag">Amboseli, Kenya</div>
+                        </a>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <a href="services.html" class="text-decoration-none">
+                            <div class="metric-card">
+                                <div>
+                                    <small class="text-muted font-heading">Active Services</small>
+                                    <div class="metric-val text-success" id="metricActiveServices">17</div>
+                                    <small class="text-muted" style="font-size: 0.725rem;"><i class="fas fa-check-circle text-success me-1"></i>Published Live</small>
                                 </div>
+                                <div class="icon-box m-0" style="background: rgba(16,185,129,0.12); color: #10B981;"><i class="fas fa-globe"></i></div>
                             </div>
-                            <!-- Slide 3: Buffalo -->
-                            <div class="hero-carousel-slide" data-index="2">
-                                <img src="img/hero-buffalo.jpg" alt="Cape Buffalo - Kivanta Advisory Kenya" loading="lazy">
-                                <div class="hero-carousel-overlay"></div>
-                                <div class="hero-carousel-caption">
-                                    <div class="animal-name"><i class="fas fa-dumbbell text-warning me-1"></i> 03 — AFRICAN BUFFALO</div>
-                                    <div class="location-tag">Lake Nakuru, Kenya</div>
+                        </a>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <a href="requests.html" class="text-decoration-none">
+                            <div class="metric-card">
+                                <div>
+                                    <small class="text-muted font-heading">Consultation Requests</small>
+                                    <div class="metric-val text-warning" id="metricConsultations">0</div>
+                                    <small class="text-muted" style="font-size: 0.725rem;"><i class="fas fa-clock text-warning me-1"></i>Inquiries Received</small>
                                 </div>
+                                <div class="icon-box m-0"><i class="fas fa-inbox"></i></div>
                             </div>
-                            <!-- Slide 4: Leopard -->
-                            <div class="hero-carousel-slide" data-index="3">
-                                <img src="img/hero-leopard.jpg" alt="Laikipia Leopard - Kivanta Advisory Kenya" loading="lazy">
-                                <div class="hero-carousel-overlay"></div>
-                                <div class="hero-carousel-caption">
-                                    <div class="animal-name"><i class="fas fa-eye text-warning me-1"></i> 04 — LEOPARD</div>
-                                    <div class="location-tag">Laikipia, Kenya</div>
+                        </a>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <a href="proposals.html" class="text-decoration-none">
+                            <div class="metric-card">
+                                <div>
+                                    <small class="text-muted font-heading">Proposal Requests</small>
+                                    <div class="metric-val text-primary" id="metricProposals">0</div>
+                                    <small class="text-muted" style="font-size: 0.725rem;"><i class="fas fa-file-signature me-1"></i>Quote Submissions</small>
                                 </div>
+                                <div class="icon-box m-0" style="background: rgba(59,130,246,0.12); color: #3B82F6;"><i class="fas fa-file-invoice"></i></div>
                             </div>
-                            <!-- Slide 5: Rhino -->
-                            <div class="hero-carousel-slide" data-index="4">
-                                <img src="img/hero-rhino.jpg" alt="Ol Pejeta Rhino - Kivanta Advisory Kenya" loading="lazy">
-                                <div class="hero-carousel-overlay"></div>
-                                <div class="hero-carousel-caption">
-                                    <div class="animal-name"><i class="fas fa-gem text-warning me-1"></i> 05 — RHINOCEROS</div>
-                                    <div class="location-tag">Ol Pejeta, Kenya</div>
+                        </a>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <a href="messages.html" class="text-decoration-none">
+                            <div class="metric-card">
+                                <div>
+                                    <small class="text-muted font-heading">Contact Messages</small>
+                                    <div class="metric-val text-main" id="metricMessages">0</div>
+                                    <small class="text-muted" style="font-size: 0.725rem;"><i class="fas fa-envelope text-warning me-1"></i>Direct Inquiries</small>
                                 </div>
+                                <div class="icon-box m-0"><i class="fas fa-envelope"></i></div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <a href="insights.html" class="text-decoration-none">
+                            <div class="metric-card">
+                                <div>
+                                    <small class="text-muted font-heading">Blog / News Posts</small>
+                                    <div class="metric-val text-main" id="metricPosts">3</div>
+                                    <small class="text-muted" style="font-size: 0.725rem;"><i class="fas fa-newspaper me-1"></i>Published Articles</small>
+                                </div>
+                                <div class="icon-box m-0"><i class="fas fa-newspaper"></i></div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <a href="requests.html" class="text-decoration-none">
+                            <div class="metric-card">
+                                <div>
+                                    <small class="text-muted font-heading">Pending Action Items</small>
+                                    <div class="metric-val text-danger" id="metricPending">0</div>
+                                    <small class="text-muted" style="font-size: 0.725rem;"><i class="fas fa-exclamation-circle text-danger me-1"></i>Requires Attention</small>
+                                </div>
+                                <div class="icon-box m-0" style="background: rgba(239,68,68,0.12); color: #EF4444;"><i class="fas fa-tasks"></i></div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <a href="analytics.html" class="text-decoration-none">
+                            <div class="metric-card">
+                                <div>
+                                    <small class="text-muted font-heading">Monthly Visitors</small>
+                                    <div class="metric-val text-main" id="metricVisitors">1,420</div>
+                                    <small class="text-muted" style="font-size: 0.725rem;"><i class="fas fa-chart-line text-success me-1"></i>Analytics Model</small>
+                                </div>
+                                <div class="icon-box m-0" style="background: rgba(16,185,129,0.12); color: #10B981;"><i class="fas fa-chart-line"></i></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Action Shortcuts -->
+                <div class="card-custom mb-4" style="background-color: var(--bg-surface);">
+                    <h5 class="font-heading mb-3"><i class="fas fa-bolt text-warning me-2"></i>Quick Administrator Actions</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="service-editor.html" class="btn btn-sm btn-primary"><i class="fas fa-plus me-1"></i>Create Service</a>
+                        <a href="pricing.html" class="btn btn-sm btn-outline-gold"><i class="fas fa-tag me-1"></i>Update Statutory Fee</a>
+                        <a href="insights.html" class="btn btn-sm btn-outline-gold"><i class="fas fa-newspaper me-1"></i>Publish Insight Article</a>
+                        <a href="faqs.html" class="btn btn-sm btn-outline-gold"><i class="fas fa-question-circle me-1"></i>Add FAQ Entry</a>
+                        <a href="requests.html" class="btn btn-sm btn-outline-gold"><i class="fas fa-inbox me-1"></i>Consultation Inbox</a>
+                        <a href="messages.html" class="btn btn-sm btn-outline-gold"><i class="fas fa-envelope me-1"></i>Contact Messages</a>
+                    </div>
+                </div>
+
+                <!-- Split Grid: Recent Activity Feed & Recent Consultation Requests -->
+                <div class="row g-4">
+                    <!-- Recent Consultation Requests Inbox -->
+                    <div class="col-lg-7">
+                        <div class="card-custom h-100" style="background-color: var(--bg-surface);">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <h5 class="font-heading m-0"><i class="fas fa-inbox text-warning me-2"></i>Recent Consultation Inquiries</h5>
+                                <a href="requests.html" class="btn btn-sm btn-outline-gold py-1">View All</a>
+                            </div>
+
+                            <div class="admin-table-container">
+                                <table class="table-custom">
+                                    <thead>
+                                        <tr>
+                                            <th>Client Name</th>
+                                            <th>Service Needed</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recentRequestsTbody">
+                                        <tr>
+                                            <td colspan="4" class="text-center text-muted py-4">No consultation requests logged yet.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <!-- Controls -->
-                        <div class="hero-carousel-controls">
-                            <button class="hero-carousel-btn" id="heroPrevBtn" aria-label="Previous Slide"><i class="fas fa-chevron-left"></i></button>
-                            <div class="hero-carousel-indicators" id="heroDotsContainer">
-                                <span class="hero-carousel-dot active" data-slide="0"></span>
-                                <span class="hero-carousel-dot" data-slide="1"></span>
-                                <span class="hero-carousel-dot" data-slide="2"></span>
-                                <span class="hero-carousel-dot" data-slide="3"></span>
-                                <span class="hero-carousel-dot" data-slide="4"></span>
+                    </div>
+
+                    <!-- Recent Activity Feed -->
+                    <div class="col-lg-5">
+                        <div class="card-custom h-100" style="background-color: var(--bg-surface);">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <h5 class="font-heading m-0"><i class="fas fa-history text-warning me-2"></i>Recent System Activity</h5>
+                                <a href="activity.html" class="btn btn-sm btn-outline-gold py-1">Activity Log</a>
                             </div>
-                            <button class="hero-carousel-btn" id="heroNextBtn" aria-label="Next Slide"><i class="fas fa-chevron-right"></i></button>
+
+                            <div class="activity-feed" id="recentActivityFeed">
+                                <!-- Populated dynamically -->
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-        </div>
+        </main>
     </div>
-
-    <!-- Trust / Credibility Strip -->
-    <div class="py-3 border-bottom border-top" style="background-color: var(--bg-surface);">
-        <div class="container">
-            <div class="row g-3 text-center">
-                <div class="col-md-3 col-6">
-                    <div class="d-flex align-items-center justify-content-center gap-2">
-                        <i class="fas fa-shield-alt text-warning"></i>
-                        <span class="font-heading small">Kenya-Focused Expertise</span>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="d-flex align-items-center justify-content-center gap-2">
-                        <i class="fas fa-sync-alt text-warning"></i>
-                        <span class="font-heading small">End-to-End Lifecycle Care</span>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="d-flex align-items-center justify-content-center gap-2">
-                        <i class="fas fa-balance-scale text-warning"></i>
-                        <span class="font-heading small">Regulatory Guidance</span>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6">
-                    <div class="d-flex align-items-center justify-content-center gap-2">
-                        <i class="fas fa-check-double text-warning"></i>
-                        <span class="font-heading small">Transparent Governance</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Business Lifecycle Section -->
-    <div class="section-padding" style="background-color: var(--bg-primary);">
-        <div class="container">
-            <div class="text-center max-w-700 mx-auto mb-5">
-                <span class="badge-category mb-2">COMPLETE BUSINESS LIFECYCLE</span>
-                <h2>Supporting Your Journey at Every Stage</h2>
-                <p class="text-muted">Kivanta Advisory delivers consultative continuity throughout your commercial lifecycle in Kenya.</p>
-            </div>
-            <div class="row g-3 text-center">
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="card-custom py-3 px-2">
-                        <div class="icon-box mx-auto mb-2"><i class="fas fa-lightbulb"></i></div>
-                        <h6>1. Feasibility</h6>
-                        <small class="text-muted">Market analysis</small>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="card-custom py-3 px-2">
-                        <div class="icon-box mx-auto mb-2"><i class="fas fa-file-contract"></i></div>
-                        <h6>2. Registration</h6>
-                        <small class="text-muted">BRS & CR12 certificate</small>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="card-custom py-3 px-2">
-                        <div class="icon-box mx-auto mb-2"><i class="fas fa-passport"></i></div>
-                        <h6>3. Work Permits</h6>
-                        <small class="text-muted">Immigration clearance</small>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="card-custom py-3 px-2">
-                        <div class="icon-box mx-auto mb-2"><i class="fas fa-calculator"></i></div>
-                        <h6>4. Tax & Licensing</h6>
-                        <small class="text-muted">KRA PIN & County permits</small>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="card-custom py-3 px-2">
-                        <div class="icon-box mx-auto mb-2"><i class="fas fa-tasks"></i></div>
-                        <h6>5. Operations</h6>
-                        <small class="text-muted">Bookkeeping & Payroll</small>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-6">
-                    <div class="card-custom py-3 px-2">
-                        <div class="icon-box mx-auto mb-2"><i class="fas fa-chart-line"></i></div>
-                        <h6>6. Scale</h6>
-                        <small class="text-muted">Annual secretarial</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Core Service Categories -->
-    <div class="section-padding" style="background-color: var(--bg-surface);">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-end justify-content-between mb-4">
-                <div>
-                    <span class="badge-category mb-2">SERVICE ECOSYSTEM</span>
-                    <h2>Structured Service Categories</h2>
-                </div>
-                <a href="service.html" class="btn btn-outline-gold btn-sm mt-2 mt-md-0">View All Services <i class="fas fa-arrow-right ms-1"></i></a>
-            </div>
-
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6">
-                    <div class="card-custom">
-                        <div class="icon-box"><i class="fas fa-building"></i></div>
-                        <h4 class="mb-2">Business Setup & Registration</h4>
-                        <p class="text-muted small mb-3">Incorporate Private Limited Companies, register business names, establish foreign branch offices, and execute corporate filings.</p>
-                        <a href="services/company-registration.html" class="btn btn-outline-gold btn-sm mt-auto">Explore Setup Services <i class="fas fa-arrow-right ms-1"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="card-custom">
-                        <div class="icon-box"><i class="fas fa-passport"></i></div>
-                        <h4 class="mb-2">Immigration & Relocation</h4>
-                        <p class="text-muted small mb-3">Work permit applications for foreign investors (Class G) and employees (Class D), special passes, dependant permits, and relocation setup.</p>
-                        <a href="services/work-permits.html" class="btn btn-outline-gold btn-sm mt-auto">Explore Immigration <i class="fas fa-arrow-right ms-1"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="card-custom">
-                        <div class="icon-box"><i class="fas fa-calculator"></i></div>
-                        <h4 class="mb-2">Tax & Statutory Compliance</h4>
-                        <p class="text-muted small mb-3">KRA PIN setup, VAT registration, eTIMS compliance, monthly statutory filings, and County Single Business Permits.</p>
-                        <a href="services/tax-compliance.html" class="btn btn-outline-gold btn-sm mt-auto">Explore Tax Services <i class="fas fa-arrow-right ms-1"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="card-custom">
-                        <div class="icon-box"><i class="fas fa-chart-line"></i></div>
-                        <h4 class="mb-2">Accounting & Payroll</h4>
-                        <p class="text-muted small mb-3">Outsourced monthly bookkeeping, management accounts, cloud accounting setup, and PAYE/NSSF/SHIF payroll processing.</p>
-                        <a href="services/bookkeeping-accounting.html" class="btn btn-outline-gold btn-sm mt-auto">Explore Accounting <i class="fas fa-arrow-right ms-1"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="card-custom">
-                        <div class="icon-box"><i class="fas fa-file-signature"></i></div>
-                        <h4 class="mb-2">Corporate Secretarial</h4>
-                        <p class="text-muted small mb-3">Certified secretarial retainers, annual returns, statutory books maintenance, board minutes, and governance support.</p>
-                        <a href="services/corporate-secretarial.html" class="btn btn-outline-gold btn-sm mt-auto">Explore Secretarial <i class="fas fa-arrow-right ms-1"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6">
-                    <div class="card-custom">
-                        <div class="icon-box"><i class="fas fa-compass"></i></div>
-                        <h4 class="mb-2">Market Entry Advisory</h4>
-                        <p class="text-muted small mb-3">Strategic consulting for foreign corporations entering Kenya: entity structuring, regulatory roadmaps, and sector intelligence.</p>
-                        <a href="services/market-entry.html" class="btn btn-outline-gold btn-sm mt-auto">Explore Advisory <i class="fas fa-arrow-right ms-1"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Unsure Which Service You Need? (Conversion Section) -->
-    <div class="section-padding-sm text-center" style="background-color: var(--bg-primary); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
-        <div class="container">
-            <div class="max-w-700 mx-auto">
-                <h3 class="mb-2">Unsure Which Service You Need?</h3>
-                <p class="text-muted small mb-4">Our corporate advisory team will evaluate your business structure and objectives to recommend the optimal legal, immigration, and tax configuration in Kenya.</p>
-                <div class="d-flex flex-wrap gap-2 justify-content-center">
-                    <button onclick="openConsultationModal()" class="btn btn-primary"><i class="fas fa-calendar-check me-1"></i>Book a Consultation</button>
-                    <a href="proposal.html" class="btn btn-outline-gold"><i class="fas fa-file-signature me-1"></i>Request a Proposal</a>
-                    <a href="https://wa.me/254700000000" target="_blank" class="btn btn-success"><i class="fab fa-whatsapp me-1"></i>WhatsApp Us</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Structured 4-Column Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row g-4 mb-4">
-                <div class="col-lg-4 col-md-6">
-                    <h4 class="font-heading mb-3"><i class="fas fa-shield-alt text-warning me-2"></i>Kivanta Advisory</h4>
-                    <p class="text-white-50 small mb-3">One trusted partner for entering, establishing, operating, and growing your business in Kenya.</p>
-                    <div class="d-flex gap-2">
-                        <a href="#" class="btn btn-sm btn-outline-light rounded"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="btn btn-sm btn-outline-light rounded"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6">
-                    <h6 class="text-warning mb-3">Services</h6>
-                    <ul class="list-unstyled space-y-2 small">
-                        <li><a href="services/company-registration.html">Company Registration</a></li>
-                        <li><a href="services/foreign-company-registration.html">Foreign Branch Setup</a></li>
-                        <li><a href="services/work-permits.html">Class G & D Permits</a></li>
-                        <li><a href="services/kra-tax-registration.html">KRA PIN & VAT</a></li>
-                        <li><a href="services/market-entry.html">Market Entry Advisory</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h6 class="text-warning mb-3">Company</h6>
-                    <ul class="list-unstyled space-y-2 small">
-                        <li><a href="about.html">About Kivanta</a></li>
-                        <li><a href="solutions.html">Client Solutions</a></li>
-                        <li><a href="insights.html">Insights & Guides</a></li>
-                        <li><a href="faqs.html">FAQs</a></li>
-                        <li><a href="contact.html">Contact Support</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h6 class="text-warning mb-3">Contact</h6>
-                    <p class="text-white-50 small mb-2"><i class="fas fa-map-marker-alt text-warning me-2"></i>Westlands Commercial Center, Nairobi</p>
-                    <p class="text-white-50 small mb-2"><i class="fas fa-envelope text-warning me-2"></i>info@kivantaadvisory.com</p>
-                    <p class="text-white-50 small mb-3"><i class="fas fa-phone-alt text-warning me-2"></i>+254 700 000 000</p>
-                    <button onclick="openConsultationModal()" class="btn btn-sm btn-gold w-100">Book Consultation</button>
-                </div>
-            </div>
-            <div class="border-top border-secondary pt-3 text-center text-white-50 small" style="font-size: 0.8rem;">
-                <p class="mb-0">© 2026 Kivanta Advisory. All Rights Reserved. Kenya Business Advisory & Corporate Support Platform.</p>
-            </div>
-        </div>
-    </footer>
-
-    <a href="#" class="back-to-top"><i class="fa fa-arrow-up"></i></a>
 
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/data.js"></script>
-    <script src="js/theme.js"></script>
-    <script src="js/main.js"></script>
+    <script src="../js/data.js"></script>
+    <script src="../js/theme.js"></script>
+    <script src="js/admin.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            KivantaAdmin.safeExecute(async () => {
+                if (window.KivantaDB) {
+                    await window.KivantaDB.init();
+
+                    const session = KivantaAdmin.getSession();
+                    if (session?.user?.name) {
+                        $('#dashAdminName').text(session.user.name);
+                    }
+
+                    const today = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+                    $('#dashCurrentDate').text(today);
+
+                    const services = window.KivantaDB.getServices(true) || [];
+                    const categories = window.KivantaDB.getCategories() || [];
+                    const consultations = window.KivantaDB.getConsultationRequests() || [];
+                    const proposals = window.KivantaDB.getProposalRequests() || [];
+                    const messages = window.KivantaDB.getContactMessages() || [];
+                    const insights = window.KivantaDB.getInsights(true) || [];
+                    const logs = window.KivantaDB.getActivityLogs() || [];
+
+                    const unreadMsgs = messages.filter(m => m.status === 'Unread').length;
+                    const newReqs = consultations.filter(r => r.status === 'New').length;
+                    const pendingTotal = unreadMsgs + newReqs;
+
+                    $('#metricTotalServices').text(services.length);
+                    $('#metricActiveServices').text(services.filter(s => s.status === 'published').length || services.length);
+                    $('#metricConsultations').text(consultations.length);
+                    $('#metricProposals').text(proposals.length);
+                    $('#metricMessages').text(messages.length);
+                    $('#metricPosts').text(insights.length);
+                    $('#metricPending').text(pendingTotal);
+
+                    // Render recent requests safely
+                    if (consultations && consultations.length > 0) {
+                        let rows = '';
+                        consultations.slice(0, 5).forEach(req => {
+                            rows += `
+                                <tr>
+                                    <td><strong class="font-heading">${req.name || 'Anonymous Client'}</strong><br><small class="text-muted">${req.email || ''}</small></td>
+                                    <td><span class="badge-category">${req.service || 'General Advisory'}</span></td>
+                                    <td><small class="text-muted">${req.date ? new Date(req.date).toLocaleDateString() : 'Recent'}</small></td>
+                                    <td><span class="badge-status ${(req.status || 'New').toLowerCase().replace(' ', '')}">${req.status || 'New'}</span></td>
+                                </tr>
+                            `;
+                        });
+                        $('#recentRequestsTbody').html(rows);
+                    } else {
+                        $('#recentRequestsTbody').html('<tr><td colspan="4" class="text-center text-muted py-4"><i class="fas fa-inbox text-warning me-2"></i>No consultation requests logged yet.</td></tr>');
+                    }
+
+                    // Render recent activity feed
+                    if (logs && logs.length > 0) {
+                        let feedHtml = '';
+                        logs.slice(0, 5).forEach(act => {
+                            const iconClass = act.type || 'system';
+                            feedHtml += `
+                                <div class="activity-item">
+                                    <div class="activity-icon ${iconClass}"><i class="fas fa-${iconClass === 'content' ? 'pen' : (iconClass === 'lead' ? 'inbox' : 'cog')}"></i></div>
+                                    <div>
+                                        <div class="font-heading small fw-bold">${act.action}</div>
+                                        <div class="text-muted small" style="font-size: 0.775rem;">${act.description}</div>
+                                        <div class="text-white-50 small mt-1" style="font-size: 0.7rem;"><i class="fas fa-user me-1 text-warning"></i>${act.user} &nbsp;•&nbsp; ${new Date(act.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        $('#recentActivityFeed').html(feedHtml);
+                    } else {
+                        $('#recentActivityFeed').html('<div class="text-center py-4 text-muted small"><i class="fas fa-history me-1 text-warning"></i>No system activity logged yet.</div>');
+                    }
+                }
+            }, '.admin-content', 'Unable to Load Dashboard Metrics');
+        });
+    </script>
 </body>
 
 </html>

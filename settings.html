@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global Theme FOUC Prevention -->
+    <script>
+      (function() {
+        try {
+          var s = localStorage.getItem('kivanta_theme') || 'system';
+          var r = s;
+          if (s === 'system') {
+            r = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', r);
+          document.documentElement.setAttribute('data-theme-preference', s);
+          document.documentElement.classList.add('no-transitions');
+        } catch (e) {}
+      })();
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Company Settings & Branding | Kivanta Advisory Admin</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <div class="admin-content-wrapper">
+    <header class="admin-header" id="adminHeader"></header>
+
+    <main class="admin-main">
+      <div class="admin-page-header">
+        <div>
+          <h1 class="admin-page-title"><i class="fa-solid fa-sliders"></i> Company Identity & Platform Settings</h1>
+          <p class="admin-page-subtitle">Configure legal entity names, contact channels, physical headquarters, and social media handles.</p>
+        </div>
+        <div class="admin-page-actions">
+          <button type="button" onclick="KivantaAdmin.saveCompanySettings()" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Site Settings</button>
+        </div>
+      </div>
+
+      <form id="settingsForm" onsubmit="event.preventDefault(); KivantaAdmin.saveCompanySettings();" style="max-width: 950px;">
+        
+        <!-- Company Profile Card -->
+        <div class="admin-card" style="margin-bottom: 24px;">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title"><i class="fa-solid fa-building" style="color: var(--color-gold); margin-right: 8px;"></i> Company Brand & Tagline</h3>
+          </div>
+          <div class="admin-card-body" style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Company Official Name *</label>
+                <input type="text" id="setCompanyName" value="Kivanta Advisory" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+              </div>
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Corporate Tagline</label>
+                <input type="text" id="setTagline" value="Kenya Business Advisory & Market Entry Platform" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Corporate Overview Description</label>
+              <textarea id="setDesc" rows="3" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">Kivanta Advisory is your single trusted partner for entering, establishing, operating, and growing your business in Kenya.</textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Channels Card -->
+        <div class="admin-card" style="margin-bottom: 24px;">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title"><i class="fa-solid fa-headset" style="color: var(--color-gold); margin-right: 8px;"></i> Official Contact Channels & Address</h3>
+          </div>
+          <div class="admin-card-body" style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Official Advisory Email *</label>
+                <input type="email" id="setEmail" value="info@kivanta.co.ke" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+              </div>
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Telephone Number *</label>
+                <input type="text" id="setPhone" value="+254 700 000 000" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">WhatsApp Business Line</label>
+                <input type="text" id="setWhatsapp" value="+254 700 000 000" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Office Hours</label>
+                <input type="text" id="setHours" value="Monday – Friday: 8:00 AM – 5:00 PM (EAT)" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Physical Office Address</label>
+              <input type="text" id="setAddress" value="Westlands Business District, Nairobi, Kenya" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Media Profiles Card -->
+        <div class="admin-card" style="margin-bottom: 32px;">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title"><i class="fa-solid fa-share-nodes" style="color: var(--color-gold); margin-right: 8px;"></i> Social Media Handles</h3>
+          </div>
+          <div class="admin-card-body" style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">LinkedIn Company Page</label>
+                <input type="text" id="setLinkedin" value="https://linkedin.com/company/kivanta-advisory" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Twitter / X Handle</label>
+                <input type="text" id="setTwitter" value="https://x.com/kivantaadvisory" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Facebook Page</label>
+                <input type="text" id="setFacebook" value="https://facebook.com/kivantaadvisory" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 40px;">
+          <button type="submit" class="btn btn-primary" style="padding: 10px 24px;"><i class="fa-solid fa-floppy-disk"></i> Save Site Settings</button>
+        </div>
+
+      </form>
+    </main>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/theme.js"></script>
+    <script src="js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      KivantaAdmin.safeExecute(() => {
+        KivantaAdmin.initPage('settings');
+        const settings = KivantaDB.getSettings ? KivantaDB.getSettings() : {};
+
+        if (settings.companyName) document.getElementById('setCompanyName').value = settings.companyName;
+        if (settings.tagline) document.getElementById('setTagline').value = settings.tagline;
+        if (settings.description) document.getElementById('setDesc').value = settings.description;
+
+        if (settings.email) document.getElementById('setEmail').value = settings.email;
+        if (settings.phone) document.getElementById('setPhone').value = settings.phone;
+        if (settings.whatsapp) document.getElementById('setWhatsapp').value = settings.whatsapp;
+        if (settings.officeHours) document.getElementById('setHours').value = settings.officeHours;
+        if (settings.address) document.getElementById('setAddress').value = settings.address;
+
+        if (settings.social) {
+          if (settings.social.linkedin) document.getElementById('setLinkedin').value = settings.social.linkedin;
+          if (settings.social.twitter) document.getElementById('setTwitter').value = settings.social.twitter;
+          if (settings.social.facebook) document.getElementById('setFacebook').value = settings.social.facebook;
+        }
+      }, 'Settings Init');
+    });
+
+    if (typeof KivantaAdmin !== 'undefined') {
+      KivantaAdmin.saveCompanySettings = function() {
+        const payload = {
+          companyName: document.getElementById('setCompanyName').value.trim(),
+          tagline: document.getElementById('setTagline').value.trim(),
+          description: document.getElementById('setDesc').value.trim(),
+          email: document.getElementById('setEmail').value.trim(),
+          phone: document.getElementById('setPhone').value.trim(),
+          whatsapp: document.getElementById('setWhatsapp').value.trim(),
+          officeHours: document.getElementById('setHours').value.trim(),
+          address: document.getElementById('setAddress').value.trim(),
+          social: {
+            linkedin: document.getElementById('setLinkedin').value.trim(),
+            twitter: document.getElementById('setTwitter').value.trim(),
+            facebook: document.getElementById('setFacebook').value.trim()
+          }
+        };
+
+        if (KivantaDB.saveSettings) {
+          KivantaDB.saveSettings(payload);
+        }
+        KivantaAdmin.showToast('Company identity & site settings saved successfully!', 'success');
+      };
+    }
+  </script>
+</body>
+</html>

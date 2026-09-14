@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
-
+<html lang="en">
 <head>
     <!-- Global Theme FOUC Prevention -->
     <script>
@@ -17,144 +16,400 @@
         } catch (e) {}
       })();
     </script>
-    <meta charset="utf-8">
-    <title>Insights & Guides — Kivanta Advisory Kenya</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Kenya business guides, tax compliance Kenya, work permits guide, doing business in Kenya" name="keywords">
-    <meta content="Explore regulatory updates, market entry guides, and tax compliance insights for doing business in Kenya from Kivanta Advisory." name="description">
-
-    <!-- Fonts & Icons -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Stylesheets -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insights & Blog CMS | Kivanta Advisory Admin</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
 </head>
+<body class="admin-layout">
 
-<body>
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
 
-    <!-- Spinner -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-warning" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading Insights...</span>
+  <div class="admin-content-wrapper">
+    <header class="admin-header" id="adminHeader"></header>
+
+    <main class="admin-main">
+      <div class="admin-page-header">
+        <div>
+          <h1 class="admin-page-title"><i class="fa-solid fa-newspaper"></i> Blog Articles & Insights CMS</h1>
+          <p class="admin-page-subtitle">Publish, schedule, and curate regulatory guides, market intelligence, and advisory thought leadership with full SEO optimization.</p>
         </div>
-    </div>
+        <div class="admin-page-actions">
+          <button class="btn btn-primary" onclick="KivantaAdmin.openInsightModal()"><i class="fa-solid fa-plus"></i> Publish New Article</button>
+        </div>
+      </div>
 
-    <!-- Topbar -->
-    <div class="container-fluid topbar px-5 d-none d-lg-block">
-        <div class="row gx-0 align-items-center" style="height: 45px;">
-            <div class="col-lg-7 text-start">
-                <div class="d-flex align-items-center gap-4">
-                    <span><i class="fas fa-map-marker-alt text-warning me-2"></i>Westlands Commercial Center, Nairobi, Kenya</span>
-                    <a href="mailto:info@kivantaadvisory.com"><i class="fas fa-envelope text-warning me-2"></i>info@kivantaadvisory.com</a>
-                    <a href="tel:+254700000000"><i class="fas fa-phone-alt text-warning me-2"></i>+254 700 000 000</a>
+      <!-- Filters & Status Tabs -->
+      <div class="admin-card" style="margin-bottom: 24px;">
+        <div class="admin-card-body" style="padding: 16px 20px;">
+          <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between;">
+            
+            <!-- Status Tabs -->
+            <div style="display: flex; gap: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 4px;">
+              <button class="analytics-time-btn active" data-status="all" onclick="KivantaAdmin.filterInsightStatus('all', this)">All Articles</button>
+              <button class="analytics-time-btn" data-status="published" onclick="KivantaAdmin.filterInsightStatus('published', this)">Published</button>
+              <button class="analytics-time-btn" data-status="draft" onclick="KivantaAdmin.filterInsightStatus('draft', this)">Drafts</button>
+              <button class="analytics-time-btn" data-status="scheduled" onclick="KivantaAdmin.filterInsightStatus('scheduled', this)">Scheduled</button>
+            </div>
+
+            <!-- Search & Category -->
+            <div style="display: flex; gap: 12px; flex: 1; max-width: 500px;">
+              <div style="position: relative; flex: 1;">
+                <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--color-text-muted);"></i>
+                <input type="text" id="insightSearchInput" placeholder="Search by title, category or tag..." style="width: 100%; padding: 10px 14px 10px 40px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 0.88rem;" oninput="KivantaAdmin.renderInsightsList()">
+              </div>
+
+              <select id="insightCategorySelect" style="padding: 10px 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 0.88rem;" onchange="KivantaAdmin.renderInsightsList()">
+                <option value="all">All Categories</option>
+                <option value="Market Entry">Market Entry</option>
+                <option value="Tax & Compliance">Tax & Compliance</option>
+                <option value="Immigration">Immigration</option>
+                <option value="Business Registration">Business Registration</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Articles Table Card -->
+      <div class="admin-card">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Article Title & Slug</th>
+                <th>Category</th>
+                <th>Author</th>
+                <th>Publication Date</th>
+                <th>Status</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="insightsAdminTbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Comprehensive Insight Article Modal with Live SEO Snippet -->
+  <div class="admin-modal-overlay" id="insightModal">
+    <div class="admin-modal-dialog" style="max-width: 900px;">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="insightModalTitle"><i class="fa-solid fa-pen-to-square"></i> Create / Edit Blog Article</h3>
+        <button class="admin-modal-close" onclick="KivantaAdmin.closeModal('insightModal')">&times;</button>
+      </div>
+      <form id="insightForm" onsubmit="KivantaAdmin.saveInsightArticle(event)">
+        <div class="admin-modal-body" style="max-height: 75vh; overflow-y: auto; padding-right: 12px;">
+          <input type="hidden" id="insId">
+          
+          <!-- Tabbed Sections: General Content vs SEO Optimization -->
+          <div style="display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+            <button type="button" class="analytics-time-btn active" id="tabArticleBtn" onclick="KivantaAdmin.switchArticleModalTab('article')"><i class="fa-solid fa-file-pen" style="margin-right: 6px;"></i> Article Content</button>
+            <button type="button" class="analytics-time-btn" id="tabSeoBtn" onclick="KivantaAdmin.switchArticleModalTab('seo')"><i class="fa-solid fa-magnifying-glass" style="margin-right: 6px;"></i> SEO & Metadata</button>
+          </div>
+
+          <!-- Section 1: Article Content -->
+          <div id="sectionArticleContent">
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 16px;">
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Article Title *</label>
+                <input type="text" id="insTitle" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required oninput="KivantaAdmin.autoGenerateSlug(this.value); KivantaAdmin.updateArticleSeoPreview();">
+              </div>
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">URL Slug *</label>
+                <input type="text" id="insSlug" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required oninput="KivantaAdmin.updateArticleSeoPreview()">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 16px;">
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Category *</label>
+                <select id="insCategory" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                  <option value="Market Entry">Market Entry</option>
+                  <option value="Tax & Compliance">Tax & Compliance</option>
+                  <option value="Immigration">Immigration</option>
+                  <option value="Business Registration">Business Registration</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Author</label>
+                <input type="text" id="insAuthor" value="Kivanta Advisory Team" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Publish Status</label>
+                <select id="insStatus" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                  <option value="published">Published</option>
+                  <option value="draft">Draft</option>
+                  <option value="scheduled">Scheduled</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-top: 16px;">
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Cover Image URL / Path</label>
+                <input type="text" id="insImage" placeholder="images/hero-1.jpg" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Est. Reading Time</label>
+                <input type="text" id="insReadingTime" placeholder="e.g. 5 min read" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+            </div>
+
+            <div style="margin-top: 16px;">
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Excerpt Summary *</label>
+              <textarea id="insExcerpt" rows="2" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required oninput="KivantaAdmin.updateArticleSeoPreview()"></textarea>
+            </div>
+
+            <div style="margin-top: 16px;">
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Full Article Content (Markdown or HTML) *</label>
+              <textarea id="insContent" rows="6" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required></textarea>
+            </div>
+          </div>
+
+          <!-- Section 2: SEO Optimization & Live Preview -->
+          <div id="sectionArticleSeo" style="display: none;">
+            <div style="background: rgba(197, 160, 89, 0.08); border: 1px solid rgba(197, 160, 89, 0.2); border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; font-size: 0.85rem; color: #fff;">
+              <i class="fa-solid fa-lightbulb" style="color: var(--color-gold); margin-right: 8px;"></i> Customize search engine titles and meta descriptions for this article to maximize organic search ranking in Kenya.
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">SEO Meta Title Tag</label>
+                <input type="text" id="insSeoTitle" placeholder="Leave empty to use default Article Title" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" oninput="KivantaAdmin.updateArticleSeoPreview()">
+              </div>
+
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">SEO Meta Description</label>
+                <textarea id="insSeoDescription" rows="3" placeholder="Leave empty to use Excerpt Summary" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" oninput="KivantaAdmin.updateArticleSeoPreview()"></textarea>
+              </div>
+
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Target Focus Keywords (Comma separated)</label>
+                <input type="text" id="insSeoKeywords" placeholder="Kenya Business Registration, Foreign Investment Nairobi, BRS Setup" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+
+              <!-- Live Google Preview Box -->
+              <div style="margin-top: 10px;">
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-gold); margin-bottom: 8px; font-weight: 600;">Google Search Result Live Preview</label>
+                <div style="background: #ffffff; border-radius: 8px; padding: 16px; font-family: arial, sans-serif;">
+                  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                    <div style="width: 22px; height: 22px; border-radius: 50%; background: #000; display: flex; align-items: center; justify-content: center; color: var(--color-gold); font-weight: 800; font-size: 0.65rem;">K</div>
+                    <div>
+                      <div style="font-size: 0.78rem; color: #202124;">Kivanta Advisory Insights</div>
+                      <div id="artPreviewUrl" style="font-size: 0.72rem; color: #4d5156;">https://kivanta.co.ke/insights/article-slug</div>
+                    </div>
+                  </div>
+                  <div id="artPreviewTitle" style="color: #1a0dab; font-size: 1.1rem; font-weight: 400; line-height: 1.3; cursor: pointer; margin-bottom: 4px;">
+                    Article Title Preview
+                  </div>
+                  <div id="artPreviewDesc" style="color: #4d5156; font-size: 0.82rem; line-height: 1.4;">
+                    Excerpt or meta description text will be rendered here dynamically for Google search snippet preview.
+                  </div>
                 </div>
+              </div>
+
             </div>
-            <div class="col-lg-5 text-end d-flex align-items-center justify-content-end gap-3">
-                <span class="badge bg-warning text-dark font-heading">Kenya Business Advisory</span>
-                <button class="theme-toggle-btn ms-2" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
-                    <i class="fas fa-moon"></i>
-                </button>
-            </div>
+          </div>
+
         </div>
-    </div>
-
-    <!-- Navbar -->
-    <div class="container-fluid nav-bar p-0">
-        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3">
-            <a href="index.html" class="navbar-brand p-0">
-                <h2 class="brand-name m-0"><i class="fas fa-shield-alt text-warning me-2"></i>Kivanta Advisory</h2>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="fa fa-bars"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav ms-auto py-0">
-                    <a href="index.html" class="nav-item nav-link">Home</a>
-                    <a href="service.html" class="nav-item nav-link">Services</a>
-                    <a href="solutions.html" class="nav-item nav-link">Solutions</a>
-                    <a href="about.html" class="nav-item nav-link">About Us</a>
-                    <a href="insights.html" class="nav-item nav-link active">Insights</a>
-                    <a href="faqs.html" class="nav-item nav-link">FAQs</a>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
-                </div>
-                <div class="d-flex align-items-center gap-2 ms-lg-3">
-                    <a href="proposal.html" class="btn btn-outline-gold me-1">Request a Proposal</a>
-                    <button onclick="openConsultationModal()" class="btn btn-primary">Book Consultation</button>
-                </div>
-            </div>
-        </nav>
-    </div>
-
-    <!-- Header Breadcrumb -->
-    <div class="container-fluid bg-breadcrumb text-center">
-        <div class="container py-4" style="max-width: 900px;">
-            <span class="badge-category mb-3">KNOWLEDGE HUB</span>
-            <h1 class="display-4 text-white mb-3">Regulatory & Business Insights in Kenya</h1>
-            <p class="text-white-50 lead mb-4">Stay informed on Kenya's evolving corporate legislation, tax compliance updates, immigration procedures, and market entry strategies.</p>
-            <ol class="breadcrumb justify-content-center text-white mb-0">
-                <li class="breadcrumb-item"><a href="index.html" class="text-white">Home</a></li>
-                <li class="breadcrumb-item active text-warning">Insights</li>
-            </ol>
+        <div class="admin-modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="KivantaAdmin.closeModal('insightModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save & Publish Article</button>
         </div>
+      </form>
     </div>
+  </div>
 
-    <!-- Articles Grid -->
-    <div class="py-5" style="background-color: var(--bg-primary);">
-        <div class="container py-4">
-            <div class="row g-4" id="insightsGrid">
-                <!-- Javascript dynamically populates insights -->
-            </div>
-        </div>
-    </div>
+  <script src="../js/data.js"></script>
+  <script src="../js/theme.js"></script>
+    <script src="js/admin.js"></script>
+  <script>
+    let currentStatusFilter = 'all';
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="border-top border-secondary pt-4 text-center text-white-50 small">
-                <p class="mb-0">© 2026 Kivanta Advisory. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
+    document.addEventListener('DOMContentLoaded', () => {
+      KivantaAdmin.safeExecute(() => {
+        KivantaAdmin.initPage('insights');
+        KivantaAdmin.renderInsightsList();
+      }, 'Insights Page Init');
+    });
 
-    <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/data.js"></script>
-    <script src="js/theme.js"></script>
-    <script src="js/main.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            if (window.KivantaDB) {
-                await window.KivantaDB.init();
-                const insights = window.KivantaDB.getInsights();
-                let html = '';
-                insights.forEach(item => {
-                    html += `
-                        <div class="col-lg-4 col-md-6">
-                            <div class="card-custom">
-                                <div class="d-flex align-items-center justify-content-between mb-3">
-                                    <span class="badge-category">${item.category}</span>
-                                    <small class="text-muted"><i class="far fa-clock me-1"></i>${item.readTime || '5 min read'}</small>
-                                </div>
-                                <h4 class="mb-3">${item.title}</h4>
-                                <p class="text-muted small mb-4 flex-grow-1">${item.excerpt}</p>
-                                <div class="border-top pt-3 mt-auto d-flex align-items-center justify-content-between">
-                                    <small class="text-muted"><i class="far fa-calendar me-1"></i>${item.date}</small>
-                                    <button onclick="openConsultationModal('${item.title}')" class="btn btn-sm btn-outline-gold">Consult Advisory <i class="fas fa-arrow-right ms-1"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-                $('#insightsGrid').html(html);
-            }
+    if (typeof KivantaAdmin !== 'undefined') {
+      KivantaAdmin.filterInsightStatus = function(status, btn) {
+        currentStatusFilter = status;
+        document.querySelectorAll('.analytics-time-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+        KivantaAdmin.renderInsightsList();
+      };
+
+      KivantaAdmin.switchArticleModalTab = function(tab) {
+        document.getElementById('tabArticleBtn')?.classList.toggle('active', tab === 'article');
+        document.getElementById('tabSeoBtn')?.classList.toggle('active', tab === 'seo');
+        
+        document.getElementById('sectionArticleContent').style.display = tab === 'article' ? 'block' : 'none';
+        document.getElementById('sectionArticleSeo').style.display = tab === 'seo' ? 'block' : 'none';
+      };
+
+      KivantaAdmin.updateArticleSeoPreview = function() {
+        const title = document.getElementById('insSeoTitle')?.value.trim() || document.getElementById('insTitle')?.value.trim() || 'Article Title';
+        const slug = document.getElementById('insSlug')?.value.trim() || 'article-slug';
+        const desc = document.getElementById('insSeoDescription')?.value.trim() || document.getElementById('insExcerpt')?.value.trim() || 'Article summary description for Google snippet preview.';
+
+        const tEl = document.getElementById('artPreviewTitle');
+        if (tEl) tEl.textContent = title + ' — Kivanta Advisory';
+
+        const uEl = document.getElementById('artPreviewUrl');
+        if (uEl) uEl.textContent = `https://kivanta.co.ke/insights/${slug}.html`;
+
+        const dEl = document.getElementById('artPreviewDesc');
+        if (dEl) dEl.textContent = desc;
+      };
+
+      KivantaAdmin.renderInsightsList = function() {
+        const tbody = document.getElementById('insightsAdminTbody');
+        if (!tbody) return;
+
+        const list = KivantaDB.getInsights ? KivantaDB.getInsights(true) : [];
+        const query = (document.getElementById('insightSearchInput')?.value || '').toLowerCase();
+        const catFilter = document.getElementById('insightCategorySelect')?.value || 'all';
+
+        const filtered = list.filter(i => {
+          const matchQuery = !query || 
+            (i.title || '').toLowerCase().includes(query) ||
+            (i.slug || '').toLowerCase().includes(query) ||
+            (i.category || '').toLowerCase().includes(query);
+
+          const matchCat = catFilter === 'all' || i.category === catFilter;
+          const matchStatus = currentStatusFilter === 'all' || (i.status || 'published') === currentStatusFilter;
+
+          return matchQuery && matchCat && matchStatus;
         });
-    </script>
-</body>
 
+        if (filtered.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" style="text-align: center; padding: 40px; color: var(--color-text-muted);">
+                <i class="fa-solid fa-newspaper" style="font-size: 2rem; opacity: 0.3; margin-bottom: 12px; display: block;"></i>
+                No insight articles found matching criteria.
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = filtered.map(i => {
+          let statusBadge = '<span class="badge badge-success">Published</span>';
+          if (i.status === 'draft') statusBadge = '<span class="badge badge-warning">Draft</span>';
+          if (i.status === 'scheduled') statusBadge = '<span class="badge badge-info">Scheduled</span>';
+
+          return `
+            <tr>
+              <td>
+                <strong style="color: #ffffff; font-size: 0.92rem;">${KivantaAdmin.escapeHtml(i.title)}</strong>
+                <div style="font-size: 0.76rem; color: var(--color-gold); font-family: monospace;">/insights/${KivantaAdmin.escapeHtml(i.slug)}</div>
+              </td>
+              <td><span class="badge badge-info">${KivantaAdmin.escapeHtml(i.category)}</span></td>
+              <td style="font-size: 0.85rem; color: #e2e8f0;">${KivantaAdmin.escapeHtml(i.author || 'Kivanta Team')}</td>
+              <td style="font-size: 0.82rem; color: var(--color-text-muted);">${i.date || '2026-09-01'}</td>
+              <td>${statusBadge}</td>
+              <td style="text-align: right; whitespace: nowrap;">
+                <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; margin-right: 4px;" onclick="KivantaAdmin.editInsightItem('${i.id}')" title="Edit Article"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                <button class="btn btn-danger" style="padding: 4px 8px; font-size: 0.78rem;" onclick="KivantaAdmin.deleteInsightItem('${i.id}')" title="Delete Article"><i class="fa-solid fa-trash-can"></i></button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      };
+
+      KivantaAdmin.autoGenerateSlug = function(title) {
+        const slugInput = document.getElementById('insSlug');
+        if (slugInput && !slugInput.dataset.manual) {
+          slugInput.value = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        }
+      };
+
+      KivantaAdmin.openInsightModal = function() {
+        document.getElementById('insightForm').reset();
+        document.getElementById('insId').value = '';
+        document.getElementById('insightModalTitle').innerHTML = '<i class="fa-solid fa-plus-circle"></i> Create New Insight Article';
+        KivantaAdmin.switchArticleModalTab('article');
+        KivantaAdmin.updateArticleSeoPreview();
+        KivantaAdmin.openModal('insightModal');
+      };
+
+      KivantaAdmin.editInsightItem = function(id) {
+        const i = KivantaDB.getInsightBySlug ? KivantaDB.getInsightBySlug(id) : null;
+        if (i) {
+          document.getElementById('insId').value = i.id;
+          document.getElementById('insTitle').value = i.title || '';
+          document.getElementById('insSlug').value = i.slug || '';
+          document.getElementById('insCategory').value = i.category || 'Market Entry';
+          document.getElementById('insAuthor').value = i.author || 'Kivanta Advisory Team';
+          document.getElementById('insStatus').value = i.status || 'published';
+          document.getElementById('insImage').value = i.image || '';
+          document.getElementById('insReadingTime').value = i.readingTime || '';
+          document.getElementById('insExcerpt').value = i.excerpt || '';
+          document.getElementById('insContent').value = i.content || '';
+          document.getElementById('insSeoTitle').value = i.seoTitle || '';
+          document.getElementById('insSeoDescription').value = i.seoDescription || '';
+          document.getElementById('insSeoKeywords').value = i.seoKeywords || '';
+          
+          document.getElementById('insightModalTitle').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Edit Insight Article';
+          KivantaAdmin.switchArticleModalTab('article');
+          KivantaAdmin.updateArticleSeoPreview();
+          KivantaAdmin.openModal('insightModal');
+        }
+      };
+
+      KivantaAdmin.saveInsightArticle = function(e) {
+        e.preventDefault();
+        const item = {
+          id: document.getElementById('insId').value || document.getElementById('insSlug').value.trim(),
+          title: document.getElementById('insTitle').value.trim(),
+          slug: document.getElementById('insSlug').value.trim(),
+          category: document.getElementById('insCategory').value,
+          author: document.getElementById('insAuthor').value.trim(),
+          status: document.getElementById('insStatus').value,
+          image: document.getElementById('insImage').value.trim(),
+          readingTime: document.getElementById('insReadingTime').value.trim(),
+          excerpt: document.getElementById('insExcerpt').value.trim(),
+          content: document.getElementById('insContent').value.trim(),
+          seoTitle: document.getElementById('insSeoTitle').value.trim(),
+          seoDescription: document.getElementById('insSeoDescription').value.trim(),
+          seoKeywords: document.getElementById('insSeoKeywords').value.trim(),
+          date: new Date().toISOString().split('T')[0]
+        };
+
+        if (KivantaDB.saveInsight) {
+          KivantaDB.saveInsight(item);
+        }
+        KivantaAdmin.closeModal('insightModal');
+        KivantaAdmin.showToast('Insight article saved & published successfully!', 'success');
+        KivantaAdmin.renderInsightsList();
+      };
+
+      KivantaAdmin.deleteInsightItem = function(id) {
+        if (confirm('Are you sure you want to delete this insight article?')) {
+          if (KivantaDB.deleteInsight) {
+            KivantaDB.deleteInsight(id);
+          }
+          KivantaAdmin.showToast('Article deleted.', 'info');
+          KivantaAdmin.renderInsightsList();
+        }
+      };
+    }
+  </script>
+</body>
 </html>

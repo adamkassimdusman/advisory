@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global Theme FOUC Prevention -->
+    <script>
+      (function() {
+        try {
+          var s = localStorage.getItem('kivanta_theme') || 'system';
+          var r = s;
+          if (s === 'system') {
+            r = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', r);
+          document.documentElement.setAttribute('data-theme-preference', s);
+          document.documentElement.classList.add('no-transitions');
+        } catch (e) {}
+      })();
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Editor | Kivanta Advisory Admin</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <div class="admin-content-wrapper">
+    <header class="admin-header" id="adminHeader"></header>
+
+    <main class="admin-main">
+      <div class="admin-page-header">
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <a href="services.html" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;"><i class="fa-solid fa-arrow-left"></i> Back to Services</a>
+          <div>
+            <h1 class="admin-page-title" id="editorPageTitle"><i class="fa-solid fa-pen-to-square"></i> Create / Edit Service Offering</h1>
+            <p class="admin-page-subtitle">Configure service parameters, statutory fee schedules, checklists, CTA links, and search metadata.</p>
+          </div>
+        </div>
+        <div class="admin-page-actions">
+          <button type="button" onclick="KivantaAdmin.saveServiceForm('draft')" class="btn btn-secondary"><i class="fa-solid fa-floppy-disk"></i> Save Draft</button>
+          <button type="button" onclick="KivantaAdmin.saveServiceForm('published')" class="btn btn-primary"><i class="fa-solid fa-circle-check"></i> Save & Publish</button>
+        </div>
+      </div>
+
+      <form id="serviceEditorForm" style="max-width: 1000px;">
+        <input type="hidden" id="serviceId">
+
+        <!-- 1. Basic Information Card -->
+        <div class="admin-card" style="margin-bottom: 24px;">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title"><i class="fa-solid fa-circle-info" style="color: var(--color-gold); margin-right: 8px;"></i> 1. Basic Information</h3>
+          </div>
+          <div class="admin-card-body" style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Service Name *</label>
+                <input type="text" id="serviceName" placeholder="e.g. Private Limited Company Incorporation" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required oninput="KivantaAdmin.autoGenerateServiceSlug(this.value)">
+              </div>
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">URL Slug *</label>
+                <input type="text" id="serviceSlug" placeholder="e.g. business-entry" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px;">
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Category *</label>
+                <select id="serviceCategory" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required></select>
+              </div>
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Publication Status</label>
+                <select id="serviceStatus" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                  <option value="published">Published</option>
+                  <option value="draft">Draft</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Featured Homepage</label>
+                <select id="serviceFeatured" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                  <option value="false">No</option>
+                  <option value="true">Yes (Featured)</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Display Order</label>
+                <input type="number" id="serviceOrder" value="1" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Short Summary Description *</label>
+              <textarea id="serviceShortDesc" rows="2" placeholder="Brief summary displayed on service cards..." style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required></textarea>
+            </div>
+
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Full Overview Content *</label>
+              <textarea id="serviceOverview" rows="4" placeholder="Detailed service description and strategic overview..." style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Hero & Media Customization Card -->
+        <div class="admin-card" style="margin-bottom: 24px;">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title"><i class="fa-solid fa-image" style="color: var(--color-gold); margin-right: 8px;"></i> 2. Hero Customization & Media Assets</h3>
+          </div>
+          <div class="admin-card-body" style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Hero Title Tag (H1)</label>
+                <input type="text" id="heroTitle" placeholder="Custom hero header title" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Hero Subtitle Paragraph</label>
+                <input type="text" id="heroSubtitle" placeholder="Custom hero subtitle paragraph" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">FontAwesome Service Icon</label>
+                <input type="text" id="serviceIcon" placeholder="e.g. fa-building" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Featured Cover Image URL</label>
+                <input type="text" id="serviceImage" placeholder="images/hero-1.jpg" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Audience & Deliverables Checklists Card -->
+        <div class="admin-card" style="margin-bottom: 24px;">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title"><i class="fa-solid fa-list-check" style="color: var(--color-gold); margin-right: 8px;"></i> 3. Target Audience & Scope Checklists</h3>
+          </div>
+          <div class="admin-card-body" style="display: flex; flex-direction: column; gap: 16px;">
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Target Audiences (Comma separated)</label>
+              <input type="text" id="serviceAudiences" placeholder="Foreign Investors, SMEs, Multinationals, Tech Founders" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+            </div>
+
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">What We Handle Checklists (One item per line)</label>
+              <textarea id="serviceChecklists" rows="5" placeholder="Name Reservation on BRS Portal&#10;CR12 Certificate Issuance&#10;KRA PIN & Tax Obligations Setup" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Requirements & Fees Card -->
+        <div class="admin-card" style="margin-bottom: 24px;">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title"><i class="fa-solid fa-calculator" style="color: var(--color-gold); margin-right: 8px;"></i> 4. Statutory Requirements & Fees</h3>
+          </div>
+          <div class="admin-card-body" style="display: flex; flex-direction: column; gap: 16px;">
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Document Requirements (One item per line)</label>
+              <textarea id="serviceRequirements" rows="4" placeholder="Passport copy of directors&#10;Passport photos&#10;KRA PIN Certificate" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;"></textarea>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Government Statutory Fee</label>
+                <input type="text" id="feeGovernment" placeholder="e.g. KES 10,650 statutory fee" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Professional Fee</label>
+                <input type="text" id="feeProfessional" placeholder="e.g. Fixed package quote" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Estimated Timeline</label>
+                <input type="text" id="feeTimeline" placeholder="e.g. 3 to 7 Working Days" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Pricing Model</label>
+                <select id="feePricingType" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                  <option value="Fixed">Fixed Fee</option>
+                  <option value="Starting From">Starting From</option>
+                  <option value="Variable">Variable</option>
+                  <option value="Request Quote">Request Quote</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Fee Disclaimer Note</label>
+              <input type="text" id="feeDisclaimer" placeholder="Government fees and processing timelines are indicative and subject to policy updates." style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. SEO & Call-to-Action Card -->
+        <div class="admin-card" style="margin-bottom: 32px;">
+          <div class="admin-card-header">
+            <h3 class="admin-card-title"><i class="fa-solid fa-magnifying-glass" style="color: var(--color-gold); margin-right: 8px;"></i> 5. SEO Search Metadata & Call-To-Action</h3>
+          </div>
+          <div class="admin-card-body" style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">SEO Title Tag</label>
+                <input type="text" id="seoTitle" placeholder="Custom SEO title tag for Google search" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Focus Keywords</label>
+                <input type="text" id="seoKeywords" placeholder="Company Setup Kenya, BRS Registration" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">SEO Meta Description</label>
+              <textarea id="seoDescription" rows="2" placeholder="Custom meta description for Google search result snippet..." style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;"></textarea>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">CTA Button Text</label>
+                <input type="text" id="ctaText" value="Schedule Consultation" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+              <div>
+                <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">CTA Button Link URL</label>
+                <input type="text" id="ctaUrl" value="contact.html" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Actions -->
+        <div style="display: flex; justify-content: flex-end; gap: 12px; margin-bottom: 40px;">
+          <a href="services.html" class="btn btn-secondary">Cancel</a>
+          <button type="button" onclick="KivantaAdmin.saveServiceForm('published')" class="btn btn-primary" style="padding: 10px 24px;"><i class="fa-solid fa-circle-check"></i> Save & Publish Service</button>
+        </div>
+
+      </form>
+    </main>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/theme.js"></script>
+    <script src="js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      KivantaAdmin.safeExecute(async () => {
+        KivantaAdmin.initPage('services');
+        KivantaAdmin.populateCategorySelect();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const editSlug = urlParams.get('slug');
+        if (editSlug) {
+          const s = KivantaDB.getServiceBySlug(editSlug);
+          if (s) KivantaAdmin.loadServiceIntoEditor(s);
+        }
+      }, 'Service Editor Page Init');
+    });
+
+    if (typeof KivantaAdmin !== 'undefined') {
+      KivantaAdmin.populateCategorySelect = function() {
+        const select = document.getElementById('serviceCategory');
+        if (!select) return;
+
+        const categories = KivantaDB.getCategories ? KivantaDB.getCategories() : [];
+        let opts = '';
+        categories.forEach(c => {
+          opts += `<option value="${c.id}">${KivantaAdmin.escapeHtml(c.name)}</option>`;
+        });
+        select.innerHTML = opts || '<option value="general">General</option>';
+      };
+
+      KivantaAdmin.autoGenerateServiceSlug = function(name) {
+        const slugInput = document.getElementById('serviceSlug');
+        if (slugInput && !window.location.search.includes('slug=')) {
+          slugInput.value = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        }
+      };
+
+      KivantaAdmin.loadServiceIntoEditor = function(s) {
+        document.getElementById('editorPageTitle').innerHTML = `<i class="fa-solid fa-pen-to-square"></i> Edit Service: ${KivantaAdmin.escapeHtml(s.name)}`;
+        document.getElementById('serviceId').value = s.id;
+        document.getElementById('serviceName').value = s.name || '';
+        document.getElementById('serviceSlug').value = s.slug || '';
+        document.getElementById('serviceCategory').value = s.categoryId || 'general';
+        document.getElementById('serviceStatus').value = s.status || 'published';
+        document.getElementById('serviceFeatured').value = s.featured ? 'true' : 'false';
+        document.getElementById('serviceOrder').value = s.displayOrder || 1;
+        document.getElementById('serviceShortDesc').value = s.shortDesc || '';
+        document.getElementById('serviceOverview').value = s.overview || s.fullDesc || '';
+
+        document.getElementById('heroTitle').value = s.heroTitle || '';
+        document.getElementById('heroSubtitle').value = s.heroSubtitle || '';
+        document.getElementById('serviceIcon').value = s.icon || '';
+        document.getElementById('serviceImage').value = s.image || '';
+
+        document.getElementById('serviceAudiences').value = (s.audiences || []).join(', ');
+        document.getElementById('serviceChecklists').value = (s.checklists || []).join('\n');
+        document.getElementById('serviceRequirements').value = (s.requirements || []).join('\n');
+
+        document.getElementById('feeGovernment').value = s.timelines?.governmentFee || '';
+        document.getElementById('feeProfessional').value = s.timelines?.professionalFee || '';
+        document.getElementById('feeTimeline').value = s.timelines?.estimatedTimeline || '';
+        document.getElementById('feePricingType').value = s.timelines?.pricingType || 'Fixed';
+        document.getElementById('feeDisclaimer').value = s.timelines?.disclaimer || '';
+
+        document.getElementById('seoTitle').value = s.seoTitle || '';
+        document.getElementById('seoDescription').value = s.seoDescription || '';
+        document.getElementById('seoKeywords').value = s.seoKeywords || '';
+        document.getElementById('ctaText').value = s.ctaText || 'Schedule Consultation';
+        document.getElementById('ctaUrl').value = s.ctaUrl || 'contact.html';
+      };
+
+      KivantaAdmin.saveServiceForm = function(targetStatus) {
+        const name = document.getElementById('serviceName').value.trim();
+        const slug = document.getElementById('serviceSlug').value.trim();
+        if (!name || !slug) {
+          KivantaAdmin.showToast('Service Name and URL Slug are required.', 'danger');
+          return;
+        }
+
+        const payload = {
+          id: document.getElementById('serviceId').value || slug,
+          name: name,
+          slug: slug,
+          categoryId: document.getElementById('serviceCategory').value,
+          status: targetStatus || document.getElementById('serviceStatus').value,
+          featured: document.getElementById('serviceFeatured').value === 'true',
+          displayOrder: parseInt(document.getElementById('serviceOrder').value) || 1,
+          shortDesc: document.getElementById('serviceShortDesc').value.trim(),
+          fullDesc: document.getElementById('serviceOverview').value.trim(),
+          overview: document.getElementById('serviceOverview').value.trim(),
+          heroTitle: document.getElementById('heroTitle').value.trim(),
+          heroSubtitle: document.getElementById('heroSubtitle').value.trim(),
+          icon: document.getElementById('serviceIcon').value.trim(),
+          image: document.getElementById('serviceImage').value.trim(),
+          audiences: document.getElementById('serviceAudiences').value.split(',').map(x => x.trim()).filter(Boolean),
+          checklists: document.getElementById('serviceChecklists').value.split('\n').map(x => x.trim()).filter(Boolean),
+          requirements: document.getElementById('serviceRequirements').value.split('\n').map(x => x.trim()).filter(Boolean),
+          timelines: {
+            governmentFee: document.getElementById('feeGovernment').value.trim(),
+            professionalFee: document.getElementById('feeProfessional').value.trim(),
+            estimatedTimeline: document.getElementById('feeTimeline').value.trim(),
+            pricingType: document.getElementById('feePricingType').value,
+            disclaimer: document.getElementById('feeDisclaimer').value.trim()
+          },
+          seoTitle: document.getElementById('seoTitle').value.trim(),
+          seoDescription: document.getElementById('seoDescription').value.trim(),
+          seoKeywords: document.getElementById('seoKeywords').value.trim(),
+          ctaText: document.getElementById('ctaText').value.trim(),
+          ctaUrl: document.getElementById('ctaUrl').value.trim(),
+          updatedAt: new Date().toISOString()
+        };
+
+        KivantaDB.saveService(payload);
+
+        // Synchronize pricing table if statutory fee specified
+        if (payload.timelines?.governmentFee) {
+          KivantaDB.savePricingFee({
+            id: 'fee_' + payload.slug,
+            serviceName: payload.name,
+            serviceId: payload.slug,
+            governmentFee: payload.timelines.governmentFee,
+            professionalFee: payload.timelines.professionalFee || 'Package Quote',
+            estimatedTimeline: payload.timelines.estimatedTimeline || '3-7 Days',
+            status: 'Current',
+            disclaimer: payload.timelines.disclaimer || ''
+          });
+        }
+
+        KivantaAdmin.showToast('Service saved & published successfully!', 'success');
+        setTimeout(() => {
+          window.location.href = 'services.html';
+        }, 800);
+      };
+    }
+  </script>
+</body>
+</html>

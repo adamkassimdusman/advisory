@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global Theme FOUC Prevention -->
+    <script>
+      (function() {
+        try {
+          var s = localStorage.getItem('kivanta_theme') || 'system';
+          var r = s;
+          if (s === 'system') {
+            r = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', r);
+          document.documentElement.setAttribute('data-theme-preference', s);
+          document.documentElement.classList.add('no-transitions');
+        } catch (e) {}
+      })();
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Categories Manager | Kivanta Advisory Admin</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <div class="admin-content-wrapper">
+    <header class="admin-header" id="adminHeader"></header>
+
+    <main class="admin-main">
+      <div class="admin-page-header">
+        <div>
+          <h1 class="admin-page-title"><i class="fa-solid fa-layer-group"></i> Service Categories Manager</h1>
+          <p class="admin-page-subtitle">Organize advisory offerings into structured business domains (Setup, Immigration, Tax, Corporate Secretarial).</p>
+        </div>
+        <div class="admin-page-actions">
+          <button class="btn btn-primary" onclick="KivantaAdmin.openCategoryModal()"><i class="fa-solid fa-plus"></i> Add New Category</button>
+        </div>
+      </div>
+
+      <!-- Categories Table Card -->
+      <div class="admin-card">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Category Name</th>
+                <th>URL Slug</th>
+                <th>Icon</th>
+                <th>Display Order</th>
+                <th>Status</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="categoriesTbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Category Add/Edit Modal -->
+  <div class="admin-modal-overlay" id="categoryModal">
+    <div class="admin-modal-dialog">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="catModalTitle"><i class="fa-solid fa-folder-plus"></i> Add Service Category</h3>
+        <button class="admin-modal-close" onclick="KivantaAdmin.closeModal('categoryModal')">&times;</button>
+      </div>
+      <form id="categoryForm" onsubmit="KivantaAdmin.saveCategoryItem(event)">
+        <div class="admin-modal-body">
+          <input type="hidden" id="catId">
+          
+          <div style="margin-bottom: 16px;">
+            <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Category Name *</label>
+            <input type="text" id="catName" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required oninput="KivantaAdmin.autoCategorySlug(this.value)">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">URL Slug *</label>
+              <input type="text" id="catSlug" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+            </div>
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">FontAwesome Icon Class</label>
+              <input type="text" id="catIcon" placeholder="e.g. fa-building" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Display Order</label>
+              <input type="number" id="catOrder" value="1" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+            </div>
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Status</label>
+              <select id="catStatus" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Description</label>
+            <textarea id="catDesc" rows="3" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;"></textarea>
+          </div>
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="KivantaAdmin.closeModal('categoryModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Category</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/theme.js"></script>
+    <script src="js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      KivantaAdmin.safeExecute(() => {
+        KivantaAdmin.initPage('categories');
+        KivantaAdmin.renderCategoriesTable();
+      }, 'Categories Page Init');
+    });
+
+    if (typeof KivantaAdmin !== 'undefined') {
+      KivantaAdmin.renderCategoriesTable = function() {
+        const tbody = document.getElementById('categoriesTbody');
+        if (!tbody) return;
+
+        const categories = KivantaDB.getCategories ? KivantaDB.getCategories() : [];
+        if (categories.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 40px; color: var(--color-text-muted);">No categories found.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = categories.map(c => `
+          <tr>
+            <td><strong style="color: #fff; font-size: 0.9rem;">${KivantaAdmin.escapeHtml(c.name)}</strong></td>
+            <td><code style="color: var(--color-gold); font-size: 0.82rem;">${KivantaAdmin.escapeHtml(c.slug)}</code></td>
+            <td><i class="fa-solid ${c.icon || 'fa-folder'}" style="color: var(--color-gold); margin-right: 6px;"></i> ${KivantaAdmin.escapeHtml(c.icon || 'fa-folder')}</td>
+            <td style="font-size: 0.85rem; color: #fff;">${c.order || 1}</td>
+            <td><span class="badge badge-success">Published</span></td>
+            <td style="text-align: right; whitespace: nowrap;">
+              <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; margin-right: 4px;" onclick="KivantaAdmin.editCategoryItem('${c.id}')"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+              <button class="btn btn-danger" style="padding: 4px 8px; font-size: 0.78rem;" onclick="KivantaAdmin.deleteCategoryItem('${c.id}')"><i class="fa-solid fa-trash-can"></i></button>
+            </td>
+          </tr>
+        `).join('');
+      };
+
+      KivantaAdmin.autoCategorySlug = function(name) {
+        const slugInput = document.getElementById('catSlug');
+        if (slugInput && !document.getElementById('catId').value) {
+          slugInput.value = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        }
+      };
+
+      KivantaAdmin.openCategoryModal = function() {
+        document.getElementById('categoryForm').reset();
+        document.getElementById('catId').value = '';
+        document.getElementById('catModalTitle').innerHTML = '<i class="fa-solid fa-folder-plus"></i> Add Service Category';
+        KivantaAdmin.openModal('categoryModal');
+      };
+
+      KivantaAdmin.editCategoryItem = function(id) {
+        const cat = KivantaDB.getCategories().find(c => c.id === id);
+        if (cat) {
+          document.getElementById('catId').value = cat.id;
+          document.getElementById('catName').value = cat.name || '';
+          document.getElementById('catSlug').value = cat.slug || '';
+          document.getElementById('catIcon').value = cat.icon || 'fa-folder';
+          document.getElementById('catOrder').value = cat.order || 1;
+          document.getElementById('catStatus').value = cat.status || 'published';
+          document.getElementById('catDesc').value = cat.description || '';
+          
+          document.getElementById('catModalTitle').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Edit Category';
+          KivantaAdmin.openModal('categoryModal');
+        }
+      };
+
+      KivantaAdmin.saveCategoryItem = function(e) {
+        e.preventDefault();
+        const item = {
+          id: document.getElementById('catId').value || document.getElementById('catSlug').value.trim(),
+          name: document.getElementById('catName').value.trim(),
+          slug: document.getElementById('catSlug').value.trim(),
+          icon: document.getElementById('catIcon').value.trim() || 'fa-folder',
+          order: parseInt(document.getElementById('catOrder').value) || 1,
+          status: document.getElementById('catStatus').value,
+          description: document.getElementById('catDesc').value.trim()
+        };
+
+        KivantaDB.saveCategory(item);
+        KivantaAdmin.closeModal('categoryModal');
+        KivantaAdmin.showToast('Category saved successfully!', 'success');
+        KivantaAdmin.renderCategoriesTable();
+      };
+
+      KivantaAdmin.deleteCategoryItem = function(id) {
+        if (confirm('Are you sure you want to delete this category?')) {
+          KivantaDB.deleteCategory(id);
+          KivantaAdmin.showToast('Category deleted.', 'info');
+          KivantaAdmin.renderCategoriesTable();
+        }
+      };
+    }
+  </script>
+</body>
+</html>

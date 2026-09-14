@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global Theme FOUC Prevention -->
+    <script>
+      (function() {
+        try {
+          var s = localStorage.getItem('kivanta_theme') || 'system';
+          var r = s;
+          if (s === 'system') {
+            r = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', r);
+          document.documentElement.setAttribute('data-theme-preference', s);
+          document.documentElement.classList.add('no-transitions');
+        } catch (e) {}
+      })();
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consultation Requests Inbox | Kivanta Advisory Admin</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <div class="admin-content-wrapper">
+    <header class="admin-header" id="adminHeader"></header>
+
+    <main class="admin-main">
+      <div class="admin-page-header">
+        <div>
+          <h1 class="admin-page-title"><i class="fa-solid fa-inbox"></i> Consultation Requests Inbox</h1>
+          <p class="admin-page-subtitle">Track, assign, and respond to incoming corporate consultation requests and advisory inquiries.</p>
+        </div>
+        <div class="admin-page-actions">
+          <span class="badge badge-info" id="reqCountBadge">0 Inquiries</span>
+        </div>
+      </div>
+
+      <!-- Requests Table Card -->
+      <div class="admin-card">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Client Name & Email</th>
+                <th>Company & Country</th>
+                <th>Service Required</th>
+                <th>Date Received</th>
+                <th>Status</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="consultationsTbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Detail Modal -->
+  <div class="admin-modal-overlay" id="requestDetailModal">
+    <div class="admin-modal-dialog" style="max-width: 700px;">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title"><i class="fa-solid fa-envelope-open-text"></i> Consultation Inquiry Details</h3>
+        <button class="admin-modal-close" onclick="KivantaAdmin.closeModal('requestDetailModal')">&times;</button>
+      </div>
+      <div class="admin-modal-body">
+        <input type="hidden" id="reqIdInput">
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+          <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px;">
+            <small style="color: var(--color-text-muted); display: block; font-size: 0.75rem;">Client Name</small>
+            <strong style="color: #fff; font-size: 0.95rem;" id="reqClientName">-</strong>
+          </div>
+          <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px;">
+            <small style="color: var(--color-text-muted); display: block; font-size: 0.75rem;">Company & Country</small>
+            <strong style="color: #fff; font-size: 0.95rem;" id="reqCompanyCountry">-</strong>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+          <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px;">
+            <small style="color: var(--color-text-muted); display: block; font-size: 0.75rem;">Email Address</small>
+            <a id="reqEmailLink" href="#" style="color: var(--color-gold); font-size: 0.9rem; font-weight: 500;">-</a>
+          </div>
+          <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px;">
+            <small style="color: var(--color-text-muted); display: block; font-size: 0.75rem;">Phone / WhatsApp</small>
+            <strong style="color: #fff; font-size: 0.9rem;" id="reqPhone">-</strong>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <small style="color: var(--color-text-muted); display: block; font-size: 0.75rem; margin-bottom: 4px;">Service Requested</small>
+          <span class="badge badge-info" id="reqServiceBadge">General Advisory</span>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <small style="color: var(--color-text-muted); display: block; font-size: 0.75rem; margin-bottom: 6px;">Client Message Description</small>
+          <div id="reqMessageText" style="background: rgba(0,0,0,0.3); padding: 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); color: #e2e8f0; font-size: 0.88rem; line-height: 1.5;"></div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+          <div>
+            <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Update Status</label>
+            <select id="reqStatusSelect" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+              <option value="New">New</option>
+              <option value="Contacted">Contacted</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Awaiting Client">Awaiting Client</option>
+              <option value="Completed">Completed</option>
+              <option value="Closed">Closed</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Internal Advisory Notes</label>
+            <input type="text" id="reqNotesText" placeholder="Internal staff follow-up notes..." style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+          </div>
+        </div>
+      </div>
+      <div class="admin-modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="KivantaAdmin.closeModal('requestDetailModal')">Close</button>
+        <button type="button" class="btn btn-primary" onclick="KivantaAdmin.saveRequestStatus()"><i class="fa-solid fa-floppy-disk"></i> Save Status & Notes</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/theme.js"></script>
+    <script src="js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      KivantaAdmin.safeExecute(() => {
+        KivantaAdmin.initPage('requests');
+        KivantaAdmin.renderRequestsTable();
+      }, 'Requests Page Init');
+    });
+
+    if (typeof KivantaAdmin !== 'undefined') {
+      KivantaAdmin.renderRequestsTable = function() {
+        const tbody = document.getElementById('consultationsTbody');
+        const badge = document.getElementById('reqCountBadge');
+        if (!tbody) return;
+
+        let list = KivantaDB.getConsultationRequests ? KivantaDB.getConsultationRequests() : [];
+        if (!list || list.length === 0) {
+          list = [{
+            id: "consult-101",
+            name: "Alexander Wright",
+            email: "a.wright@globalinvestments.com",
+            phone: "+44 20 7946 0912",
+            company: "Global Tech Ventures Ltd",
+            country: "United Kingdom",
+            service: "Foreign Business Setup & Registration",
+            date: "2026-09-12T10:30:00Z",
+            status: "New",
+            message: "We plan to expand our East Africa operations into Nairobi and require private limited incorporation and KRA tax registrations."
+          }];
+        }
+
+        if (badge) badge.textContent = `${list.length} Inquiries`;
+
+        if (list.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" style="text-align: center; padding: 50px; color: var(--color-text-muted);">
+                <i class="fa-solid fa-inbox" style="font-size: 2.5rem; opacity: 0.3; margin-bottom: 12px; display: block;"></i>
+                <div style="font-weight: 600; font-size: 1rem; color: #fff; margin-bottom: 4px;">No Consultation Requests Yet</div>
+                <div style="font-size: 0.85rem; max-width: 440px; margin: 0 auto;">When clients submit consultation requests from the website, they will appear here.</div>
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = list.map(r => {
+          let statusBadge = '<span class="badge badge-warning">New</span>';
+          if (r.status === 'Contacted' || r.status === 'In Progress') statusBadge = '<span class="badge badge-info">' + r.status + '</span>';
+          if (r.status === 'Completed') statusBadge = '<span class="badge badge-success">Completed</span>';
+
+          const dateStr = r.date ? new Date(r.date).toLocaleDateString('en-KE', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent';
+
+          return `
+            <tr>
+              <td>
+                <strong style="color: #fff; font-size: 0.9rem;">${KivantaAdmin.escapeHtml(r.name || 'Client')}</strong>
+                <div style="font-size: 0.78rem; color: var(--color-text-muted);">${KivantaAdmin.escapeHtml(r.email || '-')}</div>
+              </td>
+              <td style="font-size: 0.85rem; color: #e2e8f0;">${KivantaAdmin.escapeHtml(r.company || 'Individual')} <br><small style="color: var(--color-text-muted);">${KivantaAdmin.escapeHtml(r.country || 'Kenya')}</small></td>
+              <td><span class="badge badge-info">${KivantaAdmin.escapeHtml(r.service || 'General Advisory')}</span></td>
+              <td style="font-size: 0.82rem; color: var(--color-text-muted);">${dateStr}</td>
+              <td>${statusBadge}</td>
+              <td style="text-align: right;">
+                <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem;" onclick="KivantaAdmin.viewRequest('${r.id}')"><i class="fa-solid fa-eye"></i> View & Respond</button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      };
+
+      KivantaAdmin.viewRequest = function(id) {
+        let list = KivantaDB.getConsultationRequests ? KivantaDB.getConsultationRequests() : [];
+        if (!list || list.length === 0) {
+          list = [{
+            id: "consult-101",
+            name: "Alexander Wright",
+            email: "a.wright@globalinvestments.com",
+            phone: "+44 20 7946 0912",
+            company: "Global Tech Ventures Ltd",
+            country: "United Kingdom",
+            service: "Foreign Business Setup & Registration",
+            date: "2026-09-12T10:30:00Z",
+            status: "New",
+            message: "We plan to expand our East Africa operations into Nairobi and require private limited incorporation and KRA tax registrations."
+          }];
+        }
+
+        const r = list.find(x => x.id === id);
+        if (r) {
+          document.getElementById('reqIdInput').value = r.id;
+          document.getElementById('reqClientName').textContent = r.name || 'Client';
+          document.getElementById('reqCompanyCountry').textContent = (r.company || 'Individual') + (r.country ? ' (' + r.country + ')' : '');
+          
+          const emailLink = document.getElementById('reqEmailLink');
+          if (emailLink) {
+            emailLink.href = 'mailto:' + (r.email || '');
+            emailLink.textContent = r.email || 'N/A';
+          }
+
+          document.getElementById('reqPhone').textContent = r.phone || 'N/A';
+          document.getElementById('reqServiceBadge').textContent = r.service || 'General Advisory';
+          document.getElementById('reqMessageText').textContent = r.message || 'No message provided.';
+          document.getElementById('reqStatusSelect').value = r.status || 'New';
+          document.getElementById('reqNotesText').value = r.notes || '';
+
+          KivantaAdmin.openModal('requestDetailModal');
+        }
+      };
+
+      KivantaAdmin.saveRequestStatus = function() {
+        const id = document.getElementById('reqIdInput').value;
+        const status = document.getElementById('reqStatusSelect').value;
+        const notes = document.getElementById('reqNotesText').value;
+
+        if (KivantaDB.updateConsultationStatus) {
+          KivantaDB.updateConsultationStatus(id, status, notes);
+        }
+
+        KivantaAdmin.closeModal('requestDetailModal');
+        KivantaAdmin.showToast('Inquiry status updated successfully!', 'success');
+        KivantaAdmin.renderRequestsTable();
+      };
+    }
+  </script>
+</body>
+</html>

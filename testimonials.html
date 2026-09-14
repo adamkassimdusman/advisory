@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global Theme FOUC Prevention -->
+    <script>
+      (function() {
+        try {
+          var s = localStorage.getItem('kivanta_theme') || 'system';
+          var r = s;
+          if (s === 'system') {
+            r = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', r);
+          document.documentElement.setAttribute('data-theme-preference', s);
+          document.documentElement.classList.add('no-transitions');
+        } catch (e) {}
+      })();
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Genuine Testimonials Manager | Kivanta Advisory Admin</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <div class="admin-content-wrapper">
+    <header class="admin-header" id="adminHeader"></header>
+
+    <main class="admin-main">
+      <div class="admin-page-header">
+        <div>
+          <h1 class="admin-page-title"><i class="fa-solid fa-quote-left"></i> Verified Client Testimonials Manager</h1>
+          <p class="admin-page-subtitle">Manage genuine executive testimonials, client feedback, verification credentials, and publication status.</p>
+        </div>
+        <div class="admin-page-actions">
+          <button class="btn btn-primary" onclick="KivantaAdmin.openTestimonialModal()"><i class="fa-solid fa-plus"></i> Add Testimonial</button>
+        </div>
+      </div>
+
+      <!-- Trust Standards Notice Banner -->
+      <div style="background: rgba(197, 160, 89, 0.08); border: 1px solid rgba(197, 160, 89, 0.2); border-radius: 12px; padding: 14px 20px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(197, 160, 89, 0.2); display: flex; align-items: center; justify-content: center; color: var(--color-gold); flex-shrink: 0;">
+            <i class="fa-solid fa-shield-check"></i>
+          </div>
+          <div>
+            <div style="font-weight: 600; font-size: 0.95rem; color: #ffffff;">Trust & Verification Policy</div>
+            <div style="font-size: 0.82rem; color: var(--color-text-muted);">Only testimonials marked as <strong>Verified</strong> AND <strong>Published</strong> will appear on the public customer-facing website.</div>
+          </div>
+        </div>
+        <span class="badge badge-gold"><i class="fa-solid fa-lock" style="margin-right: 4px;"></i> Strict Verification Standard</span>
+      </div>
+
+      <!-- Filters & Toolbar -->
+      <div class="admin-card" style="margin-bottom: 24px;">
+        <div class="admin-card-body" style="padding: 16px 20px;">
+          <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between;">
+            
+            <!-- Verification Filter Tabs -->
+            <div style="display: flex; gap: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 4px;">
+              <button class="analytics-time-btn active" data-filter="all" onclick="KivantaAdmin.filterTestimonialStatus('all', this)">All</button>
+              <button class="analytics-time-btn" data-filter="verified" onclick="KivantaAdmin.filterTestimonialStatus('verified', this)">Verified</button>
+              <button class="analytics-time-btn" data-filter="pending" onclick="KivantaAdmin.filterTestimonialStatus('pending', this)">Pending Verification</button>
+              <button class="analytics-time-btn" data-filter="published" onclick="KivantaAdmin.filterTestimonialStatus('published', this)">Published</button>
+              <button class="analytics-time-btn" data-filter="draft" onclick="KivantaAdmin.filterTestimonialStatus('draft', this)">Draft</button>
+            </div>
+
+            <!-- Search Bar -->
+            <div style="position: relative; width: 280px;">
+              <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--color-text-muted);"></i>
+              <input type="text" id="testimonialSearchInput" placeholder="Search by client, company..." style="width: 100%; padding: 10px 14px 10px 40px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 0.88rem;" oninput="KivantaAdmin.renderTestimonialsTable()">
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonials Table Card -->
+      <div class="admin-card">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Client Name & Organization</th>
+                <th>Service Received</th>
+                <th>Rating</th>
+                <th>Verification</th>
+                <th>Display Status</th>
+                <th>Date</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="testimonialsTbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Testimonial Add/Edit Modal -->
+  <div class="admin-modal-overlay" id="testimonialModal">
+    <div class="admin-modal-dialog" style="max-width: 750px;">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="tModalTitle"><i class="fa-solid fa-quote-left"></i> Add Verified Client Testimonial</h3>
+        <button class="admin-modal-close" onclick="KivantaAdmin.closeModal('testimonialModal')">&times;</button>
+      </div>
+      <form id="testimonialForm" onsubmit="KivantaAdmin.saveTestimonialRecord(event)">
+        <div class="admin-modal-body">
+          <input type="hidden" id="tId">
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Client Full Name *</label>
+              <input type="text" id="tName" placeholder="e.g. David Henderson" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+            </div>
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Company / Organization *</label>
+              <input type="text" id="tCompany" placeholder="e.g. Horizon Energy Group UK" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Client Position / Title</label>
+              <input type="text" id="tPosition" placeholder="e.g. Managing Director" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+            </div>
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Service Received</label>
+              <select id="tService" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                <option value="Foreign Business Setup & Registration">Foreign Business Setup</option>
+                <option value="Work Passes & Permits (Class D/G)">Work Passes & Permits</option>
+                <option value="Corporate Secretarial & Compliance">Corporate Secretarial</option>
+                <option value="Tax Advisory & Accounting">Tax Advisory & Accounting</option>
+                <option value="County Business Permits">County Permits</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Rating</label>
+              <select id="tRating" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                <option value="5">⭐⭐⭐⭐⭐ 5 Stars</option>
+                <option value="4">⭐⭐⭐⭐ 4 Stars</option>
+                <option value="3">⭐⭐⭐ 3 Stars</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Verification Status *</label>
+              <select id="tVerification" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                <option value="Verified">Verified</option>
+                <option value="Pending Verification">Pending Verification</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Display Status *</label>
+              <select id="tStatus" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+                <option value="hidden">Hidden</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Display Order</label>
+              <input type="number" id="tOrder" value="1" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Client Photo URL</label>
+              <input type="text" id="tPhoto" placeholder="images/about-1.jpg" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+            </div>
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Company Website</label>
+              <input type="text" id="tWebsite" placeholder="https://horizonenergy.co.uk" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+            </div>
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">LinkedIn Profile</label>
+              <input type="text" id="tLinkedin" placeholder="https://linkedin.com/in/..." style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+            </div>
+          </div>
+
+          <div>
+            <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Testimonial Quote / Feedback *</label>
+            <textarea id="tContent" rows="4" placeholder="Kivanta Advisory delivered exceptional market entry guidance, setting up our Kenyan subsidiary smoothly and securing director work permits..." style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required></textarea>
+          </div>
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="KivantaAdmin.closeModal('testimonialModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Testimonial</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/theme.js"></script>
+    <script src="js/admin.js"></script>
+  <script>
+    let activeFilter = 'all';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      KivantaAdmin.safeExecute(() => {
+        KivantaAdmin.initPage('testimonials');
+        KivantaAdmin.renderTestimonialsTable();
+      }, 'Testimonials Page Init');
+    });
+
+    if (typeof KivantaAdmin !== 'undefined') {
+      KivantaAdmin.filterTestimonialStatus = function(filter, btn) {
+        activeFilter = filter;
+        document.querySelectorAll('.analytics-time-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+        KivantaAdmin.renderTestimonialsTable();
+      };
+
+      KivantaAdmin.renderTestimonialsTable = function() {
+        const tbody = document.getElementById('testimonialsTbody');
+        if (!tbody) return;
+
+        let list = KivantaDB.getTestimonials ? KivantaDB.getTestimonials() : [];
+        if (!list || list.length === 0) {
+          // Provide initial sample verified testimonial
+          list = [{
+            id: "test-101",
+            name: "David Henderson",
+            company: "Horizon Energy UK",
+            position: "Managing Director",
+            service: "Foreign Business Setup & Registration",
+            rating: "5",
+            verification: "Verified",
+            status: "published",
+            date: "2026-08-20",
+            content: "Kivanta Advisory handled our company incorporation, KRA registrations, and director work permits in Nairobi flawlessly. Highly recommend their corporate secretarial team."
+          }];
+        }
+
+        const query = (document.getElementById('testimonialSearchInput')?.value || '').toLowerCase();
+        const filtered = list.filter(t => {
+          const matchQuery = !query || 
+            (t.name || '').toLowerCase().includes(query) ||
+            (t.company || '').toLowerCase().includes(query) ||
+            (t.content || '').toLowerCase().includes(query);
+
+          let matchFilter = true;
+          if (activeFilter === 'verified') matchFilter = t.verification === 'Verified';
+          if (activeFilter === 'pending') matchFilter = t.verification === 'Pending Verification';
+          if (activeFilter === 'published') matchFilter = t.status === 'published';
+          if (activeFilter === 'draft') matchFilter = t.status === 'draft';
+
+          return matchQuery && matchFilter;
+        });
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="7" style="text-align: center; padding: 50px; color: var(--color-text-muted);">
+                <i class="fa-solid fa-quote-left" style="font-size: 2.5rem; opacity: 0.3; margin-bottom: 12px; display: block;"></i>
+                <div style="font-weight: 600; font-size: 1rem; color: #fff; margin-bottom: 4px;">No Verified Testimonials Found</div>
+                <div style="font-size: 0.85rem; max-width: 440px; margin: 0 auto 16px;">Verified client testimonials will appear here after they are added and approved.</div>
+                <button class="btn btn-primary" onclick="KivantaAdmin.openTestimonialModal()"><i class="fa-solid fa-plus"></i> Add Testimonial</button>
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = filtered.map(t => {
+          const stars = '⭐'.repeat(parseInt(t.rating) || 5);
+          let verBadge = '<span class="badge badge-success"><i class="fa-solid fa-shield-check"></i> Verified</span>';
+          if (t.verification === 'Pending Verification') verBadge = '<span class="badge badge-warning">Pending</span>';
+          if (t.verification === 'Rejected') verBadge = '<span class="badge badge-danger">Rejected</span>';
+
+          let statusBadge = '<span class="badge badge-success">Published</span>';
+          if (t.status === 'draft') statusBadge = '<span class="badge badge-info">Draft</span>';
+          if (t.status === 'hidden') statusBadge = '<span class="badge badge-warning">Hidden</span>';
+
+          return `
+            <tr>
+              <td>
+                <strong style="color: #fff; font-size: 0.9rem;">${KivantaAdmin.escapeHtml(t.name)}</strong>
+                <div style="font-size: 0.78rem; color: var(--color-gold);">${KivantaAdmin.escapeHtml(t.position || 'Executive')}, ${KivantaAdmin.escapeHtml(t.company)}</div>
+              </td>
+              <td style="font-size: 0.84rem; color: #e2e8f0;">${KivantaAdmin.escapeHtml(t.service)}</td>
+              <td style="font-size: 0.85rem;">${stars}</td>
+              <td>${verBadge}</td>
+              <td>${statusBadge}</td>
+              <td style="font-size: 0.82rem; color: var(--color-text-muted);">${t.date || '2026-08-20'}</td>
+              <td style="text-align: right; whitespace: nowrap;">
+                <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; margin-right: 4px;" onclick="KivantaAdmin.editTestimonialItem('${t.id}')"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                <button class="btn btn-danger" style="padding: 4px 8px; font-size: 0.78rem;" onclick="KivantaAdmin.deleteTestimonialItem('${t.id}')"><i class="fa-solid fa-trash-can"></i></button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      };
+
+      KivantaAdmin.openTestimonialModal = function() {
+        document.getElementById('testimonialForm').reset();
+        document.getElementById('tId').value = '';
+        document.getElementById('tModalTitle').innerHTML = '<i class="fa-solid fa-quote-left"></i> Add Verified Client Testimonial';
+        KivantaAdmin.openModal('testimonialModal');
+      };
+
+      KivantaAdmin.editTestimonialItem = function(id) {
+        const list = KivantaDB.getTestimonials ? KivantaDB.getTestimonials() : [];
+        const t = list.find(x => x.id === id);
+        if (t) {
+          document.getElementById('tId').value = t.id;
+          document.getElementById('tName').value = t.name || '';
+          document.getElementById('tCompany').value = t.company || '';
+          document.getElementById('tPosition').value = t.position || '';
+          document.getElementById('tService').value = t.service || 'Foreign Business Setup & Registration';
+          document.getElementById('tRating').value = t.rating || '5';
+          document.getElementById('tVerification').value = t.verification || 'Verified';
+          document.getElementById('tStatus').value = t.status || 'published';
+          document.getElementById('tOrder').value = t.order || 1;
+          document.getElementById('tPhoto').value = t.photo || '';
+          document.getElementById('tWebsite').value = t.website || '';
+          document.getElementById('tLinkedin').value = t.linkedin || '';
+          document.getElementById('tContent').value = t.content || '';
+          
+          document.getElementById('tModalTitle').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Edit Client Testimonial';
+          KivantaAdmin.openModal('testimonialModal');
+        }
+      };
+
+      KivantaAdmin.saveTestimonialRecord = function(e) {
+        e.preventDefault();
+        const item = {
+          id: document.getElementById('tId').value || 'test_' + Date.now(),
+          name: document.getElementById('tName').value.trim(),
+          company: document.getElementById('tCompany').value.trim(),
+          position: document.getElementById('tPosition').value.trim(),
+          service: document.getElementById('tService').value,
+          rating: document.getElementById('tRating').value,
+          verification: document.getElementById('tVerification').value,
+          status: document.getElementById('tStatus').value,
+          order: parseInt(document.getElementById('tOrder').value) || 1,
+          photo: document.getElementById('tPhoto').value.trim(),
+          website: document.getElementById('tWebsite').value.trim(),
+          linkedin: document.getElementById('tLinkedin').value.trim(),
+          content: document.getElementById('tContent').value.trim(),
+          date: new Date().toISOString().split('T')[0]
+        };
+
+        if (KivantaDB.saveTestimonial) {
+          KivantaDB.saveTestimonial(item);
+        }
+        KivantaAdmin.closeModal('testimonialModal');
+        KivantaAdmin.showToast('Client testimonial saved successfully!', 'success');
+        KivantaAdmin.renderTestimonialsTable();
+      };
+
+      KivantaAdmin.deleteTestimonialItem = function(id) {
+        if (confirm('Are you sure you want to delete this testimonial?')) {
+          if (KivantaDB.deleteTestimonial) {
+            KivantaDB.deleteTestimonial(id);
+          }
+          KivantaAdmin.showToast('Testimonial deleted.', 'info');
+          KivantaAdmin.renderTestimonialsTable();
+        }
+      };
+    }
+  </script>
+</body>
+</html>

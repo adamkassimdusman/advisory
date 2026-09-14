@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global Theme FOUC Prevention -->
+    <script>
+      (function() {
+        try {
+          var s = localStorage.getItem('kivanta_theme') || 'system';
+          var r = s;
+          if (s === 'system') {
+            r = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', r);
+          document.documentElement.setAttribute('data-theme-preference', s);
+          document.documentElement.classList.add('no-transitions');
+        } catch (e) {}
+      })();
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leadership Team Manager | Kivanta Advisory Admin</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <div class="admin-content-wrapper">
+    <header class="admin-header" id="adminHeader"></header>
+
+    <main class="admin-main">
+      <div class="admin-page-header">
+        <div>
+          <h1 class="admin-page-title"><i class="fa-solid fa-users-gear"></i> Executive & Leadership Team Manager</h1>
+          <p class="admin-page-subtitle">Manage partner profiles, advisory consultants, regulatory experts, and credentials shown on the website.</p>
+        </div>
+        <div class="admin-page-actions">
+          <button class="btn btn-primary" onclick="KivantaAdmin.openTeamModal()"><i class="fa-solid fa-plus"></i> Add Team Member</button>
+        </div>
+      </div>
+
+      <!-- Filters & Toolbar -->
+      <div class="admin-card" style="margin-bottom: 24px;">
+        <div class="admin-card-body" style="padding: 16px 20px;">
+          <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between;">
+            
+            <div style="position: relative; width: 300px;">
+              <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--color-text-muted);"></i>
+              <input type="text" id="teamSearchInput" placeholder="Search team by name or role..." style="width: 100%; padding: 10px 14px 10px 40px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-size: 0.88rem;" oninput="KivantaAdmin.renderTeamTable()">
+            </div>
+
+            <span class="badge badge-info" id="teamCountBadge">1 Member</span>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Table Card -->
+      <div class="admin-card">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 60px;">Photo</th>
+                <th>Name & Position</th>
+                <th>Specialty / Department</th>
+                <th>Contact Email</th>
+                <th>Order</th>
+                <th>Status</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="teamTbody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Team Member Add/Edit Modal -->
+  <div class="admin-modal-overlay" id="teamModal">
+    <div class="admin-modal-dialog" style="max-width: 750px;">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="teamModalTitle"><i class="fa-solid fa-user-plus"></i> Add Leadership Team Member</h3>
+        <button class="admin-modal-close" onclick="KivantaAdmin.closeModal('teamModal')">&times;</button>
+      </div>
+      <form id="teamForm" onsubmit="KivantaAdmin.saveTeamMemberRecord(event)">
+        <div class="admin-modal-body">
+          <input type="hidden" id="mId">
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Full Name *</label>
+              <input type="text" id="mName" placeholder="e.g. Sarah Wanjiku, Advocate" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+            </div>
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Position / Title *</label>
+              <input type="text" id="mPosition" placeholder="e.g. Lead Regulatory & Corporate Advisory" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Specialty / Department</label>
+              <input type="text" id="mSpecialty" placeholder="e.g. Legal & BRS Compliance" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+            </div>
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Email Address</label>
+              <input type="email" id="mEmail" placeholder="sarah.w@kivanta.co.ke" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+            </div>
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Phone Number</label>
+              <input type="text" id="mPhone" placeholder="+254 700 000 000" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Profile Photo URL</label>
+              <input type="text" id="mPhoto" placeholder="images/about-1.jpg" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+            </div>
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">LinkedIn Profile</label>
+              <input type="text" id="mLinkedin" placeholder="https://linkedin.com/in/..." style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+            </div>
+            <div>
+              <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Status</label>
+              <select id="mStatus" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Qualifications & Certifications</label>
+            <input type="text" id="mQualifications" placeholder="LL.B (UoN), CPS(K), Advocate of the High Court of Kenya" style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;">
+          </div>
+
+          <div>
+            <label class="form-label" style="display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 6px;">Professional Bio *</label>
+            <textarea id="mBio" rows="4" placeholder="Sarah leads Kivanta's legal setup division with 12+ years expertise in East African commercial law..." style="width: 100%; padding: 10px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff;" required></textarea>
+          </div>
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="KivantaAdmin.closeModal('teamModal')">Cancel</button>
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Team Member</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/theme.js"></script>
+    <script src="js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      KivantaAdmin.safeExecute(() => {
+        KivantaAdmin.initPage('team');
+        KivantaAdmin.renderTeamTable();
+      }, 'Team Page Init');
+    });
+
+    if (typeof KivantaAdmin !== 'undefined') {
+      KivantaAdmin.renderTeamTable = function() {
+        const tbody = document.getElementById('teamTbody');
+        const badge = document.getElementById('teamCountBadge');
+        if (!tbody) return;
+
+        let list = KivantaDB.getTeam ? KivantaDB.getTeam() : [];
+        if (!list || list.length === 0) {
+          list = [{
+            id: "team-1",
+            name: "Sarah Wanjiku",
+            position: "Lead Regulatory & Corporate Advisory",
+            specialty: "Legal & BRS Compliance",
+            email: "sarah.w@kivanta.co.ke",
+            status: "Active",
+            order: 1
+          }];
+        }
+
+        const query = (document.getElementById('teamSearchInput')?.value || '').toLowerCase();
+        const filtered = list.filter(m => {
+          return !query || 
+            (m.name || '').toLowerCase().includes(query) ||
+            (m.position || '').toLowerCase().includes(query) ||
+            (m.specialty || '').toLowerCase().includes(query);
+        });
+
+        if (badge) badge.textContent = `${filtered.length} Members`;
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="7" style="text-align: center; padding: 50px; color: var(--color-text-muted);">
+                <i class="fa-solid fa-user-slash" style="font-size: 2.5rem; opacity: 0.3; margin-bottom: 12px; display: block;"></i>
+                <div style="font-weight: 600; font-size: 1rem; color: #fff; margin-bottom: 4px;">No Team Members Found</div>
+                <div style="font-size: 0.85rem; max-width: 440px; margin: 0 auto 16px;">Executive team members added here will be featured on the company leadership page.</div>
+                <button class="btn btn-primary" onclick="KivantaAdmin.openTeamModal()"><i class="fa-solid fa-plus"></i> Add Team Member</button>
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = filtered.map(m => `
+          <tr>
+            <td>
+              <div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(197,160,89,0.2); color: var(--color-gold); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem;">
+                ${(m.name || 'T').charAt(0)}
+              </div>
+            </td>
+            <td>
+              <strong style="color: #fff; font-size: 0.9rem;">${KivantaAdmin.escapeHtml(m.name)}</strong>
+              <div style="font-size: 0.78rem; color: var(--color-gold);">${KivantaAdmin.escapeHtml(m.position || 'Consultant')}</div>
+            </td>
+            <td style="font-size: 0.85rem; color: #e2e8f0;">${KivantaAdmin.escapeHtml(m.specialty || 'Advisory')}</td>
+            <td style="font-size: 0.82rem; color: var(--color-text-muted);">${KivantaAdmin.escapeHtml(m.email || '-')}</td>
+            <td style="font-size: 0.85rem; color: #fff;">${m.order || 1}</td>
+            <td><span class="badge badge-success">${m.status || 'Active'}</span></td>
+            <td style="text-align: right; whitespace: nowrap;">
+              <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.78rem; margin-right: 4px;" onclick="KivantaAdmin.editTeamMemberItem('${m.id}')"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+              <button class="btn btn-danger" style="padding: 4px 8px; font-size: 0.78rem;" onclick="KivantaAdmin.deleteTeamMemberItem('${m.id}')"><i class="fa-solid fa-trash-can"></i></button>
+            </td>
+          </tr>
+        `).join('');
+      };
+
+      KivantaAdmin.openTeamModal = function() {
+        document.getElementById('teamForm').reset();
+        document.getElementById('mId').value = '';
+        document.getElementById('teamModalTitle').innerHTML = '<i class="fa-solid fa-user-plus"></i> Add Leadership Team Member';
+        KivantaAdmin.openModal('teamModal');
+      };
+
+      KivantaAdmin.editTeamMemberItem = function(id) {
+        const list = KivantaDB.getTeam ? KivantaDB.getTeam() : [];
+        const m = list.find(x => x.id === id);
+        if (m) {
+          document.getElementById('mId').value = m.id;
+          document.getElementById('mName').value = m.name || '';
+          document.getElementById('mPosition').value = m.position || '';
+          document.getElementById('mSpecialty').value = m.specialty || '';
+          document.getElementById('mEmail').value = m.email || '';
+          document.getElementById('mPhone').value = m.phone || '';
+          document.getElementById('mPhoto').value = m.photo || '';
+          document.getElementById('mLinkedin').value = m.linkedin || '';
+          document.getElementById('mStatus').value = m.status || 'Active';
+          document.getElementById('mQualifications').value = m.qualifications || '';
+          document.getElementById('mBio').value = m.bio || '';
+          
+          document.getElementById('teamModalTitle').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Edit Team Member Profile';
+          KivantaAdmin.openModal('teamModal');
+        }
+      };
+
+      KivantaAdmin.saveTeamMemberRecord = function(e) {
+        e.preventDefault();
+        const item = {
+          id: document.getElementById('mId').value || 'team_' + Date.now(),
+          name: document.getElementById('mName').value.trim(),
+          position: document.getElementById('mPosition').value.trim(),
+          specialty: document.getElementById('mSpecialty').value.trim(),
+          email: document.getElementById('mEmail').value.trim(),
+          phone: document.getElementById('mPhone').value.trim(),
+          photo: document.getElementById('mPhoto').value.trim(),
+          linkedin: document.getElementById('mLinkedin').value.trim(),
+          status: document.getElementById('mStatus').value,
+          qualifications: document.getElementById('mQualifications').value.trim(),
+          bio: document.getElementById('mBio').value.trim(),
+          order: 1
+        };
+
+        if (KivantaDB.saveTeamMember) {
+          KivantaDB.saveTeamMember(item);
+        }
+        KivantaAdmin.closeModal('teamModal');
+        KivantaAdmin.showToast('Team member profile saved successfully!', 'success');
+        KivantaAdmin.renderTeamTable();
+      };
+
+      KivantaAdmin.deleteTeamMemberItem = function(id) {
+        if (confirm('Are you sure you want to delete this team member?')) {
+          if (KivantaDB.deleteTeamMember) {
+            KivantaDB.deleteTeamMember(id);
+          }
+          KivantaAdmin.showToast('Team member deleted.', 'info');
+          KivantaAdmin.renderTeamTable();
+        }
+      };
+    }
+  </script>
+</body>
+</html>

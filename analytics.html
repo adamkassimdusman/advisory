@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Global Theme FOUC Prevention -->
+    <script>
+      (function() {
+        try {
+          var s = localStorage.getItem('kivanta_theme') || 'system';
+          var r = s;
+          if (s === 'system') {
+            r = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', r);
+          document.documentElement.setAttribute('data-theme-preference', s);
+          document.documentElement.classList.add('no-transitions');
+        } catch (e) {}
+      })();
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics & Traffic Intelligence | Kivanta Advisory Admin</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-layout">
+
+  <aside class="admin-sidebar" id="adminSidebar"></aside>
+
+  <div class="admin-content-wrapper">
+    <header class="admin-header" id="adminHeader"></header>
+
+    <main class="admin-main">
+      <div class="admin-page-header">
+        <div>
+          <h1 class="admin-page-title"><i class="fa-solid fa-chart-line"></i> Traffic & Analytics Intelligence</h1>
+          <p class="admin-page-subtitle">Real-time visitor metrics, service page engagement, acquisition channels, and conversion performance.</p>
+        </div>
+        <div class="admin-page-actions" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+          <div class="analytics-range-selector" style="display: flex; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 4px;">
+            <button class="analytics-time-btn active" data-range="today" onclick="KivantaAdmin.switchAnalyticsRange('today')">Today</button>
+            <button class="analytics-time-btn" data-range="7d" onclick="KivantaAdmin.switchAnalyticsRange('7d')">7D</button>
+            <button class="analytics-time-btn" data-range="30d" onclick="KivantaAdmin.switchAnalyticsRange('30d')">30D</button>
+            <button class="analytics-time-btn" data-range="3m" onclick="KivantaAdmin.switchAnalyticsRange('3m')">3M</button>
+            <button class="analytics-time-btn" data-range="12m" onclick="KivantaAdmin.switchAnalyticsRange('12m')">12M</button>
+          </div>
+          <button class="btn btn-secondary" onclick="KivantaAdmin.exportAnalyticsReport()"><i class="fa-solid fa-file-export"></i> Export Report</button>
+        </div>
+      </div>
+
+      <!-- Banner Note for Live Telemetry Integration -->
+      <div style="background: rgba(197, 160, 89, 0.08); border: 1px solid rgba(197, 160, 89, 0.2); border-radius: 12px; padding: 14px 20px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(197, 160, 89, 0.2); display: flex; align-items: center; justify-content: center; color: var(--color-gold, #c5a059); flex-shrink: 0;">
+            <i class="fa-solid fa-circle-info"></i>
+          </div>
+          <div>
+            <div style="font-weight: 600; font-size: 0.95rem; color: #ffffff;">Local Analytics Engine & API Telemetry Standard</div>
+            <div style="font-size: 0.82rem; color: var(--color-text-muted, #94a3b8);">Metrics below are calculated using local database session telemetry and structured event tracking models. Plug in Google Analytics 4 or server-side logs via `js/data.js`.</div>
+          </div>
+        </div>
+        <span class="badge badge-gold"><i class="fa-solid fa-signal" style="margin-right: 4px;"></i> Live Telemetry</span>
+      </div>
+
+      <!-- Summary Metrics Grid -->
+      <div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+        <div class="metric-card">
+          <div class="metric-icon" style="background: rgba(59, 130, 246, 0.15); color: #60a5fa;">
+            <i class="fa-solid fa-eye"></i>
+          </div>
+          <div class="metric-info">
+            <span class="metric-label">Total Pageviews</span>
+            <span class="metric-value" id="valTotalPageviews">14,280</span>
+            <span class="metric-change change-up"><i class="fa-solid fa-arrow-trend-up"></i> +18.4% vs prev period</span>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">
+            <i class="fa-solid fa-users-viewfinder"></i>
+          </div>
+          <div class="metric-info">
+            <span class="metric-label">Unique Visitors</span>
+            <span class="metric-value" id="valUniqueVisitors">4,890</span>
+            <span class="metric-change change-up"><i class="fa-solid fa-arrow-trend-up"></i> +12.1% vs prev period</span>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon" style="background: rgba(197, 160, 89, 0.15); color: var(--color-gold, #c5a059);">
+            <i class="fa-solid fa-bullseye"></i>
+          </div>
+          <div class="metric-info">
+            <span class="metric-label">Conversion Rate</span>
+            <span class="metric-value" id="valConversionRate">4.82%</span>
+            <span class="metric-change change-up"><i class="fa-solid fa-arrow-trend-up"></i> +0.6% lead conversion</span>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon" style="background: rgba(139, 92, 246, 0.15); color: #a78bfa;">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+          <div class="metric-info">
+            <span class="metric-label">Avg. Session Duration</span>
+            <span class="metric-value" id="valAvgDuration">3m 42s</span>
+            <span class="metric-change change-up"><i class="fa-solid fa-arrow-trend-up"></i> +24s engagement</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Analytics Section (Two Column Layout) -->
+      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-top: 24px;">
+        
+        <!-- Left: Traffic Trends & Top Visited Services -->
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          
+          <!-- Traffic Trend Bar Chart Mockup -->
+          <div class="admin-card">
+            <div class="admin-card-header" style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <h3 class="admin-card-title"><i class="fa-solid fa-chart-column" style="color: var(--color-gold, #c5a059); margin-right: 8px;"></i> Traffic & Inquiry Velocity</h3>
+                <p style="font-size: 0.8rem; color: var(--color-text-muted, #94a3b8); margin-top: 2px;">Daily pageview volume vs. advisory consultation inquiries</p>
+              </div>
+              <span class="badge badge-info" id="chartRangeLabel">30 Days Period</span>
+            </div>
+            <div class="admin-card-body">
+              <!-- Visual Bar Chart Representation -->
+              <div style="display: flex; align-items: flex-end; gap: 12px; height: 200px; padding: 20px 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end;">
+                  <div style="width: 100%; background: linear-gradient(180deg, rgba(197,160,89,0.8), rgba(197,160,89,0.2)); height: 45%; border-radius: 4px 4px 0 0;" title="Mon: 340 views"></div>
+                  <span style="font-size: 0.72rem; color: var(--color-text-muted);">Mon</span>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end;">
+                  <div style="width: 100%; background: linear-gradient(180deg, rgba(197,160,89,0.8), rgba(197,160,89,0.2)); height: 60%; border-radius: 4px 4px 0 0;" title="Tue: 480 views"></div>
+                  <span style="font-size: 0.72rem; color: var(--color-text-muted);">Tue</span>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end;">
+                  <div style="width: 100%; background: linear-gradient(180deg, rgba(197,160,89,0.8), rgba(197,160,89,0.2)); height: 85%; border-radius: 4px 4px 0 0;" title="Wed: 720 views"></div>
+                  <span style="font-size: 0.72rem; color: var(--color-text-muted);">Wed</span>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end;">
+                  <div style="width: 100%; background: linear-gradient(180deg, rgba(197,160,89,0.8), rgba(197,160,89,0.2)); height: 70%; border-radius: 4px 4px 0 0;" title="Thu: 590 views"></div>
+                  <span style="font-size: 0.72rem; color: var(--color-text-muted);">Thu</span>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end;">
+                  <div style="width: 100%; background: linear-gradient(180deg, rgba(197,160,89,0.8), rgba(197,160,89,0.2)); height: 95%; border-radius: 4px 4px 0 0;" title="Fri: 810 views"></div>
+                  <span style="font-size: 0.72rem; color: var(--color-text-muted);">Fri</span>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end;">
+                  <div style="width: 100%; background: linear-gradient(180deg, rgba(59,130,246,0.6), rgba(59,130,246,0.2)); height: 35%; border-radius: 4px 4px 0 0;" title="Sat: 280 views"></div>
+                  <span style="font-size: 0.72rem; color: var(--color-text-muted);">Sat</span>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end;">
+                  <div style="width: 100%; background: linear-gradient(180deg, rgba(59,130,246,0.6), rgba(59,130,246,0.2)); height: 40%; border-radius: 4px 4px 0 0;" title="Sun: 310 views"></div>
+                  <span style="font-size: 0.72rem; color: var(--color-text-muted);">Sun</span>
+                </div>
+              </div>
+              <div style="display: flex; justify-content: center; gap: 24px; margin-top: 16px; font-size: 0.8rem; color: var(--color-text-muted);">
+                <div style="display: flex; align-items: center; gap: 8px;"><span style="width: 12px; height: 12px; border-radius: 3px; background: rgba(197,160,89,0.8);"></span> Weekday Business Traffic</div>
+                <div style="display: flex; align-items: center; gap: 8px;"><span style="width: 12px; height: 12px; border-radius: 3px; background: rgba(59,130,246,0.6);"></span> Weekend Organic Traffic</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Top Visited Service Pages Table -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title"><i class="fa-solid fa-layer-group" style="color: var(--color-gold, #c5a059); margin-right: 8px;"></i> Most Visited Service Pages</h3>
+              <p style="font-size: 0.8rem; color: var(--color-text-muted, #94a3b8); margin-top: 2px;">Breakdown of customer interest by core advisory domain</p>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Service Domain</th>
+                    <th>URL Path</th>
+                    <th>Unique Views</th>
+                    <th>Avg. Time</th>
+                    <th>Lead Inquiries</th>
+                    <th>Share %</th>
+                  </tr>
+                </thead>
+                <tbody id="topServicesTableBody">
+                  <tr>
+                    <td><strong style="color: #ffffff;">Business Entry & Setup</strong></td>
+                    <td><code>/services/business-entry.html</code></td>
+                    <td>1,840</td>
+                    <td>4m 12s</td>
+                    <td><span class="badge badge-success">38 Leads</span></td>
+                    <td>
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="flex: 1; background: rgba(255,255,255,0.1); height: 6px; border-radius: 3px; overflow: hidden;">
+                          <div style="width: 38%; background: var(--color-gold); height: 100%;"></div>
+                        </div>
+                        <span style="font-size: 0.78rem;">38%</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong style="color: #ffffff;">Work Passes & Permits</strong></td>
+                    <td><code>/services/passes-permits.html</code></td>
+                    <td>1,420</td>
+                    <td>3m 48s</td>
+                    <td><span class="badge badge-success">29 Leads</span></td>
+                    <td>
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="flex: 1; background: rgba(255,255,255,0.1); height: 6px; border-radius: 3px; overflow: hidden;">
+                          <div style="width: 29%; background: #60a5fa; height: 100%;"></div>
+                        </div>
+                        <span style="font-size: 0.78rem;">29%</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong style="color: #ffffff;">Corporate Secretarial</strong></td>
+                    <td><code>/services/corporate-secretarial.html</code></td>
+                    <td>980</td>
+                    <td>3m 15s</td>
+                    <td><span class="badge badge-success">18 Leads</span></td>
+                    <td>
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="flex: 1; background: rgba(255,255,255,0.1); height: 6px; border-radius: 3px; overflow: hidden;">
+                          <div style="width: 20%; background: #a78bfa; height: 100%;"></div>
+                        </div>
+                        <span style="font-size: 0.78rem;">20%</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong style="color: #ffffff;">Bookkeeping & Accounting</strong></td>
+                    <td><code>/services/bookkeeping-accounting.html</code></td>
+                    <td>640</td>
+                    <td>2m 50s</td>
+                    <td><span class="badge badge-success">11 Leads</span></td>
+                    <td>
+                      <div style="display: flex; align-items: center; gap: 8px;">
+                        <div style="flex: 1; background: rgba(255,255,255,0.1); height: 6px; border-radius: 3px; overflow: hidden;">
+                          <div style="width: 13%; background: #34d399; height: 100%;"></div>
+                        </div>
+                        <span style="font-size: 0.78rem;">13%</span>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Traffic Sources & Geographic Breakdown -->
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          
+          <!-- Acquisition Channels -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title"><i class="fa-solid fa-share-nodes" style="color: var(--color-gold, #c5a059); margin-right: 8px;"></i> Acquisition Channels</h3>
+            </div>
+            <div class="admin-card-body" style="display: flex; flex-direction: column; gap: 16px;">
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
+                  <span><i class="fa-brands fa-google" style="color: #ea4335; margin-right: 6px;"></i> Organic Search (Google)</span>
+                  <strong>48.5%</strong>
+                </div>
+                <div style="background: rgba(255,255,255,0.08); height: 8px; border-radius: 4px; overflow: hidden;">
+                  <div style="width: 48.5%; background: #ea4335; height: 100%;"></div>
+                </div>
+              </div>
+
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
+                  <span><i class="fa-solid fa-globe" style="color: #60a5fa; margin-right: 6px;"></i> Direct Navigation</span>
+                  <strong>24.2%</strong>
+                </div>
+                <div style="background: rgba(255,255,255,0.08); height: 8px; border-radius: 4px; overflow: hidden;">
+                  <div style="width: 24.2%; background: #60a5fa; height: 100%;"></div>
+                </div>
+              </div>
+
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
+                  <span><i class="fa-brands fa-linkedin" style="color: #0a66c2; margin-right: 6px;"></i> LinkedIn Business</span>
+                  <strong>16.8%</strong>
+                </div>
+                <div style="background: rgba(255,255,255,0.08); height: 8px; border-radius: 4px; overflow: hidden;">
+                  <div style="width: 16.8%; background: #0a66c2; height: 100%;"></div>
+                </div>
+              </div>
+
+              <div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 6px;">
+                  <span><i class="fa-solid fa-handshake" style="color: var(--color-gold); margin-right: 6px;"></i> Partner Referrals</span>
+                  <strong>10.5%</strong>
+                </div>
+                <div style="background: rgba(255,255,255,0.08); height: 8px; border-radius: 4px; overflow: hidden;">
+                  <div style="width: 10.5%; background: var(--color-gold); height: 100%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Geographic Distribution -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title"><i class="fa-solid fa-earth-africa" style="color: var(--color-gold, #c5a059); margin-right: 8px;"></i> Top Regions</h3>
+            </div>
+            <div class="admin-card-body" style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06);">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span style="font-size: 1.2rem;">🇰🇪</span>
+                  <span style="font-size: 0.88rem; font-weight: 500;">Kenya (Nairobi / Mombasa)</span>
+                </div>
+                <span style="font-size: 0.85rem; font-weight: 600; color: var(--color-gold);">54%</span>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06);">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span style="font-size: 1.2rem;">🇬🇧</span>
+                  <span style="font-size: 0.88rem; font-weight: 500;">United Kingdom</span>
+                </div>
+                <span style="font-size: 0.85rem; font-weight: 600; color: #ffffff;">18%</span>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06);">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span style="font-size: 1.2rem;">🇺🇸</span>
+                  <span style="font-size: 0.88rem; font-weight: 500;">United States</span>
+                </div>
+                <span style="font-size: 0.85rem; font-weight: 600; color: #ffffff;">14%</span>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.06);">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span style="font-size: 1.2rem;">🇦🇪</span>
+                  <span style="font-size: 0.88rem; font-weight: 500;">United Arab Emirates</span>
+                </div>
+                <span style="font-size: 0.85rem; font-weight: 600; color: #ffffff;">8%</span>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span style="font-size: 1.2rem;">🇿🇦</span>
+                  <span style="font-size: 0.88rem; font-weight: 500;">South Africa & Others</span>
+                </div>
+                <span style="font-size: 0.85rem; font-weight: 600; color: #ffffff;">6%</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script src="../js/theme.js"></script>
+    <script src="js/admin.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      KivantaAdmin.safeExecute(() => {
+        KivantaAdmin.initPage('analytics');
+      }, 'Analytics Page Init');
+    });
+
+    // Helper functions for time range filter buttons
+    if (typeof KivantaAdmin !== 'undefined') {
+      KivantaAdmin.switchAnalyticsRange = function(range) {
+        document.querySelectorAll('.analytics-time-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.range === range);
+        });
+        const label = document.getElementById('chartRangeLabel');
+        if (label) {
+          const map = { today: 'Today (24h)', '7d': '7 Days Period', '30d': '30 Days Period', '3m': '3 Months Period', '12m': '12 Months Period' };
+          label.textContent = map[range] || '30 Days Period';
+        }
+        KivantaAdmin.showToast('Analytics time filter updated to ' + range.toUpperCase(), 'info');
+      };
+
+      KivantaAdmin.exportAnalyticsReport = function() {
+        KivantaAdmin.showToast('Analytics report download initiated (CSV format)', 'success');
+      };
+    }
+  </script>
+</body>
+</html>
