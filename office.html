@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <!-- Global Theme FOUC Prevention -->
+    <script>
+      (function() {
+        try {
+          var s = localStorage.getItem('kivanta_theme') || 'system';
+          var r = s;
+          if (s === 'system') {
+            r = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', r);
+          document.documentElement.setAttribute('data-theme-preference', s);
+          document.documentElement.classList.add('no-transitions');
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="utf-8">
+    <title>Nairobi Office Location — Kivanta Advisory</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta http-equiv="refresh" content="0; url=contact.html">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="p-5 text-center">
+    <p>Redirecting to <a href="contact.html">Kivanta Advisory Contact & Office Page</a>...</p>
+    <script src="js/theme.js"></script>
+</body>
+</html>

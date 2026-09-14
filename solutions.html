@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <!-- Global Theme FOUC Prevention -->
+    <script>
+      (function() {
+        try {
+          var s = localStorage.getItem('kivanta_theme') || 'system';
+          var r = s;
+          if (s === 'system') {
+            r = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', r);
+          document.documentElement.setAttribute('data-theme-preference', s);
+          document.documentElement.classList.add('no-transitions');
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="utf-8">
+    <title>Client Solutions — Kivanta Advisory Kenya</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Kenya business solutions, foreign investors, SMEs, multinationals, expatriates, NGOs Kenya" name="keywords">
+    <meta content="Tailored business setup and advisory solutions for foreign investors, local SMEs, multinationals, expatriates, and non-profit organizations in Kenya." name="description">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Spinner -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-warning" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading Client Solutions...</span>
+        </div>
+    </div>
+
+    <!-- Topbar -->
+    <div class="container-fluid topbar px-5 d-none d-lg-block">
+        <div class="row gx-0 align-items-center" style="height: 45px;">
+            <div class="col-lg-7 text-start">
+                <div class="d-flex align-items-center gap-4">
+                    <span><i class="fas fa-map-marker-alt text-warning me-2"></i>Westlands Commercial Center, Nairobi, Kenya</span>
+                    <a href="mailto:info@kivantaadvisory.com"><i class="fas fa-envelope text-warning me-2"></i>info@kivantaadvisory.com</a>
+                    <a href="tel:+254700000000"><i class="fas fa-phone-alt text-warning me-2"></i>+254 700 000 000</a>
+                </div>
+            </div>
+            <div class="col-lg-5 text-end d-flex align-items-center justify-content-end gap-3">
+                <span class="badge bg-warning text-dark font-heading">Kenya Business Advisory</span>
+                <button class="theme-toggle-btn ms-2" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <div class="container-fluid nav-bar p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3">
+            <a href="index.html" class="navbar-brand p-0">
+                <h2 class="brand-name m-0"><i class="fas fa-shield-alt text-warning me-2"></i>Kivanta Advisory</h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="index.html" class="nav-item nav-link">Home</a>
+                    <a href="service.html" class="nav-item nav-link">Services</a>
+                    <a href="solutions.html" class="nav-item nav-link active">Solutions</a>
+                    <a href="about.html" class="nav-item nav-link">About Us</a>
+                    <a href="insights.html" class="nav-item nav-link">Insights</a>
+                    <a href="faqs.html" class="nav-item nav-link">FAQs</a>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                </div>
+                <div class="d-flex align-items-center gap-2 ms-lg-3">
+                    <a href="proposal.html" class="btn btn-outline-gold me-1">Request a Proposal</a>
+                    <button onclick="openConsultationModal()" class="btn btn-primary">Book Consultation</button>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Header Breadcrumb -->
+    <div class="container-fluid bg-breadcrumb text-center">
+        <div class="container py-4" style="max-width: 900px;">
+            <span class="badge-category mb-3">TAILORED ADVISORY PATHWAYS</span>
+            <h1 class="display-4 text-white mb-3">Client-Centric Solutions for Doing Business in Kenya</h1>
+            <p class="text-white-50 lead mb-4">Every business profile faces distinct regulatory, financial, and administrative priorities. Discover your customized pathway below.</p>
+            <ol class="breadcrumb justify-content-center text-white mb-0">
+                <li class="breadcrumb-item"><a href="index.html" class="text-white">Home</a></li>
+                <li class="breadcrumb-item active text-warning">Solutions</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Solutions Detail Sections -->
+    <div class="py-5" style="background-color: var(--bg-primary);">
+        <div class="container py-4">
+
+            <!-- Solution 1: Foreign Investors -->
+            <div class="card-custom mb-5" style="background-color: var(--bg-surface);">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-7">
+                        <span class="badge-category mb-2"><i class="fas fa-globe-africa me-1"></i>FOREIGN ENTERPRISES</span>
+                        <h2 class="display-6 mb-3">For Foreign Investors & Multinationals</h2>
+                        <p class="text-muted mb-4">Establish an authoritative regional operational hub in Nairobi. We guide foreign corporations through Branch Office registration vs Subsidiary incorporation, tax optimization, Class G/D work permits, and agency licensing.</p>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded" style="background: var(--bg-card);">
+                                    <h6 class="font-heading mb-1"><i class="fas fa-check-circle text-success me-2"></i>Branch vs Subsidiary</h6>
+                                    <small class="text-muted">Tax liability & corporate structure matrix</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded" style="background: var(--bg-card);">
+                                    <h6 class="font-heading mb-1"><i class="fas fa-check-circle text-success me-2"></i>Class G / D Permits</h6>
+                                    <small class="text-muted">Immigration authorization for foreign leaders</small>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="services/foreign-company-registration.html" class="btn btn-primary me-2">Foreign Branch Setup</a>
+                        <a href="proposal.html" class="btn btn-outline-gold">Request Entry Proposal</a>
+                    </div>
+                    <div class="col-lg-5 text-center">
+                        <div class="p-4 rounded text-start" style="background: rgba(15, 37, 55, 0.04); border: 1px solid var(--border-color);">
+                            <h5 class="font-heading mb-3"><i class="fas fa-layer-group text-warning me-2"></i>Included Package Services</h5>
+                            <ul class="list-unstyled space-y-2 text-muted">
+                                <li><i class="fas fa-angle-right text-warning me-2"></i>Foreign Branch / Subsidiary Incorporation</li>
+                                <li><i class="fas fa-angle-right text-warning me-2"></i>Class G ($100k capital proof) Work Permits</li>
+                                <li><i class="fas fa-angle-right text-warning me-2"></i>Foreign National KRA PIN & Banking</li>
+                                <li><i class="fas fa-angle-right text-warning me-2"></i>Sector Licensing (EPZ / SEZ / NEMA)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Solution 2: Local SMEs -->
+            <div class="card-custom mb-5" style="background-color: var(--bg-surface);">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-7">
+                        <span class="badge-category mb-2"><i class="fas fa-rocket me-1"></i>HIGH-GROWTH ENTERPRISES</span>
+                        <h2 class="display-6 mb-3">For Local SMEs & Kenyan Startups</h2>
+                        <p class="text-muted mb-4">Transition your business from incorporation to robust statutory standing. We manage monthly KRA tax filings, eTIMS electronic invoicing, PAYE/NSSF/SHIF/Housing Levy payroll calculations, and County Single Business Permits.</p>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded" style="background: var(--bg-card);">
+                                    <h6 class="font-heading mb-1"><i class="fas fa-check-circle text-success me-2"></i>Statutory Payroll</h6>
+                                    <small class="text-muted">100% compliant monthly deductions</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded" style="background: var(--bg-card);">
+                                    <h6 class="font-heading mb-1"><i class="fas fa-check-circle text-success me-2"></i>CR12 & Annual Returns</h6>
+                                    <small class="text-muted">Maintain company in good legal standing</small>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="services/company-registration.html" class="btn btn-primary me-2">Incorporate Company</a>
+                        <a href="services/bookkeeping-accounting.html" class="btn btn-outline-gold">Accounting Retainer</a>
+                    </div>
+                    <div class="col-lg-5 text-center">
+                        <div class="p-4 rounded text-start" style="background: rgba(15, 37, 55, 0.04); border: 1px solid var(--border-color);">
+                            <h5 class="font-heading mb-3"><i class="fas fa-layer-group text-warning me-2"></i>Recommended Retainer</h5>
+                            <ul class="list-unstyled space-y-2 text-muted">
+                                <li><i class="fas fa-angle-right text-warning me-2"></i>Company Incorporation & KRA PIN</li>
+                                <li><i class="fas fa-angle-right text-warning me-2"></i>Single Business Permit (Nairobi / County)</li>
+                                <li><i class="fas fa-angle-right text-warning me-2"></i>Monthly VAT & PAYE Tax Filings</li>
+                                <li><i class="fas fa-angle-right text-warning me-2"></i>Cloud Bookkeeping (QuickBooks / Xero)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Solution 3: Expatriates -->
+            <div class="card-custom mb-5" style="background-color: var(--bg-surface);">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-7">
+                        <span class="badge-category mb-2"><i class="fas fa-user-shield me-1"></i>EXECUTIVE RELOCATION</span>
+                        <h2 class="display-6 mb-3">For Expatriates & Relocating Executives</h2>
+                        <p class="text-muted mb-4">Complete executive onboarding in Kenya. We process Class D employment permits, special passes, dependant passes for relocating families, foreign national KRA PINs, and Alien Card registrations.</p>
+                        <a href="services/relocation.html" class="btn btn-primary me-2">Relocation Advisory</a>
+                        <a href="services/work-permits.html" class="btn btn-outline-gold">Work Permit Details</a>
+                    </div>
+                    <div class="col-lg-5 text-center">
+                        <div class="p-4 rounded text-start" style="background: rgba(15, 37, 55, 0.04); border: 1px solid var(--border-color);">
+                            <h5 class="font-heading mb-3"><i class="fas fa-layer-group text-warning me-2"></i>Expatriate Concierge</h5>
+                            <ul class="list-unstyled space-y-2 text-muted">
+                                <li><i class="fas fa-angle-right text-warning me-2"></i>Class D Work Permit Processing</li>
+                                <li><i class="fas fa-angle-right text-warning me-2"></i>Dependant Passes for Spouse & Children</li>
+                                <li><i class="fas fa-angle-right text-warning me-2"></i>Alien Card Biometric Registration</li>
+                                <li><i class="fas fa-angle-right text-warning me-2"></i>Personal Banking & Tax Residency</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Consultation CTA -->
+    <div class="py-5 text-center" style="background-color: var(--bg-surface);">
+        <div class="container">
+            <div class="max-w-700 mx-auto">
+                <h3 class="display-6 mb-3">Let Us Structure Your Custom Pathway</h3>
+                <p class="text-muted mb-4">Contact our team to discuss your project requirements and receive a customized service package proposal.</p>
+                <button onclick="openConsultationModal()" class="btn btn-primary btn-lg me-2"><i class="fas fa-calendar-check me-2"></i>Book a Consultation</button>
+                <a href="proposal.html" class="btn btn-outline-gold btn-lg"><i class="fas fa-paper-plane me-2"></i>Request a Proposal</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="border-top border-secondary pt-4 text-center text-white-50 small">
+                <p class="mb-0">© 2026 Kivanta Advisory. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

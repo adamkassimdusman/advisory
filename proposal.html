@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <!-- Global Theme FOUC Prevention -->
+    <script>
+      (function() {
+        try {
+          var s = localStorage.getItem('kivanta_theme') || 'system';
+          var r = s;
+          if (s === 'system') {
+            r = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', r);
+          document.documentElement.setAttribute('data-theme-preference', s);
+          document.documentElement.classList.add('no-transitions');
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="utf-8">
+    <title>Request a Proposal — Kivanta Advisory Kenya</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Request proposal Kenya business advisory, company setup quote Kenya, work permit quote" name="keywords">
+    <meta content="Request a formal business advisory or setup proposal for your corporate expansion or compliance project in Kenya." name="description">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Spinner -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-warning" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading Proposal Form...</span>
+        </div>
+    </div>
+
+    <!-- Topbar -->
+    <div class="container-fluid topbar px-5 d-none d-lg-block">
+        <div class="row gx-0 align-items-center" style="height: 45px;">
+            <div class="col-lg-7 text-start">
+                <div class="d-flex align-items-center gap-4">
+                    <span><i class="fas fa-map-marker-alt text-warning me-2"></i>Westlands Commercial Center, Nairobi, Kenya</span>
+                    <a href="mailto:info@kivantaadvisory.com"><i class="fas fa-envelope text-warning me-2"></i>info@kivantaadvisory.com</a>
+                    <a href="tel:+254700000000"><i class="fas fa-phone-alt text-warning me-2"></i>+254 700 000 000</a>
+                </div>
+            </div>
+            <div class="col-lg-5 text-end d-flex align-items-center justify-content-end gap-3">
+                <span class="badge bg-warning text-dark font-heading">Kenya Business Advisory</span>
+                <button class="theme-toggle-btn ms-2" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <div class="container-fluid nav-bar p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3">
+            <a href="index.html" class="navbar-brand p-0">
+                <h2 class="brand-name m-0"><i class="fas fa-shield-alt text-warning me-2"></i>Kivanta Advisory</h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="index.html" class="nav-item nav-link">Home</a>
+                    <a href="service.html" class="nav-item nav-link">Services</a>
+                    <a href="solutions.html" class="nav-item nav-link">Solutions</a>
+                    <a href="about.html" class="nav-item nav-link">About Us</a>
+                    <a href="insights.html" class="nav-item nav-link">Insights</a>
+                    <a href="faqs.html" class="nav-item nav-link">FAQs</a>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                </div>
+                <div class="d-flex align-items-center gap-2 ms-lg-3">
+                    <a href="proposal.html" class="btn btn-outline-gold active me-1">Request a Proposal</a>
+                    <button onclick="openConsultationModal()" class="btn btn-primary">Book Consultation</button>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Header Breadcrumb -->
+    <div class="container-fluid bg-breadcrumb text-center">
+        <div class="container py-4" style="max-width: 900px;">
+            <span class="badge-category mb-3">CUSTOM ENGAGEMENT</span>
+            <h1 class="display-4 text-white mb-3">Request a Formal Advisory Proposal</h1>
+            <p class="text-white-50 lead mb-4">Provide details about your project scope, company profile, and timeline to receive a tailored engagement proposal.</p>
+            <ol class="breadcrumb justify-content-center text-white mb-0">
+                <li class="breadcrumb-item"><a href="index.html" class="text-white">Home</a></li>
+                <li class="breadcrumb-item active text-warning">Request Proposal</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Proposal Form Section -->
+    <div class="py-5" style="background-color: var(--bg-primary);">
+        <div class="container py-4" style="max-width: 900px;">
+            <div class="card-custom" style="background-color: var(--bg-surface);">
+                <h3 class="mb-3"><i class="fas fa-file-alt text-warning me-2"></i>Project & Proposal Specifications</h3>
+                <p class="text-muted mb-4">Complete the fields below to receive a formal quotation and scope outline from our senior advisory team.</p>
+
+                <form id="proposalRequestForm">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label font-heading">Full Name *</label>
+                            <input type="text" name="name" class="form-control" placeholder="Jane Smith" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label font-heading">Company / Organization Name *</label>
+                            <input type="text" name="company" class="form-control" placeholder="Acme Global Inc" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label font-heading">Official Business Email *</label>
+                            <input type="email" name="email" class="form-control" placeholder="jane@acmeglobal.com" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label font-heading">Phone / WhatsApp Number *</label>
+                            <input type="text" name="phone" class="form-control" placeholder="+254 700 000 000" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label font-heading">Country of Origin / Registration</label>
+                            <input type="text" name="country" class="form-control" placeholder="United Kingdom, USA, South Africa, etc.">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label font-heading">Business Entity Type *</label>
+                            <select name="businessType" class="form-select" required>
+                                <option value="">Select Entity Type...</option>
+                                <option value="Foreign Multinationals / Corporation">Foreign Corporation / Multinational</option>
+                                <option value="Kenyan SME / Local Business">Kenyan SME / Local Business</option>
+                                <option value="High-Growth Tech Startup">High-Growth Tech Startup</option>
+                                <option value="NGO / Non-Profit / International Org">NGO / Non-Profit Organization</option>
+                                <option value="Individual Investor / Freelancer">Individual Investor / Entrepreneur</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label font-heading">Primary Services Required *</label>
+                            <select name="service" class="form-select" required>
+                                <option value="">Select Primary Requirement...</option>
+                                <option value="Company Incorporation & Setup">Company Incorporation & Setup</option>
+                                <option value="Foreign Branch Office Setup">Foreign Branch Office Setup</option>
+                                <option value="Immigration Work Permits (Class G/D)">Immigration Work Permits (Class G/D)</option>
+                                <option value="KRA Tax Compliance & Retainer">KRA Tax Compliance & Retainer</option>
+                                <option value="Bookkeeping & Payroll Management">Bookkeeping & Payroll Management</option>
+                                <option value="Corporate Secretarial Retainer">Corporate Secretarial Retainer</option>
+                                <option value="Comprehensive Market Entry Package">Comprehensive Market Entry Package</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label font-heading">Estimated Budget Range (Optional)</label>
+                            <select name="budgetRange" class="form-select">
+                                <option value="Not Specified">Select Budget Range...</option>
+                                <option value="Under KES 100,000 / $1,000">Under KES 100,000 / $1,000</option>
+                                <option value="KES 100,000 - 300,000 / $1,000 - $3,000">KES 100,000 - 300,000 / $1,000 - $3,000</option>
+                                <option value="KES 300,000 - 1,000,000 / $3,000 - $10,000">KES 300,000 - 1,000,000 / $3,000 - $10,000</option>
+                                <option value="Over KES 1,000,000 / $10,000+">Over KES 1,000,000 / $10,000+</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label font-heading">Target Execution Timeline</label>
+                            <select name="timeline" class="form-select">
+                                <option value="Immediate (< 2 weeks)">Immediate (Under 2 weeks)</option>
+                                <option value="Within 1 Month">Within 1 Month</option>
+                                <option value="1 - 3 Months">1 - 3 Months</option>
+                                <option value="Exploratory / Planning Stage">Exploratory / Planning Stage</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label font-heading">Preferred Contact Channel</label>
+                            <select name="contactMethod" class="form-select">
+                                <option value="Email Proposal">Email Written Proposal</option>
+                                <option value="WhatsApp Discussion">WhatsApp Discussion</option>
+                                <option value="Phone Call">Phone Consultation</option>
+                                <option value="Virtual Video Meeting">Virtual Video Meeting (Zoom/Teams)</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label font-heading">Detailed Project Scope & Requirements *</label>
+                            <textarea name="description" class="form-control" rows="5" placeholder="Please outline your key requirements, commercial goals, headcount, or specific compliance questions..." required></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg mt-4 w-100"><i class="fas fa-file-signature me-2"></i>Submit Proposal Request</button>
+                </form>
+
+                <div id="proposalSuccessAlert" class="alert alert-success d-none mt-4 mb-0" role="alert">
+                    <h5 class="alert-heading"><i class="fas fa-check-circle me-2"></i>Proposal Request Received!</h5>
+                    <p class="mb-0">Thank you for submitting your project specifications to Kivanta Advisory. A dedicated senior advisor will evaluate your scope and issue a formal proposal document within 24 to 48 hours.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="border-top border-secondary pt-4 text-center text-white-50 small">
+                <p class="mb-0">© 2026 Kivanta Advisory. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (window.KivantaDB) await window.KivantaDB.init();
+
+            $('#proposalRequestForm').on('submit', function(e) {
+                e.preventDefault();
+                const formData = {
+                    name: $(this).find('[name="name"]').val(),
+                    company: $(this).find('[name="company"]').val(),
+                    email: $(this).find('[name="email"]').val(),
+                    phone: $(this).find('[name="phone"]').val(),
+                    country: $(this).find('[name="country"]').val(),
+                    businessType: $(this).find('[name="businessType"]').val(),
+                    service: $(this).find('[name="service"]').val(),
+                    budgetRange: $(this).find('[name="budgetRange"]').val(),
+                    timeline: $(this).find('[name="timeline"]').val(),
+                    contactMethod: $(this).find('[name="contactMethod"]').val(),
+                    description: $(this).find('[name="description"]').val()
+                };
+
+                if (window.KivantaDB) {
+                    window.KivantaDB.addProposalRequest(formData);
+                }
+
+                $('#proposalRequestForm').addClass('d-none');
+                $('#proposalSuccessAlert').removeClass('d-none');
+            });
+        });
+    </script>
+</body>
+
+</html>

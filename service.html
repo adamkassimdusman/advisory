@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <!-- Global Theme FOUC Prevention -->
+    <script>
+      (function() {
+        try {
+          var s = localStorage.getItem('kivanta_theme') || 'system';
+          var r = s;
+          if (s === 'system') {
+            r = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', r);
+          document.documentElement.setAttribute('data-theme-preference', s);
+          document.documentElement.classList.add('no-transitions');
+        } catch (e) {}
+      })();
+    </script>
+    <meta charset="utf-8">
+    <title>Services Directory — Kivanta Advisory Kenya</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Kenya business services, company registration, work permits, tax compliance, bookkeeping, market entry" name="keywords">
+    <meta content="Explore the complete service ecosystem at Kivanta Advisory. Comprehensive business setup, immigration, tax, accounting, and market entry advisory in Kenya." name="description">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Spinner -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-warning" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading Services Directory...</span>
+        </div>
+    </div>
+
+    <!-- Topbar -->
+    <div class="container-fluid topbar px-5 d-none d-lg-block">
+        <div class="row gx-0 align-items-center" style="height: 45px;">
+            <div class="col-lg-7 text-start">
+                <div class="d-flex align-items-center gap-4">
+                    <span><i class="fas fa-map-marker-alt text-warning me-2"></i>Westlands Commercial Center, Nairobi, Kenya</span>
+                    <a href="mailto:info@kivantaadvisory.com"><i class="fas fa-envelope text-warning me-2"></i>info@kivantaadvisory.com</a>
+                    <a href="tel:+254700000000"><i class="fas fa-phone-alt text-warning me-2"></i>+254 700 000 000</a>
+                </div>
+            </div>
+            <div class="col-lg-5 text-end d-flex align-items-center justify-content-end gap-3">
+                <span class="badge bg-warning text-dark font-heading">Kenya Business Advisory</span>
+                <button class="theme-toggle-btn ms-2" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <div class="container-fluid nav-bar p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3">
+            <a href="index.html" class="navbar-brand p-0">
+                <h2 class="brand-name m-0"><i class="fas fa-shield-alt text-warning me-2"></i>Kivanta Advisory</h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="index.html" class="nav-item nav-link">Home</a>
+                    <a href="service.html" class="nav-item nav-link active">Services</a>
+                    <a href="solutions.html" class="nav-item nav-link">Solutions</a>
+                    <a href="about.html" class="nav-item nav-link">About Us</a>
+                    <a href="insights.html" class="nav-item nav-link">Insights</a>
+                    <a href="faqs.html" class="nav-item nav-link">FAQs</a>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                </div>
+                <div class="d-flex align-items-center gap-2 ms-lg-3">
+                    <a href="proposal.html" class="btn btn-outline-gold me-1">Request a Proposal</a>
+                    <button onclick="openConsultationModal()" class="btn btn-primary">Book Consultation</button>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Header Breadcrumb -->
+    <div class="container-fluid bg-breadcrumb text-center">
+        <div class="container py-4" style="max-width: 900px;">
+            <span class="badge-category mb-3">OUR SERVICE ECOSYSTEM</span>
+            <h1 class="display-4 text-white mb-3">Complete Kenya Business Advisory Directory</h1>
+            <p class="text-white-50 lead mb-4">Select a category or search for specific service requirements below to explore detailed processes, documents needed, timelines, and fees.</p>
+            <ol class="breadcrumb justify-content-center text-white mb-0">
+                <li class="breadcrumb-item"><a href="index.html" class="text-white">Home</a></li>
+                <li class="breadcrumb-item active text-warning">Services Directory</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Main Content & Directory -->
+    <div class="py-5" style="background-color: var(--bg-primary);">
+        <div class="container py-4">
+
+            <!-- Search & Category Filters -->
+            <div class="card-custom mb-5" style="background-color: var(--bg-surface);">
+                <div class="row g-3 align-items-center">
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <span class="input-group-text bg-transparent border-end-0" style="border-color: var(--border-color); color: var(--text-muted);"><i class="fas fa-search"></i></span>
+                            <input type="text" id="serviceSearchInput" class="form-control border-start-0 ps-0" placeholder="Search services (e.g. Work Permit, KRA PIN, Company Registration)...">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="d-flex flex-wrap gap-2 justify-content-lg-end" id="categoryFilterContainer">
+                            <button class="btn btn-sm btn-primary category-btn active" data-cat="all">All Services</button>
+                            <button class="btn btn-sm btn-outline-gold category-btn" data-cat="setup">Setup</button>
+                            <button class="btn btn-sm btn-outline-gold category-btn" data-cat="immigration">Immigration</button>
+                            <button class="btn btn-sm btn-outline-gold category-btn" data-cat="tax">Tax & Compliance</button>
+                            <button class="btn btn-sm btn-outline-gold category-btn" data-cat="accounting">Accounting</button>
+                            <button class="btn btn-sm btn-outline-gold category-btn" data-cat="secretarial">Secretarial</button>
+                            <button class="btn btn-sm btn-outline-gold category-btn" data-cat="advisory">Advisory</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Services Cards Grid -->
+            <div class="row g-4" id="servicesGridContainer">
+                <!-- Javascript will dynamically inject services from KivantaDB -->
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Consultation CTA -->
+    <div class="py-5 text-center" style="background-color: var(--bg-surface);">
+        <div class="container">
+            <div class="max-w-700 mx-auto">
+                <h3 class="display-6 mb-3">Unsure Which Service You Need?</h3>
+                <p class="text-muted mb-4">Our corporate advisory team will evaluate your business model, structure, and objectives to recommend the optimal legal, immigration, and tax configuration.</p>
+                <button onclick="openConsultationModal()" class="btn btn-primary btn-lg me-2"><i class="fas fa-calendar-check me-2"></i>Book a Consultation</button>
+                <a href="proposal.html" class="btn btn-outline-gold btn-lg"><i class="fas fa-paper-plane me-2"></i>Request a Customized Proposal</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-5 mb-5">
+                <div class="col-lg-4 col-md-6">
+                    <h3 class="text-white font-heading mb-4"><i class="fas fa-shield-alt text-warning me-2"></i>Kivanta Advisory</h3>
+                    <p class="text-white-50 mb-4">One trusted partner for entering, establishing, operating, and growing your business in Kenya.</p>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="text-warning mb-4">Quick Links</h5>
+                    <ul class="list-unstyled space-y-2">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="service.html">Services Directory</a></li>
+                        <li><a href="solutions.html">Solutions</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="insights.html">Insights</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-warning mb-4">Featured Services</h5>
+                    <ul class="list-unstyled space-y-2">
+                        <li><a href="services/company-registration.html">Company Registration</a></li>
+                        <li><a href="services/work-permits.html">Class G & D Work Permits</a></li>
+                        <li><a href="services/kra-tax-registration.html">KRA PIN & VAT Setup</a></li>
+                        <li><a href="services/market-entry.html">Kenya Market Entry Strategy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-warning mb-4">Contact</h5>
+                    <p class="text-white-50 mb-2"><i class="fas fa-map-marker-alt text-warning me-2"></i>Nairobi, Kenya</p>
+                    <p class="text-white-50 mb-2"><i class="fas fa-envelope text-warning me-2"></i>info@kivantaadvisory.com</p>
+                    <p class="text-white-50"><i class="fas fa-phone-alt text-warning me-2"></i>+254 700 000 000</p>
+                </div>
+            </div>
+            <div class="border-top border-secondary pt-4 text-center text-white-50 small">
+                <p class="mb-0">© 2026 Kivanta Advisory. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (window.KivantaDB) {
+                await window.KivantaDB.init();
+                renderServiceGrid();
+            }
+
+            // Search input handler
+            $('#serviceSearchInput').on('keyup', function() {
+                const query = $(this).val().toLowerCase();
+                filterServices(query, $('.category-btn.active').data('cat'));
+            });
+
+            // Category filter click
+            $('.category-btn').on('click', function() {
+                $('.category-btn').removeClass('btn-primary active').addClass('btn-outline-gold');
+                $(this).removeClass('btn-outline-gold').addClass('btn-primary active');
+                const cat = $(this).data('cat');
+                const query = $('#serviceSearchInput').val().toLowerCase();
+                filterServices(query, cat);
+            });
+        });
+
+        function renderServiceGrid() {
+            const services = window.KivantaDB.getServices();
+            const categories = window.KivantaDB.getCategories();
+
+            let html = '';
+            services.forEach(s => {
+                const cat = categories.find(c => c.id === s.categoryId) || { name: 'Service', icon: 'fa-cog' };
+                html += `
+                    <div class="col-lg-4 col-md-6 service-card-item" data-cat="${s.categoryId}" data-name="${s.name.toLowerCase()}" data-desc="${s.shortDesc.toLowerCase()}">
+                        <div class="card-custom">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <span class="badge-category"><i class="fas ${cat.icon} me-1"></i>${cat.name}</span>
+                                ${s.featured ? '<span class="badge bg-warning text-dark">Featured</span>' : ''}
+                            </div>
+                            <h4 class="mb-3">${s.name}</h4>
+                            <p class="text-muted mb-4 small flex-grow-1">${s.shortDesc}</p>
+                            <div class="border-top pt-3 mt-auto">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <small class="text-warning fw-bold"><i class="fas fa-clock me-1"></i>${s.timelines?.estimatedTimeline || 'Confirmed in advisory'}</small>
+                                    <a href="services/${s.slug}.html" class="btn btn-sm btn-outline-gold">Explore Service <i class="fas fa-arrow-right ms-1"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            $('#servicesGridContainer').html(html);
+        }
+
+        function filterServices(query, category) {
+            $('.service-card-item').each(function() {
+                const catMatch = category === 'all' || $(this).data('cat') === category;
+                const textMatch = !query || $(this).data('name').includes(query) || $(this).data('desc').includes(query);
+                if (catMatch && textMatch) {
+                    $(this).removeClass('d-none');
+                } else {
+                    $(this).addClass('d-none');
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
