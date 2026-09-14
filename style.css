@@ -1,0 +1,846 @@
+/**
+ * Kivanta Advisory - Master Corporate & Admin Stylesheet (Visual Refinement Pass)
+ * Brand Colors: Deep Navy (#0F2537), Gold Accent (#D49A36), Slate Charcoal (#1E293B), Soft Grey (#F8FAFC)
+ */
+
+/* ==========================================================================
+   1. COLOR SYSTEM & CSS VARIABLES
+   ========================================================================== */
+:root {
+  --bg-primary: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-nav: #FFFFFF;
+  --bg-footer: #0F2537;
+  --text-main: #1E293B;
+  --text-muted: #64748B;
+  --text-inverse: #FFFFFF;
+  
+  --brand-navy: #0F2537;
+  --brand-navy-light: #162E44;
+  --brand-gold: #D49A36;
+  --brand-gold-hover: #B88228;
+  --brand-gold-subtle: rgba(212, 154, 54, 0.08);
+  
+  --border-color: #E2E8F0;
+  --border-focus: #D49A36;
+  
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
+
+  --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --theme-transition: background-color 200ms ease-in-out, color 200ms ease-in-out, border-color 200ms ease-in-out, box-shadow 200ms ease-in-out;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #0A1724;
+  --bg-surface: #0F2537;
+  --bg-card: #142A3E;
+  --bg-nav: #0D1F30;
+  --bg-footer: #061019;
+  --text-main: #F1F5F9;
+  --text-muted: #94A3B8;
+  --text-inverse: #FFFFFF;
+  
+  --brand-gold-subtle: rgba(212, 154, 54, 0.15);
+  --border-color: #1E3A54;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* FOUC & Transition Management */
+.no-transitions,
+.no-transitions * {
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Global Theme Element Transitions */
+body,
+.navbar,
+.topbar,
+.card,
+.card-custom,
+.modal-content,
+.dropdown-menu,
+.form-control,
+.form-select,
+.table,
+.footer {
+  transition: var(--theme-transition);
+}
+
+/* Sleek Theme Selector Controls */
+.theme-selector-select {
+  font-size: 0.8rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  outline: none;
+  transition: var(--theme-transition);
+}
+
+.theme-selector-select:focus {
+  border-color: var(--brand-gold);
+  box-shadow: 0 0 0 2px var(--brand-gold-subtle);
+}
+
+.theme-toggle-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--theme-transition);
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--brand-gold-subtle);
+  border-color: var(--brand-gold);
+  color: var(--brand-gold);
+}
+
+/* ==========================================================================
+   2. GLOBAL TYPOGRAPHY SCALE (REFINED CORPORATE EDITORIAL HIERARCHY)
+   ========================================================================== */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.65;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+/* Headings scale */
+h1, .h1 {
+  font-family: var(--font-heading);
+  font-size: 2.85rem; /* ~45px desktop */
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+}
+
+h2, .h2 {
+  font-family: var(--font-heading);
+  font-size: 2.1rem; /* ~34px desktop */
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--text-main);
+}
+
+h3, .h3 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem; /* ~24px desktop */
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-main);
+}
+
+h4, .h4 {
+  font-family: var(--font-heading);
+  font-size: 1.2rem; /* ~19px desktop */
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-main);
+}
+
+h5, .h5 {
+  font-family: var(--font-heading);
+  font-size: 1.05rem; /* ~17px */
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+h6, .h6 {
+  font-family: var(--font-heading);
+  font-size: 0.925rem; /* ~15px */
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+.lead {
+  font-size: 1.05rem; /* ~16.5px */
+  line-height: 1.65;
+  font-weight: 400;
+}
+
+small, .small {
+  font-size: 0.835rem; /* ~13.5px */
+}
+
+/* Mobile typography scale adjustments */
+@media (max-width: 768px) {
+  h1, .h1 { font-size: 2.1rem; } /* ~33px */
+  h2, .h2 { font-size: 1.65rem; } /* ~26px */
+  h3, .h3 { font-size: 1.3rem; } /* ~20px */
+  h4, .h4 { font-size: 1.1rem; }
+  body { font-size: 14.5px; }
+}
+
+a {
+  color: var(--brand-gold);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+a:hover {
+  color: var(--brand-gold-hover);
+}
+
+/* ==========================================================================
+   3. SECTION SPACING (REFINED & INTENTIONAL)
+   ========================================================================== */
+.section-padding {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+.section-padding-sm {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+@media (max-width: 768px) {
+  .section-padding { padding-top: 50px; padding-bottom: 50px; }
+  .section-padding-sm { padding-top: 35px; padding-bottom: 35px; }
+}
+
+/* ==========================================================================
+   4. COMPACT BUTTONS & REFINED BADGES
+   ========================================================================== */
+.btn {
+  font-family: var(--font-heading);
+  font-size: 13.5px;
+  font-weight: 500;
+  border-radius: 8px; /* Clean corporate radius */
+  padding: 10px 20px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+}
+.btn-sm {
+  height: 36px;
+  padding: 6px 14px;
+  font-size: 12.5px;
+  border-radius: 6px;
+}
+.btn-lg {
+  height: 48px;
+  padding: 12px 26px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+.btn-primary {
+  background-color: var(--brand-navy) !important;
+  border-color: var(--brand-navy) !important;
+  color: #FFFFFF !important;
+}
+.btn-primary:hover {
+  background-color: var(--brand-navy-light) !important;
+  border-color: var(--brand-navy-light) !important;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary, .btn-gold {
+  background-color: var(--brand-gold) !important;
+  border-color: var(--brand-gold) !important;
+  color: #FFFFFF !important;
+}
+.btn-secondary:hover, .btn-gold:hover {
+  background-color: var(--brand-gold-hover) !important;
+  border-color: var(--brand-gold-hover) !important;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-outline-gold {
+  background-color: transparent;
+  border: 1px solid var(--brand-gold);
+  color: var(--brand-gold);
+}
+.btn-outline-gold:hover {
+  background-color: var(--brand-gold);
+  color: #FFFFFF !important;
+}
+
+.badge-category {
+  background-color: var(--brand-gold-subtle);
+  color: var(--brand-gold);
+  border: 1px solid rgba(212, 154, 54, 0.25);
+  font-size: 0.775rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: 600;
+  display: inline-block;
+  letter-spacing: 0.02em;
+}
+
+.theme-toggle-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+.theme-toggle-btn:hover {
+  border-color: var(--brand-gold);
+  color: var(--brand-gold);
+}
+
+/* ==========================================================================
+   5. HEADER / NAVIGATION (COMPACT CORPORATE STYLE)
+   ========================================================================== */
+.topbar {
+  background-color: var(--brand-navy);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 12.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.topbar a {
+  color: rgba(255, 255, 255, 0.8);
+}
+.topbar a:hover {
+  color: var(--brand-gold);
+}
+
+.nav-bar {
+  background-color: var(--bg-nav);
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+.nav-bar.sticky-top {
+  box-shadow: var(--shadow-md) !important;
+}
+
+.brand-name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.25rem; /* ~20px compact */
+  color: var(--brand-navy);
+  letter-spacing: -0.02em;
+}
+[data-theme="dark"] .brand-name {
+  color: #FFFFFF;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: var(--text-main) !important;
+  font-family: var(--font-heading);
+  font-size: 13.5px;
+  font-weight: 500;
+  padding: 18px 12px !important;
+  transition: color 0.2s ease;
+}
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link.active {
+  color: var(--brand-gold) !important;
+}
+
+/* Off-canvas mobile menu drawer styling */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    background-color: var(--bg-surface);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    margin-top: 10px;
+    border: 1px solid var(--border-color);
+  }
+  .navbar-light .navbar-nav .nav-link {
+    padding: 10px 0 !important;
+  }
+}
+
+/* Spinner Overlay & Fade Fix */
+#spinner {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease-out, visibility 0s linear 0.35s;
+  z-index: 99999;
+  pointer-events: none;
+}
+#spinner.show {
+  transition: opacity 0s linear 0s, visibility 0s linear 0s;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   6. HERO SECTION & BIG FIVE WILDLIFE CAROUSEL
+   ========================================================================== */
+.hero-wrapper {
+  background: linear-gradient(135deg, #07121E 0%, #0F2537 100%);
+  padding: 85px 0 75px 0;
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-text-container {
+  max-width: 620px;
+}
+
+.hero-wrapper h1 {
+  color: #FFFFFF;
+  font-size: 2.85rem; /* ~45px desktop max */
+  margin-bottom: 1.25rem;
+}
+
+.hero-wrapper p {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+/* Big Five Wildlife Hero Carousel Card */
+.hero-carousel-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background-color: #0F2537;
+  height: 440px;
+  width: 100%;
+}
+
+@media (max-width: 991.98px) {
+  .hero-carousel-card {
+    height: 340px;
+    margin-top: 10px;
+  }
+}
+
+.hero-carousel-slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+}
+
+.hero-carousel-slide.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hero-carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.hero-carousel-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 37, 55, 0.15) 0%, rgba(15, 37, 55, 0.82) 100%);
+  pointer-events: none;
+}
+
+.hero-carousel-caption {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  z-index: 5;
+  color: #FFFFFF;
+}
+
+.hero-carousel-caption .animal-name {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-carousel-caption .location-tag {
+  font-size: 0.825rem;
+  color: rgba(255, 255, 255, 0.82);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.hero-carousel-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 24px;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-carousel-btn {
+  background: rgba(15, 37, 55, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 13px;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+.hero-carousel-btn:hover {
+  background: var(--brand-gold);
+  border-color: var(--brand-gold);
+  color: #FFFFFF;
+}
+
+.hero-carousel-indicators {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.hero-carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hero-carousel-dot.active {
+  width: 22px;
+  border-radius: 4px;
+  background: var(--brand-gold);
+}
+
+.hero-carousel-counter {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  z-index: 6;
+  background: rgba(15, 37, 55, 0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  font-size: 0.775rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.04em;
+}
+
+.bg-breadcrumb {
+  background: linear-gradient(135deg, rgba(15, 37, 55, 0.94), rgba(15, 37, 55, 0.88)), url('../img/breadcrumb.png') center/cover no-repeat;
+  padding: 60px 0 40px 0;
+  color: #FFFFFF;
+}
+.bg-breadcrumb h1, .bg-breadcrumb h3 {
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   7. CORPORATE CARDS & LISTS
+   ========================================================================== */
+.card-custom {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.25s ease;
+  box-shadow: var(--shadow-sm);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.card-custom:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(212, 154, 54, 0.35);
+}
+
+.icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: var(--brand-gold-subtle);
+  color: var(--brand-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+  transition: all 0.25s ease;
+}
+.card-custom:hover .icon-box {
+  background: var(--brand-gold);
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   8. DETAILED SERVICE PAGE COMPONENTS
+   ========================================================================== */
+.process-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.process-step-item {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.step-number {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--brand-gold);
+  background: var(--brand-gold-subtle);
+  padding: 6px 12px;
+  border-radius: 6px;
+  line-height: 1;
+}
+
+.checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+.checklist-card-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+}
+.checklist-card-item i {
+  color: #10B981;
+  font-size: 1rem;
+}
+
+.fee-table-box {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.accordion-item {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  margin-bottom: 10px;
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+.accordion-button {
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  font-family: var(--font-heading);
+  font-size: 14.5px;
+  font-weight: 600;
+  padding: 16px 20px;
+}
+.accordion-button:not(.collapsed) {
+  background-color: var(--brand-gold-subtle);
+  color: var(--brand-gold);
+}
+.accordion-body {
+  color: var(--text-main);
+  background-color: var(--bg-card);
+  font-size: 14px;
+}
+
+/* ==========================================================================
+   9. CONSULTATION MODAL REFINEMENT
+   ========================================================================== */
+.modal-dialog.modal-lg {
+  max-width: 760px;
+}
+.modal-content {
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ==========================================================================
+   10. ADMIN DASHBOARD REFINED STYLES
+   ========================================================================== */
+.admin-sidebar {
+  width: 240px;
+  background-color: var(--brand-navy);
+  color: #FFFFFF;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+[data-theme="dark"] .admin-sidebar {
+  background-color: #081420;
+}
+.admin-sidebar .sidebar-brand {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.admin-sidebar .nav-link {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13.5px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.admin-sidebar .nav-link:hover,
+.admin-sidebar .nav-link.active {
+  background-color: var(--brand-gold);
+  color: #FFFFFF;
+}
+
+.admin-header h4 {
+  font-size: 1.35rem; /* ~22px */
+}
+
+.metric-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+.metric-val {
+  font-size: 1.65rem; /* ~26px compact number */
+  font-weight: 700;
+  line-height: 1.1;
+  margin-top: 6px;
+}
+
+.table-custom th {
+  font-size: 13px;
+  padding: 12px 16px;
+  background-color: rgba(15, 37, 55, 0.03);
+}
+[data-theme="dark"] .table-custom th {
+  background-color: rgba(255, 255, 255, 0.04);
+  color: var(--text-main);
+}
+.table-custom td {
+  font-size: 13.5px;
+  padding: 12px 16px;
+}
+
+.form-control, .form-select {
+  height: 42px;
+  font-size: 14px;
+  border-radius: 6px;
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+textarea.form-control {
+  height: auto;
+}
+.form-control:focus, .form-select:focus {
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  border-color: var(--brand-gold);
+  box-shadow: 0 0 0 0.2rem rgba(212, 154, 54, 0.15);
+}
+
+/* Modal & Off-Canvas Dark Mode Integration */
+[data-theme="dark"] .modal-content {
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+[data-theme="dark"] .modal-header,
+[data-theme="dark"] .modal-footer {
+  border-color: var(--border-color);
+}
+[data-theme="dark"] .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Responsive Admin Mobile Off-Canvas Drawer */
+@media (max-width: 991.98px) {
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100vh;
+    z-index: 10000;
+    transition: left 0.3s ease;
+    box-shadow: var(--shadow-lg);
+  }
+  .admin-sidebar.show {
+    left: 0;
+  }
+  .admin-main {
+    width: 100% !important;
+  }
+}
+
+.footer {
+  background-color: var(--bg-footer);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 13.5px;
+  padding: 60px 0 25px 0;
+}
